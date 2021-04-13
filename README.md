@@ -17,8 +17,8 @@ Once imported, create the following three environment variables using your Ident
 
 | Variable | Initial Value     |
 | :-------- | :------- | 
-| `email ` | <your email> | 
-| `password ` | <your password> |
+| `email ` | "<your email>" | 
+| `password ` | "<your password>" |
 | `jwt_token ` | _leave blank_ |
 
 

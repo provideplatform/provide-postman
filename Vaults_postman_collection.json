@@ -1,0 +1,958 @@
+{
+	"info": {
+		"_postman_id": "e0f2fc37-4491-4f00-8b70-5bdcb69fd223",
+		"name": "Vaults",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Keys",
+			"item": [
+				{
+					"name": "Create a key: C25519",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"type\": \"asymmetric\",\n      \"usage\": \"sign/verify\",\n      \"spec\": \"C25519\",\n      \"name\": \"c25519 key #1\",\n      \"description\": \"c25519 key\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a key: Baby Jubjub",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"type\": \"asymmetric\",\n      \"usage\": \"sign/verify\",\n      \"spec\": \"babyJubJub\",\n      \"name\": \"babyjubjub key #1\",\n      \"description\": \"babyjubjub key\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a key: Ed25519",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"key_id, response.id\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"type\": \"asymmetric\",\n      \"usage\": \"sign/verify\",\n      \"spec\": \"Ed25519\",\n      \"name\": \"Ed25519 key #1\",\n      \"description\": \"ekho signing key\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a key: AES-256-GCM",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"type\": \"symmetric\",\n      \"usage\": \"encrypt/decrypt\",\n      \"spec\": \"AES-256-GCM\",\n      \"name\": \"encryption key #1\",\n      \"description\": \"AES encryption key\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a key: ChaCha20",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"type\": \"symmetric\",\n      \"usage\": \"encrypt/decrypt\",\n      \"spec\": \"ChaCha20\",\n      \"name\": \"encryption key #2\",\n      \"description\": \"chacha20 encryption key\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a key: RSA-2048",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"type\": \"asymmetric\",\n      \"usage\": \"sign/verify\",\n      \"spec\": \"RSA-2048\",\n      \"name\": \"rsa key #1\",\n      \"description\": \"JWT Signing Key #1\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a key: RSA-3072",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"type\": \"asymmetric\",\n      \"usage\": \"sign/verify\",\n      \"spec\": \"RSA-3072\",\n      \"name\": \"rsa key #1\",\n      \"description\": \"JWT Signing Key #1\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a key: RSA-4096",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"type\": \"asymmetric\",\n      \"usage\": \"sign/verify\",\n      \"spec\": \"RSA-4096\",\n      \"name\": \"rsa key #1\",\n      \"description\": \"JWT Signing Key #1\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a key: secp256k1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"type\": \"asymmetric\",\n      \"usage\": \"sign/verify\",\n      \"spec\": \"RSA-2048\",\n      \"name\": \"rsa key #1\",\n      \"description\": \"JWT Signing Key #1\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a key: HD BIP39",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"type\": \"asymmetric\",\n      \"usage\": \"sign/verify\",\n      \"spec\": \"BIP39\",\n      \"name\": \"baseline HD wallet\",\n      \"description\": \"organization Ethereum HD wallet\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a key: HD BIP44",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"type\": \"asymmetric\",\n      \"usage\": \"sign/verify\",\n      \"spec\": \"BIP44\",\n      \"name\": \"baseline HD wallet\",\n      \"description\": \"organization Ethereum HD wallet\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a key: HD BIP32",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"type\": \"asymmetric\",\n      \"usage\": \"sign/verify\",\n      \"spec\": \"BIP32\",\n      \"name\": \"baseline HD wallet\",\n      \"description\": \"organization Ethereum HD wallet\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Derive a key: ChaCha20",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"nonce\": 1,\n      \"context\": \"channel-6852386c-8a3d-41c6-aa0e-766a31a8faaf\",\n      \"name\": \"private chat\",\n      \"description\": \"this is a secure channel\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/derive",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"derive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a key",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"nonce\": 1,\n      \"context\": \"channel-6852386c-8a3d-41c6-aa0e-766a31a8faaf\",\n      \"name\": \"private chat\",\n      \"description\": \"this is a secure channel\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys/{{key_id}}",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys",
+								"{{key_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List keys",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"nonce\": 1,\n      \"context\": \"channel-6852386c-8a3d-41c6-aa0e-766a31a8faaf\",\n      \"name\": \"private chat\",\n      \"description\": \"this is a secure channel\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Secrets",
+			"item": [
+				{
+					"name": "List secrets",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"name\": \"secret #1\",\n      \"type\": \"sample secret\",\n      \"description\": \"this secret is being stored for demonstration purposes\",\n      \"value\": \"mysecret :D\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/secrets",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"secrets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store secret",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"nonce\": 1,\n      \"context\": \"channel-6852386c-8a3d-41c6-aa0e-766a31a8faaf\",\n      \"name\": \"private chat\",\n      \"description\": \"this is a secure channel\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retreive secret",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"nonce\": 1,\n      \"context\": \"channel-6852386c-8a3d-41c6-aa0e-766a31a8faaf\",\n      \"name\": \"private chat\",\n      \"description\": \"this is a secure channel\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/secrets/{{secret_id}}",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"secrets",
+								"{{secret_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete secret",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"nonce\": 1,\n      \"context\": \"channel-6852386c-8a3d-41c6-aa0e-766a31a8faaf\",\n      \"name\": \"private chat\",\n      \"description\": \"this is a secure channel\"\n    }"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults/{{vault_id}}/secrets/{{secret_id}}",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								"{{vault_id}}",
+								"secrets",
+								"{{secret_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vault",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"vault_id\", response.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"conaTestewallet\", \n    \"description\": \"Organizational keystore\"\n}"
+						},
+						"url": {
+							"raw": "https://vault.provide.services/api/v1/vaults",
+							"protocol": "https",
+							"host": [
+								"vault",
+								"provide",
+								"services"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "List Vaults",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://vault.provide.services/api/v1/vaults",
+					"protocol": "https",
+					"host": [
+						"vault",
+						"provide",
+						"services"
+					],
+					"path": [
+						"api",
+						"v1",
+						"vaults"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create vaults",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Scooby_Doo_the_Vault\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://vault.provide.services/api/v1/vaults",
+					"protocol": "https",
+					"host": [
+						"vault",
+						"provide",
+						"services"
+					],
+					"path": [
+						"api",
+						"v1",
+						"vaults"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Seal/Unseal key",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "bearer {{jwt_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://vault.provide.services/api/v1/unsealerkey",
+					"protocol": "https",
+					"host": [
+						"vault",
+						"provide",
+						"services"
+					],
+					"path": [
+						"api",
+						"v1",
+						"unsealerkey"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unseal vault",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "bearer {{jwt_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t  \"key\": \"confirm egg bacon sad rough hold assault claw winner okay run alley collect glad foster glide screen wagon melody program electric express energy response\"\n    }"
+				},
+				"url": {
+					"raw": "https://vault.provide.services/api/v1/unseal",
+					"protocol": "https",
+					"host": [
+						"vault",
+						"provide",
+						"services"
+					],
+					"path": [
+						"api",
+						"v1",
+						"unseal"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.sendRequest({",
+					"    url: \"https://ident.provide.services/api/\" + 'v1/authenticate',",
+					"    method: 'POST',",
+					"    header: {",
+					"        'content-type': 'application/json',",
+					"    },",
+					"    body: {",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify({ email: pm.environment.get(\"email\"), password: pm.environment.get(\"password\") })",
+					"    }",
+					"}, function (err, res) {",
+					"   pm.environment.set(\"jwt_token\", res.json().token.token)",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
