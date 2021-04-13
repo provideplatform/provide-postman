@@ -6,14 +6,9 @@ Clone the project
  git clone git@github.com:provideservices/provide-postman.git
 ```
 
-Open Postman, select `Import`
+Open Postman, select `Import`<p>
 
-
-Drag the cloned .JSON files into the Postman drag and drop UI
-
-Select [Import]
-
-
+Drag the cloned .JSON files into the Postman drag and drop UI, then import
 
 
 ## Environment Confirguration
@@ -22,12 +17,12 @@ Once imported, create the following three environment variables using your Ident
 
 | Variable | Initial Value     |
 | :-------- | :------- | 
-| `email ` | [your email] | 
-| `password ` | [your password] |
+| `email ` | <your email> | 
+| `password ` | <your password> |
 | `jwt_token ` | _leave blank_ |
 
 
-`Save` the environment variables and return to the collections
+Save the environment variables and return to the collection
 
 
 ## Authentication
