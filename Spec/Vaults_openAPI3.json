@@ -1,0 +1,650 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "https://vault.provide.services",
+      "description": "",
+      "variables": {}
+    }
+  ],
+  "info": {
+    "version": "e0f2fc37-4491-4f00-8b70-5bdcb69fd223",
+    "title": "Vaults",
+    "description": "",
+    "termsOfService": "",
+    "contact": {},
+    "license": {
+      "name": ""
+    }
+  },
+  "paths": {
+    "/api/v1/vaults/{vault_id}/keys": {
+      "post": {
+        "summary": "Create a key: C25519",
+        "operationId": "Createakey:C25519",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/authorization"
+          },
+          {
+            "$ref": "#/components/parameters/Content-Type"
+          },
+          {
+            "$ref": "#/components/parameters/vault_id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "example": {
+                  "type": "asymmetric",
+                  "usage": "sign/verify",
+                  "spec": "C25519",
+                  "name": "c25519 key #1",
+                  "description": "c25519 key"
+                }
+              },
+              "example": "{\n      \"type\": \"asymmetric\",\n      \"usage\": \"sign/verify\",\n      \"spec\": \"C25519\",\n      \"name\": \"c25519 key #1\",\n      \"description\": \"c25519 key\"\n    }"
+            }
+          }
+        },
+        "tags": [
+          "Keys"
+        ]
+      },
+      "get": {
+        "summary": "List keys",
+        "operationId": "Listkeys",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "bearer {{jwt_token}}"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
+          },
+          {
+            "name": "vault_id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "vault_id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "tags": [
+          "Keys"
+        ]
+      }
+    },
+    "/api/v1/vaults/{vault_id}/derive": {
+      "post": {
+        "summary": "Derive a key: ChaCha20",
+        "operationId": "Deriveakey:ChaCha20",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "bearer {{jwt_token}}"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
+          },
+          {
+            "name": "vault_id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "vault_id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "example": {
+                  "nonce": 1,
+                  "context": "channel-6852386c-8a3d-41c6-aa0e-766a31a8faaf",
+                  "name": "private chat",
+                  "description": "this is a secure channel"
+                }
+              },
+              "example": "{\n      \"nonce\": 1,\n      \"context\": \"channel-6852386c-8a3d-41c6-aa0e-766a31a8faaf\",\n      \"name\": \"private chat\",\n      \"description\": \"this is a secure channel\"\n    }"
+            }
+          }
+        },
+        "tags": [
+          "Keys"
+        ]
+      }
+    },
+    "/api/v1/vaults/{vault_id}/keys/{key_id}": {
+      "delete": {
+        "summary": "Delete a key",
+        "operationId": "Deleteakey",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "bearer {{jwt_token}}"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
+          },
+          {
+            "name": "vault_id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "vault_id"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/key_id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "tags": [
+          "Keys"
+        ]
+      }
+    },
+    "/api/v1/vaults/{vault_id}/secrets": {
+      "get": {
+        "summary": "List secrets",
+        "operationId": "Listsecrets",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "bearer {{jwt_token}}"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
+          },
+          {
+            "name": "vault_id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "vault_id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "tags": [
+          "Secrets"
+        ]
+      }
+    },
+    "/api/v1/vaults/{vault_id}/secrets/{secret_id}": {
+      "post": {
+        "summary": "Retreive secret",
+        "operationId": "Retreivesecret",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "bearer {{jwt_token}}"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
+          },
+          {
+            "name": "vault_id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "vault_id"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/secret_id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "example": {
+                  "nonce": 1,
+                  "context": "channel-6852386c-8a3d-41c6-aa0e-766a31a8faaf",
+                  "name": "private chat",
+                  "description": "this is a secure channel"
+                }
+              },
+              "example": "{\n      \"nonce\": 1,\n      \"context\": \"channel-6852386c-8a3d-41c6-aa0e-766a31a8faaf\",\n      \"name\": \"private chat\",\n      \"description\": \"this is a secure channel\"\n    }"
+            }
+          }
+        },
+        "tags": [
+          "Secrets"
+        ]
+      },
+      "delete": {
+        "summary": "Delete secret",
+        "operationId": "Deletesecret",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "bearer {{jwt_token}}"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
+          },
+          {
+            "name": "vault_id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "vault_id"
+            }
+          },
+          {
+            "name": "secret_id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "secret_id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "tags": [
+          "Secrets"
+        ]
+      }
+    },
+    "/api/v1/vaults": {
+      "post": {
+        "summary": "Create Vault",
+        "operationId": "CreateVault",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/content-type"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "example": {
+                  "name": "conaTestewallet",
+                  "description": "Organizational keystore"
+                }
+              },
+              "example": "{\n    \"name\":\"conaTestewallet\", \n    \"description\": \"Organizational keystore\"\n}"
+            }
+          }
+        },
+        "tags": [
+          "Secrets"
+        ]
+      },
+      "get": {
+        "summary": "List Vaults",
+        "operationId": "ListVaults",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "bearer {{jwt_token}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "tags": [
+          "Secrets"
+        ]
+      }
+    },
+    "/api/v1/unsealerkey": {
+      "post": {
+        "summary": "Create Seal/Unseal key",
+        "operationId": "CreateSeal/Unsealkey",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "bearer {{jwt_token}}"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "tags": [
+          "Secrets"
+        ]
+      }
+    },
+    "/api/v1/unseal": {
+      "post": {
+        "summary": "Unseal vault",
+        "operationId": "Unsealvault",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "bearer {{jwt_token}}"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "example": {
+                  "key": "confirm egg bacon sad rough hold assault claw winner okay run alley collect glad foster glide screen wagon melody program electric express energy response"
+                }
+              },
+              "example": "{\n\t\t  \"key\": \"confirm egg bacon sad rough hold assault claw winner okay run alley collect glad foster glide screen wagon melody program electric express energy response\"\n    }"
+            }
+          }
+        },
+        "tags": [
+          "Secrets"
+        ]
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "authorization": {
+        "name": "authorization",
+        "in": "header",
+        "required": true,
+        "style": "simple",
+        "schema": {
+          "type": "string",
+          "example": "bearer {{jwt_token}}"
+        }
+      },
+      "Content-Type": {
+        "name": "Content-Type",
+        "in": "header",
+        "required": true,
+        "style": "simple",
+        "schema": {
+          "type": "string",
+          "example": "application/json"
+        }
+      },
+      "vault_id": {
+        "name": "vault_id",
+        "in": "path",
+        "required": true,
+        "style": "simple",
+        "schema": {
+          "type": "string",
+          "example": "vault_id"
+        }
+      },
+      "key_id": {
+        "name": "key_id",
+        "in": "path",
+        "required": true,
+        "style": "simple",
+        "schema": {
+          "type": "string",
+          "example": "key_id"
+        }
+      },
+      "secret_id": {
+        "name": "secret_id",
+        "in": "path",
+        "required": true,
+        "style": "simple",
+        "schema": {
+          "type": "string",
+          "example": "secret_id"
+        }
+      },
+      "content-type": {
+        "name": "content-type",
+        "in": "header",
+        "required": true,
+        "style": "simple",
+        "schema": {
+          "type": "string",
+          "example": "application/json"
+        }
+      },
+      "Authorization": {
+        "name": "Authorization",
+        "in": "header",
+        "required": true,
+        "style": "simple",
+        "schema": {
+          "type": "string",
+          "example": "bearer {{jwt_token}}"
+        }
+      }
+    }
+  },
+  "security": [],
+  "tags": [],
+  "externalDocs": {
+    "url": "",
+    "description": ""
+  },
+  "warnings": [
+    "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttps://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+    "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttps://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+    "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttps://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+    "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttps://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+    "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttps://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+    "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttps://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+    "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttps://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+    "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttps://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+    "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttps://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+    "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttps://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+    "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttps://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+    "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttps://vault.provide.services/api/v1/vaults/{{vault_id}}/keys",
+    "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttps://vault.provide.services/api/v1/vaults"
+  ]
+}

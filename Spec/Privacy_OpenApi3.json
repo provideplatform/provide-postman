@@ -1,0 +1,268 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Privacy",
+    "contact": {},
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api/v1",
+      "variables": {}
+    },
+    {
+      "url": "https://privacy.provide.services/api/v1",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/circuits": {
+      "get": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "List circuits",
+        "operationId": "Listcircuits",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "http://localhost:8080/api/v1",
+            "variables": {}
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Create circuit",
+        "operationId": "Createcircuit",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatecircuitRequest"
+              },
+              "example": {
+                "identifier": "cubic",
+                "proving_scheme": "groth16",
+                "curve": "BN256",
+                "provider": "gnark",
+                "name": "my 1337 circuit"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://privacy.provide.services/api/v1",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/circuits/{circuit_id}/verify": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Verify",
+        "operationId": "Verify",
+        "parameters": [
+          {
+            "name": "circuit_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyRequest"
+              },
+              "example": {
+                "witness:": {
+                  "X": "3",
+                  "Y": "35"
+                },
+                "proof": "88b8d340795f4258c1f2c0ed8478b44859c90472af9ccdc5c54b02c85bcd879d9ddf3a3fb7c6926ea247c0b1c411abe2f5ba9c8deba60ab476428272767a761d1e14e343208024326429e361ebbc4c11daf5f16dbb7f7f4679cf85b17b59b1bdaa379a82ddab4dcbb7cd2bc32cdebadc6825c72d5f8e624f6d0f6b07906a8248"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://privacy.provide.services/api/v1",
+            "variables": {}
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreatecircuitRequest": {
+        "title": "CreatecircuitRequest",
+        "required": [
+          "identifier",
+          "proving_scheme",
+          "curve",
+          "provider",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "type": "string"
+          },
+          "proving_scheme": {
+            "type": "string"
+          },
+          "curve": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "identifier": "cubic",
+          "proving_scheme": "groth16",
+          "curve": "BN256",
+          "provider": "gnark",
+          "name": "my 1337 circuit"
+        }
+      },
+      "ProveRequest": {
+        "title": "ProveRequest",
+        "required": [
+          "identifier",
+          "proving_scheme",
+          "curve",
+          "provider",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "type": "string"
+          },
+          "proving_scheme": {
+            "type": "string"
+          },
+          "curve": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "identifier": "cubic",
+          "proving_scheme": "groth16",
+          "curve": "BN256",
+          "provider": "gnark",
+          "name": "my 1337 circuit"
+        }
+      },
+      "VerifyRequest": {
+        "title": "VerifyRequest",
+        "required": [
+          "witness:",
+          "proof"
+        ],
+        "type": "object",
+        "properties": {
+          "witness:": {
+            "$ref": "#/components/schemas/Witness"
+          },
+          "proof": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "witness:": {
+            "X": "3",
+            "Y": "35"
+          },
+          "proof": "88b8d340795f4258c1f2c0ed8478b44859c90472af9ccdc5c54b02c85bcd879d9ddf3a3fb7c6926ea247c0b1c411abe2f5ba9c8deba60ab476428272767a761d1e14e343208024326429e361ebbc4c11daf5f16dbb7f7f4679cf85b17b59b1bdaa379a82ddab4dcbb7cd2bc32cdebadc6825c72d5f8e624f6d0f6b07906a8248"
+        }
+      },
+      "Witness": {
+        "title": "Witness",
+        "required": [
+          "X",
+          "Y"
+        ],
+        "type": "object",
+        "properties": {
+          "X": {
+            "type": "string"
+          },
+          "Y": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "X": "3",
+          "Y": "35"
+        }
+      }
+    },
+    "securitySchemes": {
+      "httpBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "httpBearer": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Misc",
+      "description": ""
+    }
+  ]
+}
