@@ -1,0 +1,27 @@
+.DS_STORE
+.node_history
+.idea
+.sublime-*
+.vscode
+
+# tmp files
+.tmp
+.temp
+.grunt
+.lock-wscript
+
+# logs
+/logs
+*.log
+
+# runtime data
+pids
+*.pid
+*.seed
+
+# Dependencies
+node_modules
+
+# Test output
+lib-cov
+/coverage
