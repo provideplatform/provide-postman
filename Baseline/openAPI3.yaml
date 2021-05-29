@@ -175,7 +175,7 @@ paths:
       tags:
         - Infrastructure
       summary: List Connectors
-      description: List configured `Connectors`. `Connectors` are adapters that connect external arbitrary infrastructure with a baseline `Workgroup`. `Token` should be `Application` type
+      description: List configured `Connector` instances. Connectors are adapters that connect external arbitrary infrastructure with a baseline `Workgroup`. `Token` should be `Application` type
       operationId: ListConnectors
       parameters:
         - $ref: '#/components/parameters/page'
@@ -2156,7 +2156,7 @@ paths:
       tags:
         - DLT
       summary: List Wallets
-      description: Retrieves list of `Wallets`
+      description: Retrieves list of `Wallet` instances
       operationId: ListWallets
       parameters:
         - $ref: '#/components/parameters/page'
@@ -2193,7 +2193,7 @@ paths:
         - DLT
       summary: Create Wallet
       description: |
-        'Creates a `Wallet` in accordance with BIP32. A `Wallet` may be setup as custodial or non-custodial. If the Wallet is custodial then the platform will derive addresses and securely persist an `Account` for each of those derived addresses'
+                    Creates a `Wallet` in accordance with BIP32. A `Wallet` may be setup as custodial or non-custodial. If the Wallet is custodial then the platform will derive addresses and securely persist an `Account` for each of those derived addresses
       operationId: CreateWallet
       parameters: []
       requestBody:
@@ -5715,7 +5715,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: 'The presence of a `bearer` API token to required to authorize most Baseline API calls. A `bearer` API token is an encoded JWT which contains a subject claim (`sub`) which references an authorized entity (i.e., the `User`, `Application` or `Organization`). The authorized entity uses a signed `bearer` authorization Token to access one or more resources for which the Token was authorized. Unless otherwise noted, all API requests must include a header such as `Authorization: bearer <jwt>`.'
+      description: 'The presence of a `bearer` API token is required to authorize most Baseline API calls. A `bearer` API token is an encoded JWT which contains a subject claim (`sub`) which references an authorized entity (i.e., the `User`, `Application` or `Organization`). The authorized entity uses a signed `bearer` authorization Token to access one or more resources for which the Token was authorized. Unless otherwise noted, all API requests must include a header such as `Authorization: bearer <jwt>`'
     OAuth2:
       type: oauth2
       flows:
