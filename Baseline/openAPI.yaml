@@ -2,13 +2,17 @@ openapi: 3.0.0
 info:
   title: Baseline API
   description: OASIS standard API specification for the Baseline Protocol
+  contact:
+    name: Baseline API support
+    url: https://provide.services/
+    email: support@provide.services
   version: v1.0.0
 servers:
-  - url: 'https://baseline.provide.network'
+  - url: https://baseline.provide.network
     description: Provide Baseline Operator
-  - url: 'http://localhost:8080'
+  - url: http://localhost:8080
     description: Local Baseline Integration Stack
-  - url: 'http://localhost:9999'
+  - url: http://localhost:9999
     description: Local BRI-1 Stack
 security:
   - bearerAuth: []
@@ -39,8 +43,6 @@ tags:
 paths:
   /accounts:
     get:
-      tags:
-        - DLT
       summary: List Accounts
       description: |
         Retrieves a list of `Account` instances used for storing cryptocurrency or tokens on behalf of users managing cryptographic material (i.e., for signing transactions).
@@ -54,15 +56,14 @@ paths:
           headers:
             X-Total-Results-Count:
               $ref: '#/components/headers/X-Total-Results-Count'
-            created_at:  
-              $ref: '#/components/headers/created_at'
           content:
             application/json; charset=UTF-8:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Account'
-        '401':
+                readOnly: true
+                '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
@@ -72,12 +73,20 @@ paths:
           $ref: '#/components/responses/InternalServerError'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       deprecated: false
+      tags:
+        - DLT
     post:
       tags:
         - DLT
       summary: Create Account
-      description: |
+      description: |-
         Creates an `Account` (also referred to as a signing identity) capable of storing cryptocurrencies and tokens native to a specific `Network`. 
 
         An `Account` may be setup as custodial or non-custodial, and may be derived
@@ -85,11 +94,6 @@ paths:
         `Network` on behalf of an authorized `User` or `Workgroup`.
       operationId: CreateAccount
       parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateAccountRequest'
       responses:
         '201':
           description: The request was successful and a new `Account` was created.
@@ -108,6 +112,11 @@ paths:
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
   '/accounts/{id}':
     get:
       tags:
@@ -126,13 +135,13 @@ paths:
             type: string
       responses:
         '200':
-          description: The request was successful
+          description: OK
           content:
-            application/json; charset=UTF-8:
+            application/json:
               schema:
-                $ref: '#/components/schemas/GetAccountDetails'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
+                allOf:
+                  - $ref: '#/components/schemas/Account'
+                  - $ref: '#/components/schemas/Balance'
         '403':
           $ref: '#/components/responses/Forbidden'
         '404':
@@ -163,6 +172,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Authentication'
       deprecated: false
+      security: []
   /connectors:
     get:
       tags:
@@ -175,17 +185,38 @@ paths:
         - $ref: '#/components/parameters/resultsPerPage'
         - $ref: '#/components/parameters/public'
       responses:
-        '200':
+        '201':
           description: The request was successful
-          headers:
-            X-Total-Results-Count:
-              $ref: '#/components/headers/X-Total-Results-Count'
+          headers: {}
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Connector'
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                description: ''
+                x-examples:
+                  example-1:
+                    errors:
+                      - message: 'pq: null value in column "name" violates not-null constraint'
+                properties:
+                  errors:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          minLength: 1
+                readOnly: true
       deprecated: false
     post:
       tags:
@@ -198,18 +229,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateConnectorRequest'
-        required: true
+              $ref: '#/components/schemas/Connector'
       responses:
         '201':
           description: The request was successful and a new entity was created
-          headers:
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '854'
           content:
             application/json; charset=UTF-8:
               schema:
@@ -381,7 +404,7 @@ paths:
         '200':
           description: The request was successful
           headers:
-           X-Total-Results-Count:
+            X-Total-Results-Count:
               $ref: '#/components/headers/X-Total-Results-Count'
           content:
             application/json; charset=UTF-8:
@@ -447,6 +470,7 @@ paths:
                         }
                     }
         required: true
+        description: ''
       responses:
         '201':
           description: The request was successful and a new entity was created
@@ -863,7 +887,7 @@ paths:
       tags:
         - Oracles
       summary: Get `Oracle` details
-      description: Retrieve details on specified `Oracle`
+      description: Retrieve details on the specified `Oracle`
       operationId: GetOracleDetail
       parameters:
         - name: id
@@ -2220,7 +2244,7 @@ paths:
       tags:
         - Registry
       summary: List Workgroups
-      description: Retrieve a list of `Workgroups` in the authorized `scope`.
+      description: Retrieve a list of `Workgroup` instances in the authorized `scope`.
       operationId: ListWorkgroups
       parameters:
         - $ref: '#/components/parameters/page'
@@ -2271,7 +2295,7 @@ paths:
       tags:
         - Registry
       summary: List workgroup users
-      description: Retrieves a List `Users` associated with a target `Workgroup`
+      description: Retrieves a list of `Users` associated with a target `Workgroup`
       operationId: ListWorkgroupUsers
       parameters:
         - $ref: '#/components/parameters/page'
@@ -2375,12 +2399,12 @@ paths:
       tags:
         - Registry
       summary: Update workgroup
-      description: Updates target `Workgroup`
+      description: Updates the target `Workgroup`
       operationId: UpdateWorkgroup
       parameters:
         - name: id
           in: path
-          description: Update target `Workgroup`
+          description: Identifier
           required: true
           style: simple
           explode: false
@@ -2393,7 +2417,7 @@ paths:
               $ref: '#/components/schemas/UpdateWorkgroupRequest'
             example:
               name: ABD Workgroup
-              description: Workgroup for baselining workflows. Now including Dan.
+              description: Workgroup for baselining workflows
               type: Baseline
               hidden: true
       responses:
@@ -2414,7 +2438,7 @@ paths:
       tags:
         - Registry
       summary: Delete workgroup
-      description: Deletes target `Workgroup`
+      description: Deletes the target `Workgroup`
       operationId: DeleteWorkgroup
       parameters:
         - name: id
@@ -2628,11 +2652,13 @@ paths:
         - Privacy
       summary: Create circuit
       description: |
-        'You must provision a circuit before it can be used to generate and verify proofs. The foregoing holds true regardless of which provider, proving_scheme, curve and circuit identifier you specify (or source, if the raw source code of the circuit is provided instead of an identifier).
+        Creates a baselined `Circuit`
+
+        You must provision a circuit before it can be used to generate and verify proofs. The foregoing holds true regardless of which provider, proving_scheme, curve and circuit identifier you specify (or source, if the raw source code of the `Circuit` is provided instead of an identifier).
 
         A powerful aspect of this API is the asynchronous nature by which computationally-intensive cryptographic operations are executed. The lifecycle of a zero-knowledge circuit depends largely on the chosen proving_scheme. For example, zkSNARK proving schemes (i.e., groth16) require a trusted setup whereas more modern schemes (i.e., plonk) do not.
 
-        A persistent store is implicitly initialized upon the creation of a new circuit unless an existing store_id is provided and the referenced store is valid in the context of the circuit and authorized scope.Creates a circuit'
+        A persistent store is implicitly initialized upon the creation of a new circuit unless an existing store_id is provided and the referenced store is valid in the context of the circuit and authorized `scope`.
       operationId: CreateCircuit
       parameters: []
       requestBody:
@@ -2666,7 +2692,7 @@ paths:
       tags:
         - Privacy
       summary: Prove circuit
-      description: 'Once you have provisioned a circuit, this API can be used to generate a proof given valid witness parameters. Calling this API has an implicit side-effect of writing the hash of generated proof to the persistent store associated with the circuit.'
+      description: 'Once you have provisioned a circuit, this API can be used to generate a proof given valid witness parameters. Calling this API has an implicit side-effect of writing the hash of generated proof to the persistent store associated with the `Circuit`.'
       operationId: Prove
       parameters:
         - name: id
@@ -2710,12 +2736,12 @@ paths:
       tags:
         - Privacy
       summary: Verify
-      description: Verify a `proof` using the given `witness` parameters.
+      description: Verify a `Proof` using the given `Witness` parameters.
       operationId: Verify
       parameters:
         - name: id
           in: path
-          description: ID of target circuit
+          description: ID of target `Circuit`
           required: true
           style: simple
           explode: false
@@ -2789,7 +2815,7 @@ paths:
         - .well-known
       summary: List JWKs
       description: |-
-        List JSON Web Key Sets (JWKs). 
+        Retrieves a list of JSON Web Key Sets (JWKs). 
 
         The JSON Web Key Set (JWKS) is a set of keys containing the public keys used to verify any JSON Web Token (JWT) issued by the authorization server and signed using the RS256 signing algorithm.
 
@@ -2815,13 +2841,19 @@ paths:
                     public_key: '861483997211088567986679229181848054089604638641344651799629411219132348016278717092102128681135611380326752098936363353495444063202162029673523557773782048024114883574432634108045249947154852742644555192210297230097245140428848581230277818343146223559594512475826760838877076266154044960265352746066723631764046840316942987769580553619014590812187691295364700040641787500269269399045832588373172593121687203191684140294108378584755314277325012894787853550357182542202120051794903430593790088728831567724495129050530806677080541218084315114228795876927064009879284573531870815708443412933965416303038891773876363479243549734042137128368669274726190909529704641365251977820965336530028317042370318858190049737976730950424571654404303776058323774989878709454832673621703315168343354939050427851085442751220892330674377060840075089494965206267742175926300979682121686578985916424314967542319047670046306072654213458712385294663342927553785567808885434950558955088305721767631170042743815215456801539616413473452207339467426842177647739317764485798830023496667390636938833319855298970928615645190825794520784096740427440910286686264656276871411041902304833534185654554399301291984087480695247759311118167876962745932311927957101815475731'
                 items:
                   $ref: '#/components/schemas/ListWellKnownKeys'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /.well-known/openid-configuration:
     get:
       tags:
         - .well-known
       summary: Returns OpenID configuration
       description: |-
-        Retrieve secret OpenID configuration. 
+        Retrieves secret OpenID configuration. 
 
         Openid-configuration is a Well-known URI Discovery Mechanism for the Provider Configuration URI and is defined in OpenID Connect.
 
@@ -2851,14 +2883,57 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
 components:
+  headers:
+    X-Total-Results-Count:
+      schema:
+        type: integer
+        description: Number of results
+        example: 7
+        readOnly: true
+    Date:
+      schema:
+        type: string
+      example: 'Fri, 16 Apr 2021 15:21:28 GMT'
+    Content-Length:
+      schema:
+        type: integer
+        description: Size of returned entity-body in bytes
+      example: 78
+    X-Request-Id:
+      schema:
+        type: string
+      example: 8be81664-ef39-4be4-a55b-f60bab200a23
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Limits resulting response to the page number specified
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: integer
+    resultsPerPage:
+      name: rpp
+      in: query
+      description: Sets the number of results included per page
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: integer
+        example: 25
+      allowEmptyValue: true
+    public:
+      name: public
+      in: query
+      description: When `TRUE` limits results to non-private records
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: boolean
   schemas:
-    created_at:
-          type: string
-          minLength: 1
-          format: date-time
-          example: '2021-05-21T12:36:52.977255Z'
-          description: Date and time of record creation. Expressed as a Unix timestamp
-          readOnly: true
     Vault:
       type: object
       properties:
@@ -3257,14 +3332,23 @@ components:
           target_id: aws
     Config:
       title: Config
-      required:
-        - container
-        - provider_id
-        - region
-        - role
-        - security
-        - target_id
       type: object
+      example:
+        container: providenetwork-ipfs
+        gateway_port: 8080
+        provider_id: docker
+        region: us-east-1
+        role: peer
+        rpc_port: 5001
+        security:
+          egress: '*'
+          ingress:
+            0.0.0.0/0:
+              tcp:
+                - 5001
+                - 8080
+              udp: []
+        target_id: aws
       properties:
         container:
           type: string
@@ -3291,22 +3375,6 @@ components:
           type: string
         image:
           type: string
-      example:
-        container: providenetwork-ipfs
-        gateway_port: 8080
-        provider_id: docker
-        region: us-east-1
-        role: peer
-        rpc_port: 5001
-        security:
-          egress: '*'
-          ingress:
-            0.0.0.0/0:
-              tcp:
-                - 5001
-                - 8080
-              udp: []
-        target_id: aws
     Security:
       title: Security
       required:
@@ -3420,52 +3488,7 @@ components:
         aws_secret_access_key: '{{aws_secret_key}}'
     Connector:
       title: Connector
-      required:
-        - config
-        - created_at
-        - description
-        - id
-        - names
-        - network_id
-        - organization_id
-        - status
-        - type
-        - workgroup_id
       type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Identifier for the referenced `Connector`. Expressed as a UUID as specified by RFC4122.
-        created_at:
-          type: string
-          description: Timestamp of `Connector` creation expressed as a Unix timestamp
-        workgroup_id:
-          type: string
-          format: uuid
-          description: UUID of connected `Workgroup`
-        network_id:
-          type: string
-          format: uuid
-          description: UUID of host `Network`
-        organization_id:
-          type: string
-          format: uuid
-          nullable: true
-          description: UUID of connected `Organization`
-        name:
-          type: string
-          description: User-defined name of `Connector`
-          nullable: true
-        type:
-          type: string
-          description: ''
-        status:
-          type: string
-        description:
-          type: string
-          nullable: true
-          description: User-defined descriptor of the reference `Connector`
       example:
         id: dfec9cb2-e655-4d6d-b4fe-35fb6c6af7a0
         created_at: '2021-04-16T15:05:23.107Z'
@@ -3491,6 +3514,50 @@ components:
                   - 8080
                 udp: []
           target_id: aws
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Identifier for the referenced `Connector`. Expressed as a UUID as specified by RFC4122.
+          readOnly: true
+        created_at:
+          type: string
+          description: Timestamp of `Connector` creation expressed as a Unix timestamp
+          format: date-time
+          readOnly: true
+        workgroup_id:
+          type: string
+          format: uuid
+          description: UUID of connected `Workgroup`
+          readOnly: true
+        network_id:
+          type: string
+          format: uuid
+          description: UUID of host `Network`
+        organization_id:
+          type: string
+          format: uuid
+          description: UUID of connected `Organization`
+          nullable: true
+        name:
+          type: string
+          description: User-defined name of `Connector`
+        type:
+          type: string
+          description: ''
+        status:
+          type: string
+          readOnly: true
+        description:
+          type: string
+          description: User-defined descriptor of the reference `Connector`
+          nullable: true
+        '':
+          $ref: '#/components/schemas/Config'
+      required:
+        - network_id
+        - name
+        - type
     GetLoadBalancerDetail:
       title: Get load balancer detail
       type: object
@@ -3870,17 +3937,7 @@ components:
           platform: evm
           protocol_id: pow
     CreateAccountRequest:
-      title: Create Account request
-      type: object
-      required: 
-        - network_id
-      properties:
-        network_id:
-          type: string
-          description: ID of the `Network` in which the `Account` is to be created
-          format: uuid
-      example:
-        network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
+      $ref: '#/components/schemas/Account'
     Account:
       title: Account
       type: object
@@ -3894,6 +3951,17 @@ components:
         public_key: 0x055c95n123456f3216eaeba7d165a1ff1287d04b90d0c8be02fb1e18d26406484a52a5b0dcf49498ae09e0d097024124fc2849655c344edf62bdb8478f2d9a8bcb
         address: '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'
       description: Example `Account`
+      x-examples:
+        example-1:
+          value:
+            id: 30ff7e74-b870-449e-b41d-e508487f7faf
+            created_at: '2021-04-16T15:09:37.072Z'
+            network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
+            user_id: 7c8fe6f1-38c3-4da1-b4b7-7591c6d0ca7c
+            vault_id: 190822c9-62f5-4caf-a419-df735a793b2f
+            key_id: cb8e5646-8968-4b10-ab5f-b3aea233a11c
+            public_key: 0x055c95n123456f3216eaeba7d165a1ff1287d04b90d0c8be02fb1e18d26406484a52a5b0dcf49498ae09e0d097024124fc2849655c344edf62bdb8478f2d9a8bcb
+            address: '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'
       properties:
         id:
           type: string
@@ -5242,7 +5310,7 @@ components:
         description: this secret is being stored for demonstration purposes
         value: 'mysecret :D'
     StoreSecret:
-      title: Storesecret
+      title: StoreSecret
       required:
         - created_at
         - description
@@ -5555,13 +5623,20 @@ components:
       example:
         X: '3'
         'Y': '35'
+    Balance:
+      title: Balance
+      type: object
+      properties:
+        Balance:
+          type: integer
+          format: int32
+          example: 17.5
+          minimum: 0
+          readOnly: true
+  
   responses:
     NoContent:
-      description: The request was successful but did not return a response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+      description: The request was successful but did not return a response\
     Unauthorized:
       description: 'The request required an API Authorization header, or one was provided which could not be authenticated. Please verify that your credentials are correct and try again.'
       content:
@@ -5592,42 +5667,17 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Limits resulting response to the page number specified
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: integer
-    resultsPerPage:
-      name: rpp
-      in: query
-      description: Sets the number of results included per page
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: integer
-        example: 25
-      allowEmptyValue: true
-    public:
-      name: public
-      in: query
-      description: When `TRUE` limits results to non-private records
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: boolean
+  
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: 'The presence of a `bearer` API token is required to authorize most Baseline API calls. A `bearer` API token is an encoded JWT which contains a subject claim (`sub`) which references an authorized entity (i.e., the `User`, `Application` or `Organization`). The authorized entity uses a signed `bearer` authorization Token to access one or more resources for which the Token was authorized. Unless otherwise noted, all API requests must include a header such as `Authorization: bearer <jwt>`'
+      description: |-
+        The presence of a `bearer` API token is required to authorize most Baseline API calls. A `bearer` API token is an encoded JWT which contains a subject claim (`sub`) which references an authorized entity (i.e., the `User`, `Application` or `Organization`). The authorized entity uses a signed `bearer` authorization Token to access one or more resources for which the Token was authorized. 
+
+
+        Unless otherwise noted, all API requests must include a header such as `Authorization: bearer <jwt>`
     OAuth2:
       type: oauth2
       flows:
@@ -5642,21 +5692,14 @@ components:
         OAuth2 support. In accordance with the OAuth 2.0 specification, when an entity is authorized and the requested `scope` includes `offline_access`, a refresh token is vended and returned on behalf of the caller. This refresh token is long-lived and can be used to authorize short-lived access tokens using the `refresh_token `grant type on subsequent authorization requests.
 
         This pattern is useful for machine-to-machine applications; a secure practice is to store the long-lived refresh token in a Vault instance (i.e., as a secret), read it into application memory during container initialization and then use it to authorize a short-lived access token. If the container remains running long enough for the access token to expire, the refresh token should once again be used to seamlessly authorize a new access token.
-  headers:
-    created_at:
-      schema:
-        type: string
-        minLength: 24
-        format: date-time
-        example: '2021-05-21T12:36:52.977255Z'
-        description: Date and time of record creation. Expressed as a Unix timestamp
-        readOnly: true
-    X-Total-Results-Count:
-      schema:
-        type: integer
-        description: Number of results
-        example: '7'
-        readOnly: true
+  
+  requestBodies:
+    CreateAccountRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Account'
+    
 externalDocs:
   description: Additional information about this API can be found here
   url: 'https://docs.provide.services'
