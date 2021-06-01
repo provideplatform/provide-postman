@@ -1,12 +1,19 @@
 openapi: 3.0.0
 info:
   title: Baseline API
-  description: OASIS standard API specification for the Baseline Protocol
+  description: |-
+    OASIS standard API specification for the Baseline Protocol
   contact:
     name: Baseline API support
     url: https://provide.services/
     email: support@provide.services
+  license:
+    name: Creative Commons
+    url: https://raw.githubusercontent.com/ethereum-oasis/baseline-standard/main/LICENSE
   version: v1.0.0
+externalDocs:
+  description: Additional information about this API can be found here
+  url: https://docs.provide.services
 servers:
   - url: https://baseline.provide.network
     description: Provide Baseline Operator
@@ -25,99 +32,112 @@ tags:
   - name: Authn/authz
     description: Authentication and authorization
   - name: DLT
-    description: Baseline core DLT API provides interfaces for general interaction with the underlying layer 1 mainnet.
+    description: Baseline core DLT API provides interfaces for general interaction
+      with the underlying layer 1 mainnet.
   - name: Infrastructure
     description: Distributed infrastructure API provides cloud-agnostic C2.
   - name: Oracles
-    description: ''
+    description: Third party or distributed data feed services that provide external
+      data into distributed networks
   - name: Persistence
-    description: Baseline core persistence provides internal integration middleware interfaces for baselining systems of record.
+    description: Baseline core persistence provides internal integration middleware
+      interfaces for baselining systems of record.
   - name: Privacy
-    description: 'Baseline core privacy provides interfaces supporting general consistency, zero-knowledge cryptography protocols and MPC.'
+    description: Baseline core privacy provides interfaces supporting general
+      consistency, zero-knowledge cryptography protocols and MPC.
   - name: Registry
-    description: Baseline core registry API provides interfaces for the organization registry.
+    description: Baseline core registry API provides interfaces for the organization
+      registry.
   - name: Users
-    description: Baseline core users API provides interfaces for creating and authorizing users.
+    description: Baseline core users API provides interfaces for creating and
+      authorizing users.
   - name: Vault
-    description: Baseline core vault API provides interfaces for secure management of cryptographic keys and secrets.
+    description: Baseline core vault API provides interfaces for secure management
+      of cryptographic keys and secrets.
 paths:
   /accounts:
     get:
+      tags:
+        - DLT
       summary: List Accounts
-      description: |
-        Retrieves a list of `Account` instances used for storing cryptocurrency or tokens on behalf of users managing cryptographic material (i.e., for signing transactions).
+      description: Retrieves a list of `Account` instances used for storing
+        cryptocurrency or tokens on behalf of users managing cryptographic
+        material (i.e., for signing transactions).
       operationId: ListAccounts
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/resultsPerPage'
       responses:
-        '200':
+        "200":
           description: The request was successful
           headers:
             X-Total-Results-Count:
-              $ref: '#/components/headers/X-Total-Results-Count'
+              $ref: "#/components/headers/X-Total-Results-Count"
           content:
             application/json; charset=UTF-8:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Account'
-                readOnly: true
-                '401':
+                  $ref: "#/components/schemas/Account"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-        '503':
+        "503":
           $ref: '#/components/responses/ServiceUnavailable'
         default:
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
       deprecated: false
-      tags:
-        - DLT
     post:
       tags:
         - DLT
       summary: Create Account
-      description: |-
-        Creates an `Account` (also referred to as a signing identity) capable of storing cryptocurrencies and tokens native to a specific `Network`. 
+      description: >-
+        Creates an `Account` (also referred to as a signing identity) capable of
+        storing cryptocurrencies and tokens native to a specific `Network`. 
+
 
         An `Account` may be setup as custodial or non-custodial, and may be derived
+
         from a `Wallet`. If the `Account` is custodial then the platform will sign and broadcast transactions to the
+
         `Network` on behalf of an authorized `User` or `Workgroup`.
       operationId: CreateAccount
       parameters: []
-      responses:
-        '201':
-          description: The request was successful and a new `Account` was created.
-          content:
-            application/json; charset=UTF-8:
-              schema:
-                $ref: '#/components/schemas/Account'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
-      deprecated: false
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Account'
-  '/accounts/{id}':
+              $ref: "#/components/schemas/Account"
+      responses:
+        "201":
+          description: The request was successful and a new `Account` was created.
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: "#/components/schemas/Account"
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          $ref: '#/components/responses/Forbidden'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "503":
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      deprecated: false
+  "/accounts/{id}":
     get:
       tags:
         - DLT
@@ -127,128 +147,130 @@ paths:
       parameters:
         - name: id
           in: path
-          description: ID of target `Account`
+          description: ID of the record you are acting upon.
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                allOf:
-                  - $ref: '#/components/schemas/Account'
-                  - $ref: '#/components/schemas/Balance'
-        '403':
+                $ref: "#/components/schemas/GetAccountDetails"
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
       deprecated: false
   /authenticate:
     post:
       tags:
         - Authn/authz
       summary: User authentication
-      description: 'Email/password authentication via Ident. The presence of a `bearer` API token is required to authorize most Baseline API calls. A `bearer` API token is an encoded JWT which contains a subject claim (`sub`) which references an authorized entity (i.e., the `User`, `Application` or `Organization`). The authorized entity uses a signed `bearer` authorization Token to access one or more resources for which the Token was authorized. Unless otherwise noted, all API requests must include a header such as `Authorization: bearer <jwt>`.'
+      description: "Email/password authentication via Ident. The presence of a
+        `bearer` API token is required to authorize most Baseline API calls. A
+        `bearer` API token is an encoded JWT which contains a subject claim
+        (`sub`) which references an authorized entity (i.e., the `User`,
+        `Application` or `Organization`). The authorized entity uses a signed
+        `bearer` authorization Token to access one or more resources for which
+        the Token was authorized. Unless otherwise noted, all API requests must
+        include a header such as `Authorization: bearer <jwt>`."
       operationId: Authentication
       parameters: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AuthenticationRequest'
+              $ref: "#/components/schemas/AuthenticationRequest"
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Authentication'
+                $ref: "#/components/schemas/Authentication"
       deprecated: false
-      security: []
   /connectors:
     get:
       tags:
         - Infrastructure
       summary: List Connectors
-      description: Retrieve a list of `Connector` instances. Connectors are adapters that connect external arbitrary infrastructure with a baseline `Workgroup`. `Token` should be `Application` type.
+      description: Retrieve a list of `Connector` instances. Connectors are adapters
+        that connect external arbitrary infrastructure with a baseline
+        `Workgroup`. `Token` should be `Application` type.
       operationId: ListConnectors
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/resultsPerPage'
         - $ref: '#/components/parameters/public'
       responses:
-        '201':
+        "201":
           description: The request was successful
-          headers: {}
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Connector'
-        '422':
+                  $ref: "#/components/schemas/Connector"
+        "422":
           description: Unprocessable Entity (WebDAV)
           content:
             application/json:
               schema:
-                type: object
-                description: ''
-                x-examples:
-                  example-1:
-                    errors:
-                      - message: 'pq: null value in column "name" violates not-null constraint'
-                properties:
-                  errors:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      type: object
-                      properties:
-                        message:
-                          type: string
-                          minLength: 1
-                readOnly: true
+                $ref: "#/components/schemas/inline_response_422"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
       deprecated: false
     post:
       tags:
         - Infrastructure
       summary: Create connector
-      description: Create a new `Connector` using the given configuration. `Token` should be `Application` type.
+      description: Create a new `Connector` using the given configuration. `Token`
+        should be `Application` type.
       operationId: CreateConnector
       parameters: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Connector'
+              $ref: "#/components/schemas/Connector"
       responses:
-        '201':
+        "201":
           description: The request was successful and a new entity was created
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/Connector'
-        '401':
+                $ref: "#/components/schemas/Connector"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-        '503':
+        "503":
           $ref: '#/components/responses/ServiceUnavailable'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
       deprecated: false
-  '/connectors/{id}':
+  "/connectors/{id}":
     get:
       tags:
         - Infrastructure
@@ -260,27 +282,29 @@ paths:
           in: path
           description: ID of the specified `Connector`
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful.
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/Connector'
-        '401':
+                $ref: "#/components/schemas/Connector"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
       deprecated: false
     delete:
       tags:
@@ -293,17 +317,21 @@ paths:
           in: path
           description: ID of the specified `Connector`
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       responses:
-        '204':
-          description: The request was successful but did not return a response
-        '401':
+        "204":
+          description: The request was successful but did not return a response.
+        "401":
           $ref: '#/components/responses/Unauthorized'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
       deprecated: false
-  '/connectors/{id}/load_balancers':
+  "/connectors/{id}/load_balancers":
     get:
       tags:
         - Infrastructure
@@ -315,23 +343,23 @@ paths:
           in: path
           description: ID of specified `Load Balancer`
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       responses:
-        '200':
-          description: The request was successful
+        "200":
+          description: The request was successful.
           headers:
             X-Total-Results-Count:
-              $ref: '#/components/headers/X-Total-Results-Count'
+              $ref: "#/components/headers/X-Total-Results-Count"
           content:
             application/json; charset=UTF-8:
               schema:
                 type: array
-                example:
+                items:
+                  $ref: "#/components/schemas/GetLoadBalancerDetail"
+                  example:
                   - id: 64d209eb-a09d-4e2c-939e-4985a8aba70a
-                    created_at: '2021-04-16T15:05:23.130Z'
+                    created_at: 2021-04-16T15:05:23.130Z
                     network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
                     workgroup_id: dc767890-0bbc-4c1d-bc04-f5842330018fs
                     name: ceeb3bca-3b92-44b9-8ac5-fdd4564
@@ -350,43 +378,49 @@ paths:
                       region: us-east-2
                       role: peer
                       security:
-                        egress: '*'
+                        egress: "*"
                         ingress:
                           0.0.0.0/0:
                             tcp:
                               - 8080
                             udp: []
-                      target_balancer_id: '''arn:aws:elasticloadbalancing:us-east-2:192663109025:loadbalancer/app/ceeb3bca-3b92-44b9-8ac5-fdd4564/8340a112fd942e75'''
+                      target_balancer_id: "'arn:aws:elasticloadbalancing:us-east-2:192663109025:loadb\
+                        alancer/app/ceeb3bca-3b92-44b9-8ac5-fdd4564/8340a112fd9\
+                        42e75'"
                       target_id: aws
                       target_security_group_ids:
                         - sg-009a2c35c02c1ddc0
                       vpc_id: vpc-44df352f
-                items:
-                  $ref: '#/components/schemas/GetLoadBalancerDetail'
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
       deprecated: false
   /contracts:
     get:
       tags:
         - DLT
       summary: List contracts
-      description: Returns a list of smart contracts visible to the authorized `User` or `Workgroup` instances.
+      description: Returns a list of smart contracts visible to the authorized `User`
+        or `Workgroup` instances.
       operationId: ListContracts
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/resultsPerPage'
         - name: filter_tokens
           in: query
-          description: flag to indicate if Token contracts should be filtered from the response. Default is true
+          description: flag to indicate if Token contracts should be filtered from the
+            response. Default is true
           required: false
           style: form
           explode: true
@@ -394,52 +428,58 @@ paths:
             type: boolean
         - name: sort
           in: query
-          description: 'parameter to indicate how the response should be sorted; currently, recent is the only supported option and returns by accessed_at descending.'
+          description: parameter to indicate how the response should be sorted; currently,
+            recent is the only supported option and returns by accessed_at
+            descending.
           required: false
           style: form
           explode: true
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
           headers:
             X-Total-Results-Count:
-              $ref: '#/components/headers/X-Total-Results-Count'
+              $ref: "#/components/headers/X-Total-Results-Count"
           content:
             application/json; charset=UTF-8:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ListContracts'
-        '401':
+                  $ref: "#/components/schemas/ListContracts"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
       deprecated: false
     post:
       tags:
         - DLT
       summary: Deploy contract
-      description: Deploy a smart contract to the network specified
+      description: Deploy a smart contract to the specified network
       operationId: DeployContract
       parameters: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DeployContractRequest'
+              $ref: "#/components/schemas/DeployContractRequest"
             example:
               workgroup_id: bca2348c-442f-4c48-99a4-7b3510385e53
               network_id: ef976635-545b-46c6-9576-4e3a893a68e9
               name: Ekho
-              address: 0x
+              address: '0xD3F14c012a8717FF7b5D5AC08C287de58C38D8ba'
               params:
                 account_id: efef1044-4958-43bc-903b-28f2bb938037
                 compiled_artifact:
@@ -470,26 +510,29 @@ paths:
                         }
                     }
         required: true
-        description: ''
       responses:
-        '201':
+        "201":
           description: The request was successful and a new entity was created
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/DeployContract'
-        '401':
+                $ref: "#/components/schemas/DeployContractRequest"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "422":
+          description: Unprocessable Entity. 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/contracts/{id}':
+  "/contracts/{id}":
     get:
       tags:
         - DLT
@@ -501,12 +544,11 @@ paths:
           in: path
           description: ID of target contract
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
           headers:
             Date:
@@ -515,25 +557,29 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 'Fri, 16 Apr 2021 15:09:45 GMT'
+                  example: Fri, 16 Apr 2021 15:09:45 GMT
             X-Total-Results-Count:
-              $ref: '#/components/headers/X-Total-Results-Count'
+              $ref: "#/components/headers/X-Total-Results-Count"
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/GetContractDetail'
-        '401':
+                $ref: "#/components/schemas/GetContractDetail"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
       deprecated: false
-  '/contracts/{id}/execute':
+  "/contracts/{id}/execute":
     post:
       tags:
         - DLT
@@ -545,15 +591,14 @@ paths:
           in: path
           description: ID of contract being executed
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ExecuteContractRequest'
+              $ref: "#/components/schemas/ExecuteContractRequest"
             example:
               method: broadcast
               params:
@@ -562,7 +607,7 @@ paths:
               account_id: 8a1f4492-9a73-4e3d-bafe-6a3794b1320e
         required: true
       responses:
-        '202':
+        "202":
           description: |
             The request was successfully accepted and processing will complete
             asynchronously.
@@ -571,35 +616,19 @@ paths:
             broadcast a Transaction to the network and returns a ref, which is
             an identifier you may use to ask for the execution status of the
             Transaction.
-          headers:
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 16 Apr 2021 15:21:28 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                    description: Size of returned entity-body in bytes
-                  example: '78'
+
+
             application/json; charset=UTF-8:
-              style: simple
-              explode: false
               schema:
                 $ref: '#/components/schemas/ExecuteContract'
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
   /networks:
     get:
@@ -613,18 +642,18 @@ paths:
         - $ref: '#/components/parameters/resultsPerPage'
         - $ref: '#/components/parameters/public'
       responses:
-        '200':
+        "200":
           description: The request was successful
           headers:
             X-Total-Results-Count:
-              $ref: '#/components/headers/X-Total-Results-Count'
+              $ref: "#/components/headers/X-Total-Results-Count"
           content:
             application/json; charset=UTF-8:
               schema:
                 type: array
                 example:
                   - id: 5d38bb6c-3700-4774-baa5-7814ac4a91e3
-                    created_at: '2021-03-11T19:14:21.209Z'
+                    created_at: 2021-03-11T19:14:21.209Z
                     workgroup_id: dc767890-0bbc-4c1d-bc04-f5842330018f
                     name: demo network
                     chain_id: 1615490061
@@ -636,33 +665,36 @@ paths:
                       platform: evm
                       protocol_id: pow
                 items:
-                  $ref: '#/components/schemas/ListNetworks'
-        '401':
+                  $ref: "#/components/schemas/ListNetworks"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     post:
       tags:
         - DLT
       summary: Create network
-      description: |
-        [           Configuring a new peer-to-peer network can be quite complex. Just how complex depends on the kind of network you intend to provision, and the clients and protocols you plan to support (both now, and in the future). Creating the configuration for a new logical network involves having deep understanding of your goals for the network and the underlying consensus and governance protocols. 
+      description: >-
+        Configuring a new peer-to-peer network can be quite complex. Just how
+        complex depends on the kind of network you intend to provision, and the
+        clients and protocols you plan to support (both now, and in the future).
+        Creating the configuration for a new logical network involves having
+        deep understanding of your goals for the network and the underlying
+        consensus and governance protocols. 
 
-                    We plan to curate some examples demonstrating how to configure extensible new EVM- and Bitcoin-based networks and will update this documentation accordingly.
+
+        We plan to curate some examples demonstrating how to configure extensible new EVM- and Bitcoin-based networks and will update this documentation accordingly.
       operationId: CreateNetwork
-      parameters: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateNetworkRequest'
+              $ref: "#/components/schemas/CreateNetworkRequest"
             example:
               name: Testnet
               cloneable: false
@@ -684,7 +716,7 @@ paths:
                   alloc: {}
                   coinbase: 0
                   difficulty: 131072
-                  extraData: ''
+                  extraData: ""
                   gasLimit: 3141592
                   nonce: 66
                   mixhash: 0
@@ -692,7 +724,7 @@ paths:
                   timestamp: 0
         required: true
       responses:
-        '201':
+        "201":
           description: The request was successful and a new entity was created
           headers:
             Date:
@@ -700,30 +732,28 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 'Fri, 16 Apr 2021 15:21:28 GMT'
+                  example: Fri, 16 Apr 2021 15:21:28 GMT
             Content-Length:
               content:
                 text/plain:
                   schema:
                     type: string
                     description: Size of returned entity-body in bytes
-                  example: '78'
+                  example: "78"
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/CreateNetwork'
-        '401':
+                $ref: "#/components/schemas/CreateNetwork"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/networks/{id}':
+  "/networks/{id}":
     put:
       tags:
         - DLT
@@ -735,15 +765,14 @@ paths:
           in: path
           description: ID of the target network
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateNetworkRequest'
+              $ref: "#/components/schemas/CreateNetworkRequest"
             example:
               name: Testnet
               cloneable: false
@@ -765,77 +794,63 @@ paths:
                   alloc: {}
                   coinbase: 0
                   difficulty: 131072
-                  extraData: ''
+                  extraData: ""
                   gasLimit: 3141592
                   nonce: 66
                   mixhash: 0
                   parentHash: 0
                   timestamp: 0
       responses:
-        '204':
+        "204":
           description: The request was successful but did not return a response
           content:
             application/json:
               schema:
-                $ref: '#/components/responses/NoContent'
-        '401':
+                $ref: "#/components/responses/NoContent"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/networks/{id}/status':
+  "/networks/{id}/status":
     get:
       tags:
         - DLT
       summary: Get network status
-      description: 'Retrieve the syncing status and, if fully-synced, real-time network-specific metrics and metadata.'
+      description: Retrieve the syncing status and, if fully-synced, real-time
+        network-specific metrics and metadata.'
       operationId: GetNetworkStatus
       parameters:
         - name: id
           in: path
           description: ID of the target `Network`
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
-          headers:
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 16 Apr 2021 15:21:28 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                    description: Size of returned entity-body in bytes
-                  example: '78'
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/GetNetworkStatus'
-        '401':
+                $ref: "#/components/schemas/GetNetworkStatus"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error' 
       deprecated: false
   /oracles:
     get:
@@ -848,18 +863,16 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/resultsPerPage'
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     post:
       tags:
@@ -869,20 +882,18 @@ paths:
       operationId: CreateOracle
       parameters: []
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/oracles/{id}':
+  "/oracles/{id}":
     get:
       tags:
         - Oracles
@@ -894,23 +905,20 @@ paths:
           in: path
           description: ID of Oracle
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     put:
       tags:
@@ -923,23 +931,19 @@ paths:
           in: path
           description: ID of Oracle
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     delete:
       tags:
@@ -952,23 +956,20 @@ paths:
           in: path
           description: ID of Oracle
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
   /organizations:
     get:
@@ -981,18 +982,16 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/resultsPerPage'
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     post:
       tags:
@@ -1004,26 +1003,24 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateOrganizationRequest'
+              $ref: "#/components/schemas/CreateOrganizationRequest"
             example:
               name: Joe User Co.
               description: Joe Users
         required: true
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/organizations/{id}':
+  "/organizations/{id}":
     get:
       tags:
         - Registry
@@ -1035,23 +1032,20 @@ paths:
           in: path
           description: ID of Organization
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     put:
       tags:
@@ -1064,32 +1058,29 @@ paths:
           in: path
           description: ID of the `Organization` being updated
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateOrganizationDetailsRequest'
+              $ref: "#/components/schemas/UpdateOrganizationDetailsRequest"
             example:
               name: Joe User and
               description: Alice and Friends Inc. Now with Friends!
         required: true
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
   /tokens:
     get:
@@ -1102,60 +1093,62 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/resultsPerPage'
       responses:
-        '200':
+        "200":
           description: The request was successful
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Token'
-        '401':
+                  $ref: "#/components/schemas/Token"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     post:
       tags:
         - Authn/authz
       summary: Token authorization
-      description: 'Authorize a Token on behalf of a `User`, `Application` or `Organization`. Returns an authorized JSON formatted JWT with an `offline-access` scoped long-term `access_token` that serves as authentication for `User`,`Organization`, and `Workgroup` related requests. To authorize a `Workgroup` token, replace `organization_id` in this example with `workgroup_id`.To authorize a `User` token, replace `organization_id` with `user_id`.'
+      description: Authorize a Token on behalf of a `User`, `Application` or
+        `Organization`. Returns an authorized JSON formatted JWT with an
+        `offline-access` scoped long-term `access_token` that serves as
+        authentication for `User`,`Organization`, and `Workgroup` related
+        requests. To authorize a `Workgroup` token, replace `organization_id` in
+        this example with `workgroup_id`.To authorize a `User` token, replace
+        `organization_id` with `user_id`.
       operationId: TokenAuthorization
       parameters: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TokenAuthorizationRequest'
+              $ref: "#/components/schemas/TokenAuthorizationRequest"
             example:
               scope: offline_access
               organization_id: cfdc122c-5c06-43e3-a478-f3d169f123a9
         required: true
       responses:
-        '200':
+        "200":
           description: The request was successful
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Authorization'
-        '401':
+                $ref: "#/components/schemas/Authorization"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/tokens/{id}':
+  "/tokens/{id}":
     delete:
       tags:
         - Authn/authz
@@ -1167,37 +1160,35 @@ paths:
           in: path
           description: ID of target token
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
   /transactions:
     get:
       tags:
         - DLT
       summary: List transactions
-      description: Retrieve a list of `Transactions` scoped to the authorized `User` or `Application`
+      description: Retrieve a list of `Transactions` scoped to the authorized `User`
+        or `Application`
       operationId: ListTransactions
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/resultsPerPage'
         - name: filter_contract_creations
           in: query
-          description: 'when true, contract creation transactions are filtered'
+          description: when true, contract creation transactions are filtered
           required: false
           style: form
           explode: true
@@ -1205,43 +1196,45 @@ paths:
             type: boolean
         - name: status
           in: query
-          description: comma-delimited list of statuses by which the transactions response is filtered
+          description: comma-delimited list of statuses by which the transactions response
+            is filtered.
           required: false
           style: form
           explode: true
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
           headers:
             X-Total-Results-Count:
-              $ref: '#/components/headers/X-Total-Results-Count'
+              $ref: "#/components/headers/X-Total-Results-Count"
           content:
             application/json; charset=UTF-8:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Transaction'
-        '401':
+                  $ref: "#/components/schemas/Transaction"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     post:
       tags:
         - DLT
       summary: Create transaction
-      description: |
-        Create and broadcast a transaction in a chain- and protocol-agnostic manner.
+      description: >
+        Create and broadcast a transaction in a chain- and protocol-agnostic
+        manner.
+
 
         This API provides an asynchronous, fault-tolerant mechanism for providing some guarantees about how a well-formed transaction will become eventually-consistent with the underlying target Network. Currently, transactions are guaranteed to be successfully broadcast to the target network or timeout within 5 minutes. If a transaction is unable to be broadcast to the network for any reason (i.e., network reachability, invalid nonce etc.) it is retried every 60 seconds. It is likely these retry and timeout constraints will be made more configurable in a future release.
+
 
         In addition to the asynchronous and resilient nature of broadcasting transactions using this API, instrumentation of the full transaction lifecycle is captured for each transaction. 
       operationId: CreateTransaction
@@ -1250,15 +1243,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateTransactionRequest'
+              $ref: "#/components/schemas/CreateTransactionRequest"
             example:
               network_id: ef976635-545b-46c6-9576-4e3a893a68e9
               key_id: e6ef498b-589e-4514-9924-278b7bd6e3de
-              to: '0xc04B5fc7c8D7d63d1b1c24dfA92a59e74859055C'
+              to: 1.0978071275383878e+48
               value: 0
         required: true
       responses:
-        '201':
+        "201":
           description: The request was successful and a new entity was created
           headers:
             Content-Length:
@@ -1267,23 +1260,21 @@ paths:
                   schema:
                     type: string
                     description: Size of returned entity-body in bytes
-                  example: '78'
+                  example: "78"
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/CreateTransaction'
-        '401':
+                $ref: "#/components/schemas/CreateTransaction"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/transactions/{id}':
+  "/transactions/{id}":
     get:
       tags:
         - DLT
@@ -1293,12 +1284,11 @@ paths:
         - name: id
           in: path
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
           headers:
             Date:
@@ -1306,58 +1296,56 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 'Fri, 16 Apr 2021 15:21:28 GMT'
+                  example: Fri, 16 Apr 2021 15:21:28 GMT
             Content-Length:
               content:
                 text/plain:
                   schema:
                     type: string
                     description: Size of returned entity-body in bytes
-                  example: '78'
+                  example: "78"
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/GetTransactionDetails'
-        '401':
+                $ref: "#/components/schemas/GetTransactionDetails"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
   /users:
     get:
       tags:
         - Users
       summary: List users
-      description: Retrieve a list of users in the authorized scope. A `User` may be associated with an `Application` and one or more `Organization` instances
+      description: Retrieve a list of users in the authorized scope. A `User` may be
+        associated with an `Application` and one or more `Organization`
+        instances
       operationId: ListUsers
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/resultsPerPage'
       responses:
-        '200':
+        "200":
           description: The request was successful
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/User'
-        '401':
+                  $ref: "#/components/schemas/User"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     post:
       tags:
@@ -1373,7 +1361,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateUserRequest'
+              $ref: "#/components/schemas/CreateUserRequest"
             example:
               first_name: Joe
               last_name: User
@@ -1381,14 +1369,14 @@ paths:
               password: s3cr37
         required: true
       responses:
-        '201':
+        "201":
           description: User created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: "#/components/schemas/User"
       deprecated: false
-  '/users/{id}':
+  "/users/{id}":
     get:
       tags:
         - Users
@@ -1399,34 +1387,29 @@ paths:
         - name: id
           in: path
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
-          headers:
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 16 Apr 2021 15:21:28 GMT'
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/User'
-        '401':
+                $ref: "#/components/schemas/User"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
       deprecated: false
     put:
       tags:
@@ -1439,38 +1422,34 @@ paths:
           in: path
           description: ID of target `User`
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateUserRequest'
+              $ref: "#/components/schemas/User"
             example:
               email: example@email.com
               first_name: Joe
               last_name: User
-              password: '12345'
+              password: "12345"
         required: true
       responses:
-        '200':
+        "200":
           description: The request was successful
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        '401':
+                $ref: "#/components/schemas/User"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     delete:
       tags:
@@ -1483,43 +1462,49 @@ paths:
           in: path
           description: ID of target `User`
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Target `User` deleted
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
   /unseal:
     post:
       tags:
         - Vault
       summary: Unseal vault
-      description: |
-        One sealing key is valid for all vaults within a single instance. The SEAL_UNSEAL_VALIDATION_HASH  environment variable contains a SHA-256 hash of the 256-bit entropy BIP39 seed phrase used for the seal/unseal key. When a valid sealing key is presented to the vault (i.e. one that has the same SHA-256 hash value as the SEAL_UNSEAL_VALIDATION_HASH environment variable), the seal/unseal key will then be cloaked (i.e., encrypted with a random, ephemeral, in-memory cloaking key) in memory and decrypted only when required for operations by the cloaking key.
+      description: >
+        One sealing key is valid for all vaults within a single instance. The
+        SEAL_UNSEAL_VALIDATION_HASH  environment variable contains a SHA-256
+        hash of the 256-bit entropy BIP39 seed phrase used for the seal/unseal
+        key. When a valid sealing key is presented to the vault (i.e. one that
+        has the same SHA-256 hash value as the SEAL_UNSEAL_VALIDATION_HASH
+        environment variable), the seal/unseal key will then be cloaked (i.e.,
+        encrypted with a random, ephemeral, in-memory cloaking key) in memory
+        and decrypted only when required for operations by the cloaking key.
       operationId: UnsealVault
       parameters: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UnsealVaultRequest'
+              $ref: "#/components/schemas/UnsealVaultRequest"
             example:
-              key: quantum mirror summer general keep west promote satisfy limit butter mother oyster lazy whip earn spot ticket protect mean play script peace parent intact
+              key: quantum mirror summer general keep west promote satisfy limit butter mother
+                oyster lazy whip earn spot ticket protect mean play script peace
+                parent intact
         required: true
       responses:
-        '204':
+        "204":
           description: The request was successful but did not return a response
           headers:
             Date:
@@ -1527,7 +1512,7 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 'Fri, 16 Apr 2021 15:21:28 GMT'
+                  example: Fri, 16 Apr 2021 15:21:28 GMT
             X-Request-Id:
               content:
                 text/plain:
@@ -1535,16 +1520,14 @@ paths:
                     type: string
                   example: 8be81664-ef39-4be4-a55b-f60bab200a23
           content: {}
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
   /vaults:
     get:
@@ -1557,7 +1540,7 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/resultsPerPage'
       responses:
-        '200':
+        "200":
           description: The request was successful
           headers:
             X-Request-Id:
@@ -1567,27 +1550,25 @@ paths:
                     type: string
                   example: 280cfa55-2f1e-4342-a054-f21be9b5174b
             X-Total-Results-Count:
-              $ref: '#/components/headers/X-Total-Results-Count'
+              $ref: "#/components/headers/X-Total-Results-Count"
           content:
             application/json; charset=UTF-8:
               schema:
                 type: array
                 example:
                   - id: 174844e9-6767-49b2-afbd-11fba1361397
-                    created_at: '2021-04-13T09:32:26.607Z'
+                    created_at: 2021-04-13T09:32:26.607Z
                     name: Sample Vault
                 items:
-                  $ref: '#/components/schemas/ListVault'
-        '401':
+                  $ref: "#/components/schemas/ListVault"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     post:
       tags:
@@ -1600,13 +1581,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateVaultRequest'
+              $ref: "#/components/schemas/CreateVaultRequest"
             example:
               name: Test Vault
               description: Organizational keystore
         required: true
       responses:
-        '201':
+        "201":
           description: The request was successful and a new entity was created
           headers:
             Date:
@@ -1614,14 +1595,14 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 'Fri, 16 Apr 2021 15:21:28 GMT'
+                  example: Fri, 16 Apr 2021 15:21:28 GMT
             Content-Length:
               content:
                 text/plain:
                   schema:
                     type: string
                     description: Size of returned entity-body in bytes
-                  example: '78'
+                  example: "78"
             X-Request-Id:
               content:
                 text/plain:
@@ -1631,33 +1612,24 @@ paths:
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/CreateVault'
-        '401':
+                $ref: "#/components/schemas/CreateVault"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/vaults/{id}/keys':
+  "/vaults/{id}/keys":
     get:
       tags:
         - Vault
       summary: List keys
       operationId: Listkeys
       parameters:
-        - name: page
-          in: query
-          description: Limits resulting response to the page number specified
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
+        - $ref: '#/components/parameters/page'
         - name: rpp
           in: query
           description: Sets the number of results included per page
@@ -1670,12 +1642,11 @@ paths:
           in: path
           description: ID of target `Vault`
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
           headers:
             Date:
@@ -1683,7 +1654,7 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 'Fri, 16 Apr 2021 15:21:28 GMT'
+                  example: Fri, 16 Apr 2021 15:21:28 GMT
             X-Request-Id:
               content:
                 text/plain:
@@ -1691,14 +1662,14 @@ paths:
                     type: string
                   example: 948328da-277f-4fbe-90fc-e3da189c5723
             X-Total-Results-Count:
-              $ref: '#/components/headers/X-Total-Results-Count'
+              $ref: "#/components/headers/X-Total-Results-Count"
           content:
             application/json; charset=UTF-8:
               schema:
                 type: array
                 example:
                   - id: 02e81595-ef57-4e71-8e27-1c8b2dfdefbf
-                    created_at: '2021-04-17T21:07:16.098Z'
+                    created_at: 2021-04-17T21:07:16.098Z
                     vault_id: ae3c07d9-8a41-4cd3-92c0-e6358cbd516c
                     type: symmetric
                     usage: encrypt/decrypt
@@ -1706,17 +1677,15 @@ paths:
                     name: private chat
                     description: this is a secure channel
                 items:
-                  $ref: '#/components/schemas/Listkey'
-        '401':
+                  $ref: "#/components/schemas/Listkey"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     post:
       tags:
@@ -1728,8 +1697,7 @@ paths:
           in: path
           description: ID of host `Vault`
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       requestBody:
@@ -1740,11 +1708,11 @@ paths:
               type: asymmetric
               usage: sign/verify
               spec: C25519
-              name: 'c25519 key #1'
+              name: "c25519 key #1"
               description: c25519 key
         required: true
       responses:
-        '201':
+        "201":
           description: The request was successful and a new entity was created
           headers:
             X-Request-Id:
@@ -1756,19 +1724,17 @@ paths:
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/inline_response_201'
-        '401':
+                $ref: "#/components/schemas/inline_response_201"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/vaults/{id}/keys/{key_id}/derive':
+  "/vaults/{id}/keys/{key_id}/derive":
     post:
       tags:
         - Vault
@@ -1779,23 +1745,19 @@ paths:
           in: path
           description: ID of host `Vault`
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
         - name: key_id
           in: path
           description: ID of `Key` for intended for derivation
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DeriveaKeyRequest'
+              $ref: "#/components/schemas/DeriveaKeyRequest"
             example:
               nonce: 1
               context: channel-6852386c-8a3d-41c6-aa0e-766a31a8faaf
@@ -1803,7 +1765,7 @@ paths:
               description: this is a secure channel
         required: true
       responses:
-        '201':
+        "201":
           description: The request was successful and a new entity was created
           headers:
             Date:
@@ -1811,14 +1773,14 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 'Fri, 16 Apr 2021 15:21:28 GMT'
+                  example: Fri, 16 Apr 2021 15:21:28 GMT
             Content-Length:
               content:
                 text/plain:
                   schema:
                     type: string
                     description: Size of returned entity-body in bytes
-                  example: '78'
+                  example: "78"
             X-Request-Id:
               content:
                 text/plain:
@@ -1828,44 +1790,38 @@ paths:
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/DeriveaKey'
-        '401':
+                $ref: "#/components/schemas/DeriveaKey"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/vaults/{id}/keys/{key_id}':
+  "/vaults/{id}/keys/{key_id}":
     delete:
       tags:
         - Vault
       summary: Delete a key
-      description: ' Delete target `Key`'
+      description: " Delete target `Key`"
       operationId: Deleteakey
       parameters:
         - name: id
           in: path
           description: ID of host `Vault`
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
         - name: key_id
           in: path
           description: ID of target `Key`
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       responses:
-        '204':
+        "204":
           description: The request was successful but did not return a response
           headers:
             Date:
@@ -1873,7 +1829,7 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 'Sat, 17 Apr 2021 21:07:25 GMT'
+                  example: Sat, 17 Apr 2021 21:07:25 GMT
             Connection:
               content:
                 text/plain:
@@ -1885,25 +1841,27 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 'true'
+                  example: "true"
             Access-Control-Allow-Headers:
               content:
                 text/plain:
                   schema:
                     type: string
-                  example: 'Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With'
+                  example: Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length,
+                    Content-Type, Origin, User-Agent, X-CSRF-Token,
+                    X-Requested-With
             Access-Control-Allow-Methods:
               content:
                 text/plain:
                   schema:
                     type: string
-                  example: 'GET, POST, PUT, DELETE, OPTIONS'
+                  example: GET, POST, PUT, DELETE, OPTIONS
             Access-Control-Allow-Origin:
               content:
                 text/plain:
                   schema:
                     type: string
-                  example: '*'
+                  example: "*"
             Access-Control-Expose-Headers:
               content:
                 text/plain:
@@ -1919,19 +1877,17 @@ paths:
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/DeleteaKeyRequest'
-        '401':
+                $ref: "#/components/schemas/DeleteaKeyRequest"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/vaults/{id}/secrets':
+  "/vaults/{id}/secrets":
     get:
       tags:
         - Vault
@@ -1942,14 +1898,12 @@ paths:
         - $ref: '#/components/parameters/resultsPerPage'
         - name: id
           in: path
-          description: ID of `Vault` containing `Secrets`
+          description: ID of `Vault` containing at least 1 `Secret` 
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
           headers:
             X-Request-Id:
@@ -1959,7 +1913,7 @@ paths:
                     type: string
                   example: 045a1bcd-5426-4cba-a93f-f8ec3ada7147
             X-Total-Results-Count:
-              $ref: '#/components/headers/X-Total-Results-Count'
+              $ref: "#/components/headers/X-Total-Results-Count"
           content:
             application/json; charset=UTF-8:
               schema:
@@ -1967,16 +1921,14 @@ paths:
                 example: []
                 items:
                   type: string
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     post:
       tags:
@@ -1988,23 +1940,22 @@ paths:
           in: path
           description: ID of target `Vault`
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StoreSecretRequest'
+              $ref: "#/components/schemas/StoreSecretRequest"
             example:
-              name: 'secret #1'
+              name: "secret #1"
               type: sample secret
               description: this secret is being stored for demonstration purposes
-              value: 'mysecret :D'
+              value: mysecret :D
         required: true
       responses:
-        '201':
+        "201":
           description: The request was successful and a new entity was created
           headers:
             X-Request-Id:
@@ -2016,19 +1967,17 @@ paths:
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/StoreSecret'
-        '401':
+                $ref: "#/components/schemas/StoreSecret"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/vaults/{id}/secrets/{secret_id}':
+  "/vaults/{id}/secrets/{secret_id}":
     get:
       tags:
         - Vault
@@ -2039,20 +1988,18 @@ paths:
           in: path
           description: ID of `Vault` containing target `Secret`
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
         - name: secret_id
           in: path
           description: ID of target `Secret`
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
           headers:
             Content-Length:
@@ -2060,7 +2007,7 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: '317'
+                  example: "317"
             X-Request-Id:
               content:
                 text/plain:
@@ -2070,17 +2017,15 @@ paths:
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/RetrieveSecret'
-        '401':
+                $ref: "#/components/schemas/RetrieveSecret"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     delete:
       tags:
@@ -2092,20 +2037,16 @@ paths:
           in: path
           description: ID of `Vault` containing target `Secret`
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
         - name: secret_id
           in: path
           description: ID of target `Secret`
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       responses:
-        '204':
+        "204":
           description: The request was successful but did not return a response
           headers:
             X-Request-Id:
@@ -2117,17 +2058,15 @@ paths:
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/DeleteSecretRequest'
-        '401':
+                $ref: "#/components/schemas/DeleteSecretRequest"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
   /wallets:
     get:
@@ -2140,68 +2079,67 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/resultsPerPage'
       responses:
-        '200':
+        "200":
           description: The request was successful
           headers:
             X-Total-Results-Count:
-              $ref: '#/components/headers/X-Total-Results-Count'
+              $ref: "#/components/headers/X-Total-Results-Count"
           content:
             application/json; charset=UTF-8:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Wallet'
-        '401':
+                  $ref: "#/components/schemas/Wallet"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     post:
       tags:
         - DLT
       summary: Create Wallet
-      description: |
-        Creates a `Wallet` in accordance with BIP32. A `Wallet` may be setup as custodial or non-custodial. If the Wallet is custodial then the platform will derive addresses and securely persist an `Account` for each of those derived addresses
+      description: >
+        Creates a `Wallet` in accordance with BIP32. A `Wallet` may be setup as
+        custodial or non-custodial. If the Wallet is custodial then the platform
+        will derive addresses and securely persist an `Account` for each of
+        those derived addresses
       operationId: CreateWallet
       parameters: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateWalletRequest'
+              $ref: "#/components/schemas/CreateWalletRequest"
             example:
               purpose: 44
         required: true
       responses:
-        '201':
+        "201":
           description: The request was successful and a new entity was created
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/Wallet'
-        '401':
+                $ref: "#/components/schemas/Wallet"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/wallets/{id}/accounts':
+  "/wallets/{id}/accounts":
     get:
       tags:
         - DLT
       summary: List wallet accounts
-      description: Retrieve a list of `Accounts` for a target `Wallet`
+      description: Retrieve a list of `Account` instance for a target `Wallet`.
       operationId: ListWalletAccounts
       parameters:
         - $ref: '#/components/parameters/resultsPerPage'
@@ -2209,35 +2147,31 @@ paths:
           in: path
           description: Wallet ID containing accounts
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
           headers:
             X-Total-Results-Count:
-              $ref: '#/components/headers/X-Total-Results-Count'
+              $ref: "#/components/headers/X-Total-Results-Count"
           content:
             application/json; charset=UTF-8:
               schema:
                 type: array
                 example:
-                  - address: ''
+                  - address: '0xD3F14c012a8717FF7b5D5AC08C287de58C38D8ba'
                     hd_derivation_path: m/44'/60'/0'/0/0
                 items:
-                  $ref: '#/components/schemas/ListWalletAccounts'
-        '401':
+                  $ref: "#/components/schemas/ListWalletAccounts"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
   /workgroups:
     get:
@@ -2250,14 +2184,14 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/resultsPerPage'
       responses:
-        '200':
+        "200":
           description: The request was successful
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Workgroup'
+                  $ref: "#/components/schemas/Workgroup"
       deprecated: false
     post:
       tags:
@@ -2268,34 +2202,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateWorkgroupRequest'
+              $ref: "#/components/schemas/CreateWorkgroupRequest"
             example:
               name: AB Workgroup
         required: true
       responses:
-        '200':
+        "200":
           description: The request was successful
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Workgroup'
-        '401':
+                $ref: "#/components/schemas/Workgroup"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/workgroups/{id}/users':
+  "/workgroups/{id}/users":
     get:
       tags:
         - Registry
       summary: List workgroup users
-      description: Retrieves a list of `Users` associated with a target `Workgroup`
+      description: Retrieves a list of `User` records associated with a target `Workgroup`
       operationId: ListWorkgroupUsers
       parameters:
         - $ref: '#/components/parameters/page'
@@ -2304,29 +2236,26 @@ paths:
           in: path
           description: ID of target `Workgroup`
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/User'
-        '401':
+                  $ref: "#/components/schemas/User"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     post:
       tags:
@@ -2339,33 +2268,29 @@ paths:
           in: path
           description: ID of target workgroup
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AssociateWorkgroupUserRequest'
+              $ref: "#/components/schemas/AssociateWorkgroupUserRequest"
             example:
               user_id: 93a74e83-c7bf-4ef1-b25c-1bcc35c4aee7
         required: true
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/workgroups/{id}':
+  "/workgroups/{id}":
     get:
       tags:
         - Registry
@@ -2377,23 +2302,19 @@ paths:
           in: path
           description: ID of target `Workgroup`
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     put:
       tags:
@@ -2406,33 +2327,29 @@ paths:
           in: path
           description: Identifier
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateWorkgroupRequest'
+              $ref: "#/components/schemas/UpdateWorkgroupRequest"
             example:
               name: ABD Workgroup
               description: Workgroup for baselining workflows
               type: Baseline
               hidden: true
       responses:
-        '204':
-          $ref: '#/components/responses/NoContent'
-        '401':
+        "204":
+          description: The request was successful but did not return a response\
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     delete:
       tags:
@@ -2445,23 +2362,19 @@ paths:
           in: path
           description: ID of target `Workgroup`
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       responses:
-        '200':
-          description: The request was successful
-        '401':
+        "200":
+          description: The request was successful 
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
   /business_objects:
     post:
@@ -2475,43 +2388,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateBaselineBusinessObjectRequest'
+              $ref: "#/components/schemas/CreateBaselineBusinessObjectRequest"
             example:
               type: purchase_order
-              id: '4500002427'
+              id: "4500002427"
               payload:
                 object: test
         required: true
       responses:
-        '202':
+        "202":
           description: Accepted
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  baseline_id:
-                    type: string
-                  opcode:
-                    type: string
-                  identifier:
-                    type: string
-                  type:
-                    type: string
-                  payload:
-                    type: object
-                    properties:
-                      proof:
-                        type: string
-                      type:
-                        type: string
-                      witness:
-                        type: object
-                        properties:
-                          Document.Hash:
-                            type: string
-                          Document.PreImage:
-                            type: string
+                $ref: "#/components/schemas/inline_response_202"
               example:
                 baseline_id: 4ea16bbd-a45e-4867-8ab0-f7e3e7e273ba
                 opcode: BLINE
@@ -2521,22 +2411,26 @@ paths:
                   proof: 9aa07f220e52f86e78b5cb44399dd05a375413adc7a9b7ef3ae0e8b06ef0b2f2afff56a87d07cd23dad264e11a85601670aea91b3873a0475612910e72988cac0a64c540e5cccd203f80e10282cf64eaaa50883de88d771a46b9d48a55a14ca2d892365472a9c1f69c357a309f3e1b75c86c0b41f96a1b32d9af92f2ea3a00e4
                   type: purchase_order
                   witness:
-                    Document.Hash: '17601414412062754957723647367357294356562802723216629399723598524672809368916'
-                    Document.PreImage: '14065809565213763004053584111575847508071017910285712667024523677887390898151'
-        '401':
+                    Document.Hash: "176014144120627549577236473673572943565628027232166293997235985\
+                      24672809368916"
+                    Document.PreImage: "14065809565213763004053584111575847508071017910285712667024\
+                      523677887390898151"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
+        "404":
+          description: The specified resource was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
       servers:
-        - url: 'https://baseline.proxy/api/v1'
-  '/business_objects/{id}':
+        - url: https://baseline.proxy/api/v1
+  "/business_objects/{id}":
     put:
       tags:
         - Persistence
@@ -2548,37 +2442,33 @@ paths:
           in: path
           description: ID of target business object
           required: true
-          style: simple
-          explode: false
           schema:
             type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateBaselinedBusinessObjectRequest'
+              $ref: "#/components/schemas/UpdateBaselinedBusinessObjectRequest"
             example:
               type: purchase_order
-              id: '4500002427'
+              id: "4500002427"
               payload:
                 hello: world
         required: true
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
       servers:
-        - url: 'https://baseline.proxy/api/v1'
+        - url: https://baseline.proxy/api/v1
   /circuits:
     get:
       tags:
@@ -2628,44 +2518,44 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
           content:
             application/json; charset=UTF-8:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Circuit'
-        '401':
+                  $ref: "#/components/schemas/Circuit"
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
     post:
       tags:
         - Privacy
       summary: Create circuit
-      description: |
-        Creates a baselined `Circuit`
+      description: >
+        Creates a baselined `Circuit`.
+
 
         You must provision a circuit before it can be used to generate and verify proofs. The foregoing holds true regardless of which provider, proving_scheme, curve and circuit identifier you specify (or source, if the raw source code of the `Circuit` is provided instead of an identifier).
 
+
         A powerful aspect of this API is the asynchronous nature by which computationally-intensive cryptographic operations are executed. The lifecycle of a zero-knowledge circuit depends largely on the chosen proving_scheme. For example, zkSNARK proving schemes (i.e., groth16) require a trusted setup whereas more modern schemes (i.e., plonk) do not.
+
 
         A persistent store is implicitly initialized upon the creation of a new circuit unless an existing store_id is provided and the referenced store is valid in the context of the circuit and authorized `scope`.
       operationId: CreateCircuit
-      parameters: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateCircuitRequest'
+              $ref: "#/components/schemas/CreateCircuitRequest"
             example:
               identified: cubic
               proving_scheme: groth16
@@ -2674,40 +2564,40 @@ paths:
               name: my 1337 circuit
         required: true
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/circuits/{id}/prove':
+  "/circuits/{id}/prove":
     post:
       tags:
         - Privacy
       summary: Prove circuit
-      description: 'Once you have provisioned a circuit, this API can be used to generate a proof given valid witness parameters. Calling this API has an implicit side-effect of writing the hash of generated proof to the persistent store associated with the `Circuit`.'
+      description: Once you have provisioned a circuit, this API can be used to
+        generate a proof given valid witness parameters. Calling this API has an
+        implicit side-effect of writing the hash of generated proof to the
+        persistent store associated with the `Circuit`.
       operationId: Prove
       parameters:
         - name: id
           in: path
           description: ID of target circuit
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ProveRequest'
+              $ref: "#/components/schemas/ProveRequest"
             example:
               identifier: cubic
               proving_scheme: groth16
@@ -2716,22 +2606,24 @@ paths:
               name: my 1337 circuit
         required: true
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '422':
-          description: 'The API returns a 422 status code and human-readable error message(s) if (i) the witness parameters is not provided, (ii) required circuit arguments (i.e., fields) are not included within the given witness parameter or (iii) when Circuit constraints are not satisfied.'
-        '500':
+        "422":
+          description: The API returns a 422 status code and human-readable error
+            message(s) if (i) the witness parameters is not provided, (ii)
+            required circuit arguments (i.e., fields) are not included within
+            the given witness parameter or (iii) when Circuit constraints are
+            not satisfied.
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/circuits/{id}/verify':
+  "/circuits/{id}/verify":
     post:
       tags:
         - Privacy
@@ -2743,208 +2635,200 @@ paths:
           in: path
           description: ID of target `Circuit`
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VerifyRequest'
+              $ref: "#/components/schemas/VerifyRequest"
             example:
-              'witness:':
-                X: '3'
-                'Y': '35'
+              "witness:":
+                X: "3"
+                Y: "35"
               proof: 88b8d340795f4258c1f2c0ed8478b44859c90472af9ccdc5c54b02c85bcd879d9ddf3a3fb7c6926ea247c0b1c411abe2f5ba9c8deba60ab476428272767a761d1e14e343208024326429e361ebbc4c11daf5f16dbb7f7f4679cf85b17b59b1bdaa379a82ddab4dcbb7cd2bc32cdebadc6825c72d5f8e624f6d0f6b07906a8248
         required: true
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
-  '/circuits/{id}/store/{index}':
+  "/circuits/{id}/store/{index}":
     get:
       tags:
         - Privacy
       summary: Retrieve store value
-      description: Returns the store value of the specified `Circuit`
+      description: Returns the store value of the specified `Circuit`. The store value
+        is a hash of the proof
       operationId: GetStoreValue
       parameters:
         - name: id
           in: path
           description: ID of target `Circuit`
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
         - name: index
           in: path
+          description: The index of the leaf in the Merkle tree for the underlying data
+            structure.
           required: true
-          style: simple
-          explode: false
+
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The request was successful
-        '401':
+        "401":
           $ref: '#/components/responses/Unauthorized'
-        '403':
+        "403":
           $ref: '#/components/responses/Forbidden'
-        '404':
+        "404":
           $ref: '#/components/responses/NotFound'
-        '500':
+        "503":
           $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
       deprecated: false
   /.well-known/keys:
     get:
       tags:
         - .well-known
       summary: List JWKs
-      description: |-
+      description: >-
         Retrieves a list of JSON Web Key Sets (JWKs). 
+
 
         The JSON Web Key Set (JWKS) is a set of keys containing the public keys used to verify any JSON Web Token (JWT) issued by the authorization server and signed using the RS256 signing algorithm.
 
+
         When creating applications and APIs in Auth0, two algorithms are supported for signing JWTs: RS256 and HS256. RS256 generates an asymmetric signature, which means a private key must be used to sign the JWT and a different public key must be used to verify the signature.
 
+
         Auth0 uses the JSON Web Key (JWK) specification to represent the cryptographic keys used for signing RS256 tokens. This specification defines two high-level data structures: JSON Web Key (JWK) and JSON Web Key Set (JWKS).
+
 
         This endpoint will contain the JWK used to sign all Auth0-issued JWTs for this tenant.
       operationId: ListWellKnownKeys
       parameters: []
       responses:
-        '200':
+        "200":
           description: The request was successful
           content:
             application/json; charset=UTF-8:
               schema:
                 type: array
                 example:
-                  - kid: 'c5:eb:8d:59:44:38:63:06:c9:d3:e4:97:08:fb:68:9c'
-                    'n': '995527063618956193410833036962507246986474398054602179908260487445806246489215766039251752652683534248392227323379449531373094174748653054997706465668689972252213093587018180990218764975713772974100211316813863025129179630019623482456703746731298216105196239902672165546333004057492239784978826286556220816776336241042696753088894672303989781706643733233579846968753349402992192452275172979617296256431304053528963070154587755597334718471566532697695566806848739816890462413410326248045976990042651171835110004317895064969114765347902086739148556954319383964003317643357488047800335770372072590234276602697951534723513814120780494254368686116204741180163099781052651805841038832515887268451518717672650541960189952548208271063651390926536783230127645827697776323106258247121628807721231425504345976051589179188919820510476741228874102006646132604055010539746291533048142740994895058566847763900593989114102754149269150841200709200458437074129362211966398371438300510481258132560736028943646699639829561555724431474507308017460343637655844991892817988961745641951250027197531503911248482778035085865533953601104790476037915508823689020619850341247576271568925023930116394277127637893466936882893442420321634189068402675796649097631203'
-                    e: '10001'
-                    fingerprint: 'e6:f7:d5:24:e2:59:06:2b:bc:a2:8c:35:9d:ca:0a:87'
-                    public_key: '861483997211088567986679229181848054089604638641344651799629411219132348016278717092102128681135611380326752098936363353495444063202162029673523557773782048024114883574432634108045249947154852742644555192210297230097245140428848581230277818343146223559594512475826760838877076266154044960265352746066723631764046840316942987769580553619014590812187691295364700040641787500269269399045832588373172593121687203191684140294108378584755314277325012894787853550357182542202120051794903430593790088728831567724495129050530806677080541218084315114228795876927064009879284573531870815708443412933965416303038891773876363479243549734042137128368669274726190909529704641365251977820965336530028317042370318858190049737976730950424571654404303776058323774989878709454832673621703315168343354939050427851085442751220892330674377060840075089494965206267742175926300979682121686578985916424314967542319047670046306072654213458712385294663342927553785567808885434950558955088305721767631170042743815215456801539616413473452207339467426842177647739317764485798830023496667390636938833319855298970928615645190825794520784096740427440910286686264656276871411041902304833534185654554399301291984087480695247759311118167876962745932311927957101815475731'
+                  - kid: c5:eb:8d:59:44:38:63:06:c9:d3:e4:97:08:fb:68:9c
+                    n: "995527063618956193410833036962507246986474398054602179908260487445806246489\
+                      215766039251752652683534248392227323379449531373094174748\
+                      653054997706465668689972252213093587018180990218764975713\
+                      772974100211316813863025129179630019623482456703746731298\
+                      216105196239902672165546333004057492239784978826286556220\
+                      816776336241042696753088894672303989781706643733233579846\
+                      968753349402992192452275172979617296256431304053528963070\
+                      154587755597334718471566532697695566806848739816890462413\
+                      410326248045976990042651171835110004317895064969114765347\
+                      902086739148556954319383964003317643357488047800335770372\
+                      072590234276602697951534723513814120780494254368686116204\
+                      741180163099781052651805841038832515887268451518717672650\
+                      541960189952548208271063651390926536783230127645827697776\
+                      323106258247121628807721231425504345976051589179188919820\
+                      510476741228874102006646132604055010539746291533048142740\
+                      994895058566847763900593989114102754149269150841200709200\
+                      458437074129362211966398371438300510481258132560736028943\
+                      646699639829561555724431474507308017460343637655844991892\
+                      817988961745641951250027197531503911248482778035085865533\
+                      953601104790476037915508823689020619850341247576271568925\
+                      023930116394277127637893466936882893442420321634189068402\
+                      675796649097631203"
+                    e: "10001"
+                    fingerprint: e6:f7:d5:24:e2:59:06:2b:bc:a2:8c:35:9d:ca:0a:87
+                    public_key: "861483997211088567986679229181848054089604638641344651799629411219\
+                      132348016278717092102128681135611380326752098936363353495\
+                      444063202162029673523557773782048024114883574432634108045\
+                      249947154852742644555192210297230097245140428848581230277\
+                      818343146223559594512475826760838877076266154044960265352\
+                      746066723631764046840316942987769580553619014590812187691\
+                      295364700040641787500269269399045832588373172593121687203\
+                      191684140294108378584755314277325012894787853550357182542\
+                      202120051794903430593790088728831567724495129050530806677\
+                      080541218084315114228795876927064009879284573531870815708\
+                      443412933965416303038891773876363479243549734042137128368\
+                      669274726190909529704641365251977820965336530028317042370\
+                      318858190049737976730950424571654404303776058323774989878\
+                      709454832673621703315168343354939050427851085442751220892\
+                      330674377060840075089494965206267742175926300979682121686\
+                      578985916424314967542319047670046306072654213458712385294\
+                      663342927553785567808885434950558955088305721767631170042\
+                      743815215456801539616413473452207339467426842177647739317\
+                      764485798830023496667390636938833319855298970928615645190\
+                      825794520784096740427440910286686264656276871411041902304\
+                      833534185654554399301291984087480695247759311118167876962\
+                      745932311927957101815475731"
                 items:
-                  $ref: '#/components/schemas/ListWellKnownKeys'
+                  $ref: "#/components/schemas/ListWellKnownKeys"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /.well-known/openid-configuration:
     get:
       tags:
         - .well-known
       summary: Returns OpenID configuration
-      description: |-
+      description: >-
         Retrieves secret OpenID configuration. 
+
 
         Openid-configuration is a Well-known URI Discovery Mechanism for the Provider Configuration URI and is defined in OpenID Connect.
 
+
         Openid-configuration is a URI defined within OpenID Connect which provides configuration information about the Identity Provider (IDP).
 
+
         Openid-configuration is the OpenID Connect Provider's discovery document. The discovery document describes the provider's API endpoints used during the authentication sequence. Specifying this URL connects the authenticator to a particular OpenID Connect Provider. For Example, for Google (including Google Apps), the discovery document URL
+
 
         The Openid-configuration publishes a JSON object listing the Provider's OAuth 2.0 / OpenID Connect Endpoints as well as the supported grants, response types, authentication methods and security algorithms. These details are needed by clients and application developers to construct requests to the server.
       operationId: ListOpenIDConfiguration
       parameters: []
       responses:
-        '200':
+        "200":
           description: The request was successful
           content:
             application/json; charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/OpenIdConfig'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
+                $ref: "#/components/schemas/OpenIdConfig"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
       deprecated: false
 components:
-  headers:
-    X-Total-Results-Count:
-      schema:
-        type: integer
-        description: Number of results
-        example: 7
-        readOnly: true
-    Date:
-      schema:
-        type: string
-      example: 'Fri, 16 Apr 2021 15:21:28 GMT'
-    Content-Length:
-      schema:
-        type: integer
-        description: Size of returned entity-body in bytes
-      example: 78
-    X-Request-Id:
-      schema:
-        type: string
-      example: 8be81664-ef39-4be4-a55b-f60bab200a23
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Limits resulting response to the page number specified
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: integer
-    resultsPerPage:
-      name: rpp
-      in: query
-      description: Sets the number of results included per page
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: integer
-        example: 25
-      allowEmptyValue: true
-    public:
-      name: public
-      in: query
-      description: When `TRUE` limits results to non-private records
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: boolean
   schemas:
     Vault:
-      type: object
       properties:
         id:
           type: string
+          description: Identifier for the specific `Vault` instance. UUID as specified by
+            RFC4122
           format: uuid
-          description: Identifier for the specific `Vault` instance. UUID as specified by RFC4122
         created_at:
           type: string
-          format: date-time
           description: Date and time of `Vault` creation
+          format: date-time
         name:
           type: string
           description: User-defined identifier for a specific `Vault` instance.
@@ -2952,28 +2836,29 @@ components:
           type: string
           description: User-defined summary of a specific `Vault`  instance
     Transaction:
-      type: object
       properties:
         id:
           type: string
-          format: uuid
           description: Identifier for a specific `Transaction`. UUID as specified by RFC4122
+          format: uuid
         created_at:
           type: string
-          format: date-time
           description: Date and time of `Transaction` creation
+          format: date-time
         network_id:
           type: string
-          format: uuid
           description: Identifier for the host `Network`. UUID as specified by RFC4122
+          format: uuid
         user_id:
           type: string
+          description: Identifier for the `User` that created a `Vault`. UUID as specific
+            by RFC4122
           format: uuid
-          description: Identifier for the `User` that created a `Vault`. UUID as specific by RFC4122
         wallet_id:
           type: string
+          description: Identifier for the `Wallet` that created a `Vault`. UUID as
+            specific by RFC4122
           format: uuid
-          description: Identifier for the `Wallet` that created a `Vault`. UUID as specific by RFC4122
         hd_derivation_path:
           type: string
         to:
@@ -3001,21 +2886,18 @@ components:
           type: string
       example:
         id: 99a61ee5-73ea-46d1-a434-b6a2a908bc51
-        created_at: '2021-04-21T02:12:11.158372Z'
+        created_at: 2021-04-21T02:12:11.158Z
         network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
         user_id: 7c8fe6f1-38c3-4da1-b4b7-7591c6d0ca7c
         wallet_id: 0fda2f96-d957-4f65-9e92-fa5092c51751
         hd_derivation_path: m/44'/60'/0'/0/0
         to: 7c8fe6f1-38c3-4da1-b4b7-7591c6d0ca7c
         value: 0
-        data: null
-        hash: '0xd3cceb291c37f6bfae5da76d10a6233833bac8c64f856409d791ae5e4316b169'
+        hash: 9.580007087100508e+76
         status: success
-        ref: null
-        description: null
         block: 10079406
-        block_timestamp: '2021-04-21T02:12:05Z'
-        finalized_at: '2021-04-21T02:12:14.277878Z'
+        block_timestamp: 2021-04-21T02:12:05.000Z
+        finalized_at: 2021-04-21T02:12:14.277Z
     Circuit:
       type: object
       properties:
@@ -3046,15 +2928,15 @@ components:
         store_id:
           type: string
     Error:
+      required:
+        - code
+        - message
       type: object
       properties:
         code:
           type: string
         message:
           type: string
-      required:
-        - code
-        - message
     CreateWorkgroupRequest:
       title: Create workgroup request
       required:
@@ -3094,7 +2976,7 @@ components:
             - Baseline
         hidden:
           type: boolean
-          description: 'If `true`, sets target `Workgroup` to hidden'
+          description: If `true`, sets target `Workgroup` to hidden
       example:
         name: Updated Workgroup
         description: Description of updated `Workgroup`
@@ -3132,6 +3014,7 @@ components:
     RevocableToken:
       title: RevocableToken
       type: object
+      description: A `Token` that is able to be deleted based on the `scope` and `permissions` of the authorization passed. 
       properties:
         id:
           type: string
@@ -3151,8 +3034,8 @@ components:
           description: Time in minutes until `Token` will no longer be valid
         token:
           type: string
-          format: password
           description: JSON formatted Web Token
+          format: password
         permissions:
           type: number
           description: Authorized privileges for `Token`
@@ -3166,15 +3049,9 @@ components:
       type: object
       properties:
         user:
-          type: object
-          properties:
-            schema:
-              $ref: '#/components/schemas/User'
+          $ref: "#/components/schemas/Authentication_user"
         token:
-          type: object
-          properties:
-            schema:
-              $ref: '#/components/schemas/Token'
+          $ref: "#/components/schemas/Authentication_token"
     Authorization:
       title: Authorization
       type: object
@@ -3242,7 +3119,8 @@ components:
           description: Last name of `User` being created
         password:
           type: string
-          description: Password for `User` being created; leave blank to create a virtual `User`
+          description: Password for `User` being created; leave blank to create a virtual
+            `User`
       example:
         email: joeusr@baseline.local
         first_name: Joe
@@ -3268,7 +3146,7 @@ components:
         email: joeusr@baseline.local
         first_name: Joe
         last_name: Usr
-        password: '12345'
+        password: "12345"
     ListConnectors:
       title: List connectors
       required:
@@ -3305,10 +3183,10 @@ components:
           type: string
           nullable: true
         config:
-          $ref: '#/components/schemas/Config'
+          $ref: "#/components/schemas/Config"
       example:
         id: d3f26699-cc7d-4cff-867b-2996020332bf
-        created_at: '2021-03-11T19:15:58.710+0000'
+        created_at: 2021-03-11T19:15:58.710+0000
         workgroup_id: dc767890-0bbc-4c1d-bc04-f5842330018f
         network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
         name: demoIPFS
@@ -3322,7 +3200,7 @@ components:
           role: peer
           rpc_port: 5001
           security:
-            egress: '*'
+            egress: "*"
             ingress:
               0.0.0.0/0:
                 tcp:
@@ -3333,22 +3211,6 @@ components:
     Config:
       title: Config
       type: object
-      example:
-        container: providenetwork-ipfs
-        gateway_port: 8080
-        provider_id: docker
-        region: us-east-1
-        role: peer
-        rpc_port: 5001
-        security:
-          egress: '*'
-          ingress:
-            0.0.0.0/0:
-              tcp:
-                - 5001
-                - 8080
-              udp: []
-        target_id: aws
       properties:
         container:
           type: string
@@ -3365,7 +3227,7 @@ components:
           type: integer
           format: int32
         security:
-          $ref: '#/components/schemas/Security'
+          $ref: "#/components/schemas/Security"
         target_id:
           type: string
         api_port:
@@ -3375,6 +3237,22 @@ components:
           type: string
         image:
           type: string
+      example:
+        container: providenetwork-ipfs
+        gateway_port: 8080
+        provider_id: docker
+        region: us-east-1
+        role: peer
+        rpc_port: 5001
+        security:
+          egress: "*"
+          ingress:
+            0.0.0.0/0:
+              tcp:
+                - 5001
+                - 8080
+              udp: []
+        target_id: aws
     Security:
       title: Security
       required:
@@ -3386,7 +3264,7 @@ components:
           type: string
         ingress: {}
       example:
-        egress: '*'
+        egress: "*"
         ingress:
           0.0.0.0/0:
             tcp:
@@ -3435,18 +3313,17 @@ components:
           role: peer
           container: providenetwork-ipfs
           credentials:
-            aws_access_key_id: '{{aws_access_key_id}}'
-            aws_secret_access_key: '{{aws_secret_key}}'
+            aws_access_key_id: "{{aws_access_key_id}}"
+            aws_secret_access_key: "{{aws_secret_key}}"
           image: provide/ident
           api_port: 8080
           security:
-            egress: '*'
+            egress: "*"
             ingress:
               0.0.0.0/0:
                 tcp:
                   - 8080
                 udp: []
-      description: ''
       x-examples:
         example-1:
           name: Sample Connector
@@ -3459,12 +3336,12 @@ components:
             role: peer
             container: providenetwork-ipfs
             credentials:
-              aws_access_key_id: '{{aws_access_key_id}}'
-              aws_secret_access_key: '{{aws_secret_key}}'
+              aws_access_key_id: "{{aws_access_key_id}}"
+              aws_secret_access_key: "{{aws_secret_key}}"
             image: provide/ident
             api_port: 8080
             security:
-              egress: '*'
+              egress: "*"
               ingress:
                 0.0.0.0/0:
                   tcp:
@@ -3484,41 +3361,21 @@ components:
           type: string
           format: password
       example:
-        aws_access_key_id: '{{aws_access_key_id}}'
-        aws_secret_access_key: '{{aws_secret_key}}'
+        aws_access_key_id: "{{aws_access_key_id}}"
+        aws_secret_access_key: "{{aws_secret_key}}"
     Connector:
       title: Connector
+      required:
+        - name
+        - network_id
+        - type
       type: object
-      example:
-        id: dfec9cb2-e655-4d6d-b4fe-35fb6c6af7a0
-        created_at: '2021-04-16T15:05:23.107Z'
-        workgroup_id: dc767890-0bbc-4c1d-bc04-f5842330018f
-        network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
-        name: Sample Connector
-        type: provide
-        status: provisioning
-        config:
-          api_port: 8080
-          api_url: |
-            'https://ceeb3bca-3b92-44b9-8ac5-fdd4564-717022042.us-east-2.elb.amazonaws.com:8080'
-          container: providenetwork-ipfs
-          image: provide/ident
-          provider_id: docker
-          region: us-east-2
-          role: peer
-          security:
-            egress: '*'
-            ingress:
-              0.0.0.0/0:
-                tcp:
-                  - 8080
-                udp: []
-          target_id: aws
       properties:
         id:
           type: string
+          description: Identifier for the referenced `Connector`. Expressed as a UUID as
+            specified by RFC4122.
           format: uuid
-          description: Identifier for the referenced `Connector`. Expressed as a UUID as specified by RFC4122.
           readOnly: true
         created_at:
           type: string
@@ -3527,24 +3384,23 @@ components:
           readOnly: true
         workgroup_id:
           type: string
-          format: uuid
           description: UUID of connected `Workgroup`
+          format: uuid
           readOnly: true
         network_id:
           type: string
-          format: uuid
           description: UUID of host `Network`
+          format: uuid
         organization_id:
           type: string
-          format: uuid
           description: UUID of connected `Organization`
+          format: uuid
           nullable: true
         name:
           type: string
           description: User-defined name of `Connector`
         type:
           type: string
-          description: ''
         status:
           type: string
           readOnly: true
@@ -3552,12 +3408,33 @@ components:
           type: string
           description: User-defined descriptor of the reference `Connector`
           nullable: true
-        '':
-          $ref: '#/components/schemas/Config'
-      required:
-        - network_id
-        - name
-        - type
+        "":
+          $ref: "#/components/schemas/Config"
+      example:
+        id: dfec9cb2-e655-4d6d-b4fe-35fb6c6af7a0
+        created_at: 2021-04-16T15:05:23.107Z
+        workgroup_id: dc767890-0bbc-4c1d-bc04-f5842330018f
+        network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
+        name: Sample Connector
+        type: provide
+        status: provisioning
+        config:
+          api_port: 8080
+          api_url: >
+            'https://ceeb3bca-3b92-44b9-8ac5-fdd4564-717022042.us-east-2.elb.amazonaws.com:8080'
+          container: providenetwork-ipfs
+          image: provide/ident
+          provider_id: docker
+          region: us-east-2
+          role: peer
+          security:
+            egress: "*"
+            ingress:
+              0.0.0.0/0:
+                tcp:
+                  - 8080
+                udp: []
+          target_id: aws
     GetLoadBalancerDetail:
       title: Get load balancer detail
       type: object
@@ -3590,7 +3467,7 @@ components:
           type: string
       example:
         id: 64d209eb-a09d-4e2c-939e-4985a8aba70a
-        created_at: '2021-04-16T15:05:23.130Z'
+        created_at: 2021-04-16T15:05:23.130Z
         network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
         workgroup_id: dc767890-0bbc-4c1d-bc04-f5842330018f
         name: ceeb3bca-3b92-44b9-8ac5-fdd4564
@@ -3609,13 +3486,14 @@ components:
           region: us-east-2
           role: peer
           security:
-            egress: '*'
+            egress: "*"
             ingress:
               0.0.0.0/0:
                 tcp:
                   - 8080
                 udp: []
-          target_balancer_id: '''arn:aws:elasticloadbalancing:us-east-2:192663109025:loadbalancer/app/ceeb3bca-3b92-44b9-8ac5-fdd4564/8340a112fd942e75'''
+          target_balancer_id: "'arn:aws:elasticloadbalancing:us-east-2:192663109025:loadb\
+            alancer/app/ceeb3bca-3b92-44b9-8ac5-fdd4564/8340a112fd942e75'"
           target_id: aws
           target_security_group_ids:
             - sg-009a2c35c02c1ddc0
@@ -3651,7 +3529,7 @@ components:
           type: string
       example:
         id: 5d38bb6c-3700-4774-baa5-7814ac4a91e3
-        created_at: '2021-03-11T19:14:21.209Z'
+        created_at: 2021-03-11T19:14:21.209Z
         workgroup_id: dc767890-0bbc-4c1d-bc04-f5842330018f
         name: demo network
         chain_id: 1615490061
@@ -3681,7 +3559,7 @@ components:
           format: int64
       example:
         block: 10051293
-        chain_id: '3'
+        chain_id: "3"
         last_block_at: 1618585516000
         meta:
           average_blocktime: 16.857142857142858
@@ -3794,7 +3672,7 @@ components:
           description: Name of `Network` to be created
         cloneable:
           type: boolean
-          description: 'If `true`, `Network` can be cloned'
+          description: If `true`, `Network` can be cloned
         config: {}
       example:
         name: Sample Testnet
@@ -3817,7 +3695,7 @@ components:
             alloc: {}
             coinbase: 0
             difficulty: 131072
-            extraData: ''
+            extraData: ""
             gasLimit: 3141592
             nonce: 66
             mixhash: 0
@@ -3869,7 +3747,7 @@ components:
         alloc: {}
         coinbase: 0
         difficulty: 131072
-        extraData: ''
+        extraData: ""
         gasLimit: 3141592
         nonce: 66
         mixhash: 0
@@ -3906,7 +3784,7 @@ components:
         config: {}
       example:
         id: 2461556c-25ab-4c49-80e7-8d4733e0231b
-        created_at: '2021-04-16T15:07:01.962+0000'
+        created_at: 2021-04-16T15:07:01.962+0000
         workgroup_id: dc767890-0bbc-4c1d-bc04-f5842330018f
         name: Sample Testnet
         enabled: true
@@ -3925,7 +3803,7 @@ components:
               homesteadBlock: 0
               petersburgBlock: 0
             difficulty: 131072
-            extraData: ''
+            extraData: ""
             gasLimit: 3141592
             mixhash: 0
             nonce: 66
@@ -3937,44 +3815,21 @@ components:
           platform: evm
           protocol_id: pow
     CreateAccountRequest:
-      $ref: '#/components/schemas/Account'
+      $ref: "#/components/schemas/Account"
     Account:
       title: Account
       type: object
-      example:
-        id: 30ff7e74-b870-449e-b41d-e508487f7faf
-        created_at: '2021-04-16T15:09:37.072Z'
-        network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
-        user_id: 7c8fe6f1-38c3-4da1-b4b7-7591c6d0ca7c
-        vault_id: 190822c9-62f5-4caf-a419-df735a793b2f
-        key_id: cb8e5646-8968-4b10-ab5f-b3aea233a11c
-        public_key: 0x055c95n123456f3216eaeba7d165a1ff1287d04b90d0c8be02fb1e18d26406484a52a5b0dcf49498ae09e0d097024124fc2849655c344edf62bdb8478f2d9a8bcb
-        address: '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'
-      description: Example `Account`
-      x-examples:
-        example-1:
-          value:
-            id: 30ff7e74-b870-449e-b41d-e508487f7faf
-            created_at: '2021-04-16T15:09:37.072Z'
-            network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
-            user_id: 7c8fe6f1-38c3-4da1-b4b7-7591c6d0ca7c
-            vault_id: 190822c9-62f5-4caf-a419-df735a793b2f
-            key_id: cb8e5646-8968-4b10-ab5f-b3aea233a11c
-            public_key: 0x055c95n123456f3216eaeba7d165a1ff1287d04b90d0c8be02fb1e18d26406484a52a5b0dcf49498ae09e0d097024124fc2849655c344edf62bdb8478f2d9a8bcb
-            address: '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'
       properties:
         id:
           type: string
           format: uuid
-          description: Identifier for the referenced `Account`. Expressed as a UUID as specified by RFC4122.
-          example: 79e02922-0053-4749-8c98-2d4f293e71d5
           readOnly: true
         created_at:
           type: string
           description: Timestamp of `Account` creation
           format: date-time
-          example: '2021-05-25T04:40:45.173333Z'
           readOnly: true
+          example: 2021-05-25T04:40:45.173Z
         network_id:
           type: string
           description: ID of host `Network`
@@ -3983,85 +3838,92 @@ components:
         user_id:
           type: string
           description: ID of `User` that created the `Account`
-          example: 7c8fe6f1-38c3-4da1-b4b7-7591c6d0ca7c
           format: uuid
           readOnly: true
+          example: 93f546ef-641e-4f5f-817f-b9708d440ce3
         vault_id:
           type: string
           description: ID of the `Vault` that houses `Account` key
           format: uuid
-          example: 190822c9-62f5-4caf-a419-df735a793b2f
           readOnly: true
+          example: 224eeb72-c4e8-4f07-a1d5-d42a2c2d2aac
         key_id:
           type: string
           description: ID of the `Key` used to sign the `Account`
           format: uuid
-          example: c53f0a88-898b-4e80-a846-9ea8c9748263
           readOnly: true
+          example: b557019c-063c-4f5b-8d8c-ef07b008bca1
         public_key:
           type: string
           description: Public key of the `Account`
-          example: '0x0499d7a24f111c0e54050b0c26af485effe0fcf2b5c4dca2872846f2ffd20da94f83195ff62af17990ad9d6c5a10bc4b6fa72b3f564a88a50e2314f8a8c1c26ec4'
           readOnly: true
+          example: 0x055c95n123456f3216eaeba7d165a1ff1287d04b90d0c8be02fb1e18d26406484a52a5b0dcf49498ae09e0d097024124fc2849655c344edf62bdb8478f2d9a8bcb
         address:
           type: string
           description: Address of the `Account`
-          example: '0x2F80683f2cf2E00254dD0B89A64Bc3bF290180a6'
           readOnly: true
+          example: '0xD3F14c012a8717FF7b5D5AC08C287de58C38D8ba'
+      description: Example `Account`
+      example:
+        id: 30ff7e74-b870-449e-b41d-e508487f7faf
+        created_at: 2021-04-16T15:09:37.072Z
+        network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
+        user_id: 7c8fe6f1-38c3-4da1-b4b7-7591c6d0ca7c
+        vault_id: 190822c9-62f5-4caf-a419-df735a793b2f
+        key_id: cb8e5646-8968-4b10-ab5f-b3aea233a11c
+        public_key: 0x055c95n123456f3216eaeba7d165a1ff1287d04b90d0c8be02fb1e18d26406484a52a5b0dcf49498ae09e0d097024124fc2849655c344edf62bdb8478f2d9a8bcb
+        address: '0xD3F14c012a8717FF7b5D5AC08C287de58C38D8ba'
     GetAccountDetails:
       title: Get Account details
       description: Returns details for the specified `Account`
-      required:
-        - id
-      type: object
-      properties:
-        schema:
-          $ref: '#/components/schemas/Account'
-        balance:
-          type: integer
-          format: int32
       example:
         id: efef1044-4958-43bc-903b-28f2bb938037
-        created_at: '2018-10-03T20:48:03.24878Z'
+        created_at: 2018-10-03T20:48:03.248Z
         application_id: e49302c5-e485-4e14-9b0f-db5643b6a15c
-        user_id: 'null'
+        user_id: "null"
         network_id: 024ff1ef-7369-4dee-969c-1918c6edb5d4
-        address: '0xAC805F1c2Bf9a19b448bc207075B992Be29bC91a'
-        balance: '0'
-        accessed_at: '2018-10-03T20:48:37.291739Z'
+        address: '0xD3F14c012a8717FF7b5D5AC08C287de58C38D8ba'
+        balance: "0"
+        accessed_at: 2018-10-03T20:48:37.291Z
     Wallet:
       title: Wallet
-      description: hierarchical deterministic (HD) wallet in accordance with BIP44
       type: object
       properties:
         id:
           type: string
+          description: Identifier for a unique `Wallet`. Expressed as a UUID as specified
+            by RFC4122.
           format: uuid
-          description: Identifier for a unique `Wallet`. Expressed as a UUID as specified by RFC4122.
         created_at:
           type: string
           description: Date and time of `Wallet` creation. Expressed
         user_id:
           type: string
-          description: Identifier for the unique `User` that created a `Wallet`. Expressed as a UUID as specified by RFC4122.
+          description: Identifier for the unique `User` that created a `Wallet`. Expressed
+            as a UUID as specified by RFC4122.
         vault_id:
           type: string
+          description: Identifier for the unique `Vault` that created a `Wallet`.
+            Expressed as a UUID as specified by RFC4122.
           format: uuid
-          description: Identifier for the unique `Vault` that created a `Wallet`. Expressed as a UUID as specified by RFC4122.
         key_id:
           type: string
-          format: uuid
           description: ID of private key used to create `Wallet`
+          format: uuid
         purpose:
           type: integer
+          description: Purpose is a constant set to 44' (or 0x8000002C) following the
+            BIP43 recommendation. It indicates that the subtree of this node is
+            used according to this specification. Hardened derivation is used at
+            this level.
           format: int32
-          description: Purpose is a constant set to 44' (or 0x8000002C) following the BIP43 recommendation. It indicates that the subtree of this node is used according to this specification. Hardened derivation is used at this level.
         public_key:
           type: string
           description: Public signing key of `Wallet`
+      description: hierarchical deterministic (HD) wallet in accordance with BIP44
       example:
         id: bbc1195e-d131-4b2f-b1a8-1b6f34b55d3e
-        created_at: '2021-03-30T02:50:17.155Z'
+        created_at: 2021-03-30T02:50:17.155Z
         user_id: 7c8fe6f1-38c3-4da1-b4b7-7591c6d0ca7c
         vault_id: 190822c9-62f5-4caf-a419-df735a793b2f
         key_id: db9e6e21-23b0-497d-a02c-8a8813f8bf2d
@@ -4126,7 +3988,7 @@ components:
         userinfo_endpoint:
           type: string
       example:
-        authorization_endpoint: 'https://ident.provide.services/api/v1/oauth/authorize'
+        authorization_endpoint: https://ident.provide.services/api/v1/oauth/authorize
         claims_supported:
           - acr
           - aud
@@ -4140,16 +4002,14 @@ components:
           - prvd
           - sub
         cloud_instance_name: provide.services
-        device_authorization_endpoint: 'https://ident.provide.services/api/v1/oauth/devicecode'
-        end_session_endpoint: null
+        device_authorization_endpoint: https://ident.provide.services/api/v1/oauth/devicecode
         frontchannel_logout_supported: false
         http_logout_supported: false
         id_token_signing_alg_values_supported:
           - EdDSA
           - RS256
-        issuer: 'https://ident.provide.services'
-        jwks_uri: 'https://ident.provide.services/.well-known/keys'
-        rbac_url: null
+        issuer: https://ident.provide.services
+        jwks_uri: https://ident.provide.services/.well-known/keys
         request_uri_parameter_supported: false
         response_modes_supported:
           - query
@@ -4167,22 +4027,88 @@ components:
           - profile
         subject_types_supported:
           - pairwise
-        tenant_region_scope: null
-        token_endpoint: 'https://ident.provide.services/api/v1/tokens'
+        token_endpoint: https://ident.provide.services/api/v1/tokens
         token_endpoint_auth_methods_supported:
           - client_secret_post
           - private_key_jwt
           - client_secret_basic
-        userinfo_endpoint: 'https://ident.provide.services/api/v1/userinfo'
+        userinfo_endpoint: https://ident.provide.services/api/v1/userinfo
     Workgroup:
-      description: |-
-        A `Workgroup` represents a logical collection of resourcess provisioned within the baseline containerized microservices architecture. An `Workgroup` is immutably configured upon initialization with support for a primary 'Network'.
-        Access to programmatically manage resources associated with an `Workgroup` is provided via REST API, to which ACL-based authorization is managed using generic permissions.
+      required:
+        - created_at
+        - id
+        - network_id
+        - type
+        - user_id
       type: object
+      properties:
+        id:
+          maxLength: 36
+          minLength: 1
+          pattern: "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[\
+            0-9a-fA-F]{12}"
+          type: string
+          description: Identifier for the `Workgroup`. Expressed as a UUID as specified by
+            RFC4122.
+          format: uuid
+          readOnly: true
+          example: bdf94fc0-63ad-4ee9-ac75-7eb63365d0f6
+        created_at:
+          minLength: 1
+          type: string
+          description: Date and time of record creation. Expressed as a Unix timestamp.
+          format: date-time
+          readOnly: true
+          example: 2021-05-21T12:36:52.977Z
+        network_id:
+          maxLength: 36
+          minLength: 1
+          pattern: "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[\
+            0-9a-fA-F]{12}"
+          type: string
+          description: Identifier for the host `Network` of the `Workgroup`. Expressed as
+            a UUID as specified by RFC4122.
+          format: uuid
+          example: 07102258-5e49-480e-86af-6d0c3260827d
+        user_id:
+          maxLength: 36
+          minLength: 1
+          type: string
+          description: Identifier for the `User` that created the `Workgroup`. Expressed
+            as a UUID as specifed by RFC4122
+          format: uuid
+          example: 7c8fe6f1-38c3-4da1-b4b7-7591c6d0ca7c
+        name:
+          minLength: 1
+          type: string
+          description: User-defined name of the `Workgroup`
+        description:
+          type: string
+          description: User-defined `Workgroup` descriptor
+          example: Sample workgroup description
+        type:
+          minLength: 1
+          type: string
+          description: Designates `Workgroup` `type`. In a baseline `Workgroup`, will
+            always be `baseline`
+          example: baseline
+          default: baseline
+        config:
+          $ref: "#/components/schemas/Workgroup_config"
+        hidden:
+          type: boolean
+          description: When `True`, the `Workgroup` is hidden from public searches
+      description: >-
+        A `Workgroup` represents a logical collection of resourcess provisioned
+        within the baseline containerized microservices architecture. An
+        `Workgroup` is immutably configured upon initialization with support for
+        a primary 'Network'.
+
+        Access to programmatically manage resources associated with an `Workgroup` is provided via REST API, to which ACL-based authorization is managed using generic permissions.
       x-examples:
         Demo Workgroup:
           id: bdf94fc0-63ad-4ee9-ac75-7eb63365d0f6
-          created_at: '2021-05-21T12:36:52.977255Z'
+          created_at: 2021-05-21T12:36:52.977Z
           network_id: 07102258-5e49-480e-86af-6d0c3260827d
           user_id: 7c8fe6f1-38c3-4da1-b4b7-7591c6d0ca7c
           name: Demo Workgroup
@@ -4192,73 +4118,6 @@ components:
             baselined: true
             webhook_secret: 1dfd34519a06420d8a6ed18afdffe932
           hidden: false
-      title: ''
-      properties:
-        id:
-          type: string
-          minLength: 1
-          description: Identifier for the `Workgroup`. Expressed as a UUID as specified by RFC4122.
-          format: uuid
-          example: bdf94fc0-63ad-4ee9-ac75-7eb63365d0f6
-          maxLength: 36
-          pattern: '[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}'
-          readOnly: true
-        created_at:
-          type: string
-          minLength: 1
-          format: date-time
-          example: '2021-05-21T12:36:52.977255Z'
-          description: Date and time of record creation. Expressed as a Unix timestamp.
-          readOnly: true
-        network_id:
-          type: string
-          minLength: 1
-          format: uuid
-          example: 07102258-5e49-480e-86af-6d0c3260827d
-          maxLength: 36
-          pattern: '[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}'
-          description: Identifier for the host `Network` of the `Workgroup`. Expressed as a UUID as specified by RFC4122.
-        user_id:
-          type: string
-          minLength: 1
-          format: uuid
-          example: 7c8fe6f1-38c3-4da1-b4b7-7591c6d0ca7c
-          maxLength: 36
-          description: Identifier for the `User` that created the `Workgroup`. Expressed as a UUID as specifed by RFC4122
-        name:
-          type: string
-          minLength: 1
-          description: User-defined name of the `Workgroup`
-        description:
-          type: string
-          example: Sample workgroup description
-          description: User-defined `Workgroup` descriptor
-        type:
-          type: string
-          minLength: 1
-          example: baseline
-          default: baseline
-          description: 'Designates `Workgroup` `type`. In a baseline `Workgroup`, will always be `baseline`'
-        config:
-          type: object
-          description: Configuration object intended for use by integrated services.
-          properties:
-            baselined:
-              type: boolean
-            webhook_secret:
-              type: string
-              minLength: 1
-            network_id:
-              type: string
-        hidden:
-          type: boolean
-          description: 'When `True`, the `Workgroup` is hidden from public searches'
-      required:
-        - id
-        - created_at
-        - network_id
-        - user_id
-        - type
     CreateWalletRequest:
       title: Create wallet request
       required:
@@ -4267,7 +4126,8 @@ components:
       properties:
         purpose:
           type: integer
-          description: 'specification to be used by the HD node subtree; set to 44 for 44'' (i.e., 0x8000002C following the BIP43 recommendation)'
+          description: specification to be used by the HD node subtree; set to 44 for 44'
+            (i.e., 0x8000002C following the BIP43 recommendation)
           format: int32
       example:
         purpose: 44
@@ -4291,7 +4151,7 @@ components:
           type: string
           nullable: true
       example:
-        address: 4.559332111931215e+47
+        address: '0xD3F14c012a8717FF7b5D5AC08C287de58C38D8ba'
         hd_derivation_path: m/44'/60'/0'/0/0'
     GetTransactionDetails:
       title: Get transaction details
@@ -4343,7 +4203,7 @@ components:
           type: string
           nullable: true
         traces:
-          $ref: '#/components/schemas/Traces'
+          $ref: "#/components/schemas/Traces"
         block:
           type: integer
           format: int32
@@ -4353,7 +4213,7 @@ components:
           type: string
       example:
         id: e8b83f1b-8316-4899-a14a-0b17beb7a898
-        created_at: '2021-03-11T21:11:28.295+0000'
+        created_at: 2021-03-11T21:11:28.295+0000
         network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
         user_id: 7c8fe6f1-38c3-4da1-b4b7-7591c6d0ca7c
         account_id: 8a1f4492-9a73-4e3d-bafe-6a3794b1320e
@@ -4362,9 +4222,9 @@ components:
         hash: 698465416514684984piouhygiuytfruytdcghbkjhbvjyhdc
         status: success
         traces: {}
-        block: '9818685'
-        block_timestamp: '2021-03-11T21:11:35.000+0000'
-        finalized_at: '2021-03-11T21:12:06.354+0000'
+        block: "9818685"
+        block_timestamp: 2021-03-11T21:11:35.000+0000
+        finalized_at: 2021-03-11T21:12:06.354+0000
     Traces:
       title: Traces
       required:
@@ -4377,27 +4237,24 @@ components:
       example: {}
     User:
       title: User
-      type: object
       required:
-        - id
-        - created_at
-        - name
+        - email
         - first_name
         - last_name
-        - email
-        - permissions
-        - privacy_policy_agreed_at
-        - terms_of_service_agreed_at
+      type: object
       properties:
         id:
           type: string
-          description: Identifier for the reference `User`. Expressed as a UUID as specified by RFC4122
+          description: Identifier for the reference `User`. Expressed as a UUID as
+            specified by RFC4122
+          readOnly: true
           example: 7r19e831-43fd-237e-8b43-12af828ba3e3
         created_at:
-          type: string
           pattern: date-time
+          type: string
           description: Date and time of `User` creation
-          example: '2021-01-27T03:19:33.349740295Z'
+          readOnly: true
+          example: 2021-01-27T03:19:33.349Z
         name:
           type: string
           description: Full name of `User`
@@ -4417,27 +4274,30 @@ components:
         permissions:
           type: integer
           description: Authorized privileges for `User`
-          example: '415'
+          readOnly: true
+          example: 415
         privacy_policy_agreed_at:
-          type: string
           pattern: date-time
+          type: string
           description: Date and time of acceptance of the privacy policy
-          example: '2021-01-27T03:19:33.349740295Z'
+          readOnly: true
+          example: 2021-01-27T03:19:33.349Z
         terms_of_service_agreed_at:
-          type: string
           pattern: date-time
+          type: string
           description: Date and time of acceptance of the terms of service
-          example: '2021-01-27T03:19:33.349740295Z'
+          readOnly: true
+          example: 2021-01-27T03:19:33.349Z
       example:
         id: 7r19e831-43fd-237e-8b43-12af828ba3e3
-        created_at: '2021-01-27T03:19:33.349740295Z'
+        created_at: 2021-01-27T03:19:33.349Z
         name: Joe User
         first_name: Joe
         last_name: User
         email: joeusr@baseline.local
-        permissions: '415'
-        privacy_policy_agreed_at: '2021-01-27T03:19:33.349740295Z'
-        terms_of_service_agreed_at: '2021-01-27T03:19:33.349740295Z'
+        permissions: "415"
+        privacy_policy_agreed_at: 2021-01-27T03:19:33.349Z
+        terms_of_service_agreed_at: 2021-01-27T03:19:33.349Z
     CreateTransactionRequest:
       title: Create transaction request
       required:
@@ -4454,15 +4314,19 @@ components:
           description: id of the 'Network' on which the Transaction will be broadcast
         key_id:
           type: string
+          description: UUID of the Vault Key which will be used to sign the `Transaction`;
+            required in the absence of a `signer`. UUID as specified by RFC4122
           format: uuid
-          description: UUID of the Vault Key which will be used to sign the `Transaction`; required in the absence of a `signer`. UUID as specified by RFC4122
         to:
           type: string
-          description: 'public network address of the recipient of the Transaction, if applicable'
+          description: public network address of the recipient of the Transaction, if
+            applicable
         value:
           type: integer
+          description: "total amount of value, represented in the smallest standard
+            denomination of native currency for the target Network (i.e., wei),
+            to be transferred by the sender to the recipient "
           format: int32d
-          description: 'total amount of value, represented in the smallest standard denomination of native currency for the target Network (i.e., wei), to be transferred by the sender to the recipient '
         account_id:
           type: string
           description: ID of `Account` to be used for `Transaction` creation
@@ -4470,11 +4334,11 @@ components:
           type: string
           description: ID of `Wallet` to be used to sign `Transaction`
       example:
-        network_id: '{{network_id}}'
-        key_id: '{{key_id}}'
-        to: '{{user_id}}'
+        network_id: "{{network_id}}"
+        key_id: "{{key_id}}"
+        to: "{{user_id}}"
         value: 0
-        account_id: '{{account_id}}'
+        account_id: "{{account_id}}"
     CreateTransaction:
       title: Create transaction
       required:
@@ -4519,7 +4383,7 @@ components:
           type: string
       example:
         id: 10c6e92d-56f8-4af6-959f-a30286fc166a
-        created_at: '2021-04-16T15:20:00.285Z'
+        created_at: 2021-04-16T15:20:00.285Z
         network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
         user_id: 7c8fe6f1-38c3-4da1-b4b7-7591c6d0ca7c
         account_id: 8a1f4492-9a73-4e3d-bafe-6a3794b1320e
@@ -4527,9 +4391,9 @@ components:
         value: 0
         hash: 698465416514684984piouhygiuytfruytdcghbkjhbvjyhdc
         status: pending
-        broadcast_at: '2021-04-16T15:20:00.537Z'
+        broadcast_at: 2021-04-16T15:20:00.537Z
     ListContracts:
-      title: List contracts
+      title: List `Contract` instances
       type: object
       properties:
         id:
@@ -4563,14 +4427,14 @@ components:
           type: string
       example:
         id: 84a91108-70db-43c5-9f2f-e1655b9e0b03
-        created_at: '2021-02-27T14:26:06.864Z'
+        created_at: 2021-02-27T14:26:06.864Z
         workgroup_id: dc767890-0bbc-4c1d-bc04-f5842330018f
         network_id: 07102258-5e49-480e-86af-6d0c3260827d
         transaction_id: 4c388cca-f11c-4818-96a0-e8ad0b30553d
         name: Shuttle
-        address: 0x
+        address: '0xD3F14c012a8717FF7b5D5AC08C287de58C38D8ba'
         type: registry
-        accessed_at: '2021-02-28T00:41:44.506+0000'
+        accessed_at: 2021-02-28T00:41:44.506+0000
         pubsub_prefix: 57478604c134ef20b94dff84e52c0fd562ddae56cd50431339766819a7523d09
     DeployContractRequest:
       title: Deploy contract request
@@ -4578,7 +4442,6 @@ components:
         - address
         - name
         - network_id
-        - params
         - workgroup_id
       type: object
       properties:
@@ -4595,12 +4458,12 @@ components:
           type: string
           description: Address
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: "#/components/schemas/Params"
       example:
         workgroup_id: dc767890-0bbc-4c1d-bc04-f5842330018f
         network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
         name: Ekho
-        address: 0x
+        address: '0xD3F14c012a8717FF7b5D5AC08C287de58C38D8ba'
         params:
           account_id: 30ff7e74-b870-449e-b41d-e508487f7faf
           compiled_artifact:
@@ -4641,7 +4504,7 @@ components:
           type: string
           description: ID of target `Account`
         compiled_artifact:
-          $ref: '#/components/schemas/CompiledArtifact'
+          $ref: "#/components/schemas/CompiledArtifact"
       example:
         account_id: df83bcbb-ff5b-4c4c-b1f5-8ca6a61fe460
         Compiled_Artifact:
@@ -4745,7 +4608,7 @@ components:
           type: string
           nullable: true
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: "#/components/schemas/Params"
         accessed_at:
           type: string
           nullable: true
@@ -4753,11 +4616,11 @@ components:
           type: string
       example:
         id: 3956687d-154f-4a86-a6f8-43b39a8bd58e
-        created_at: '2021-04-16T15:20:35.143+0000'
+        created_at: 2021-04-16T15:20:35.143+0000
         workgroup_id: dc767890-0bbc-4c1d-bc04-f5842330018f
         network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
         name: Ekho
-        address: 0x
+        address: '0xD3F14c012a8717FF7b5D5AC08C287de58C38D8ba'
         params:
           account_id: 8a1f4492-9a73-4e3d-bafe-6a3794b1320e
           compiled_artifact:
@@ -4867,19 +4730,19 @@ components:
           type: string
           nullable: true
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: "#/components/schemas/Params"
         accessed_at:
           type: string
         pubsub_prefix:
           type: string
       example:
         id: b1843afa-2c7d-42d6-a4e0-8670e9af8dde
-        created_at: '2021-03-12T03:46:48.025+0000'
+        created_at: 2021-03-12T03:46:48.025+0000
         workgroup_id: dc767890-0bbc-4c1d-bc04-f5842330018f
         network_id: 66d44f30-9092-4182-a3c4-bc02736d6ae5
         transaction_id: 4eb74b2d-04d7-4079-96ac-390d28660672
         name: Ekho
-        address: ''
+        address: '0xD3F14c012a8717FF7b5D5AC08C287de58C38D8ba'
         params:
           account_id: 8a1f4492-9a73-4e3d-bafe-6a3794b1320e
           compiled_artifact:
@@ -4909,7 +4772,7 @@ components:
                       emit Ekho(message);
                   }
               }
-        accessed_at: '2021-03-12T05:28:24.539+0000'
+        accessed_at: 2021-03-12T05:28:24.539+0000
         pubsub_prefix: 377b5d1c6403a07ae083767a824140b3219246d1e377d3ad7dd63d84ed4fd3ac
     ExecuteContractRequest:
       title: Execute contract request
@@ -4966,7 +4829,7 @@ components:
           type: string
       example:
         type: purchase_order
-        id: '4500002427'
+        id: "4500002427"
         payload:
           hello: world
     UpdateBaselinedBusinessObjectRequest:
@@ -4986,7 +4849,7 @@ components:
         payload: {}
       example:
         type: purchase_order
-        id: '4500002427'
+        id: "4500002427"
     CreateAsymmetricKeyRequest:
       title: Create Asymmetric Key Request
       required:
@@ -5028,7 +4891,7 @@ components:
         type: asymmetric
         usage: sign/verify
         spec: C25519
-        name: 'c25519 key #1'
+        name: "c25519 key #1"
         description: c25519 key
     CreateAsymmetricKey:
       title: Create Asymmetric Key
@@ -5074,14 +4937,14 @@ components:
           type: string
       example:
         id: a54effe3-ee74-4f3f-902e-b8825e1d571c
-        created_at: '2021-04-17T20:55:48.341+0000'
+        created_at: 2021-04-17T20:55:48.341+0000
         vault_id: a'e3c07d9-8a41-4cd3-92c0-e6358cbd516c'
         type: asymmetric
         usage: sign/verify
         spec: C25519
-        name: 'c25519 key #1'
+        name: "c25519 key #1"
         description: c25519 key
-        public_key: ''
+        public_key: "0x055c95n123456f3216eaeba7d165a1ff1287d04b90d0c8be02fb1e18d26406484a52a5b0dcf49498ae09e0d097024124fc2849655c344edf62bdb8478f2d9a8bcb"
     CreateSymmetricKeyRequest:
       title: Create Symmetric Key Request
       required:
@@ -5118,7 +4981,7 @@ components:
         type: symmetric
         usage: encrypt/decrypt
         spec: ChaCha20
-        name: 'ChaCha20 key #1'
+        name: "ChaCha20 key #1"
     CreateSymmetricKey:
       title: Create Symmetric Key
       required:
@@ -5153,14 +5016,14 @@ components:
           type: string
       example:
         id: 6e235b0d-654f-472a-ac94-135d7c745345
-        created_at: '2021-04-17T20:55:54.029+0000'
+        created_at: 2021-04-17T20:55:54.029+0000
         vault_id: ae3c07d9-8a41-4cd3-92c0-e6358cbd516c
         type: asymmetric
         usage: sign/verify
         spec: babyJubJub
-        name: 'babyjubjub key #1'
+        name: "babyjubjub key #1"
         description: babyjubjub key
-        public_key: ''
+        public_key: "0x055c95n123456f3216eaeba7d165a1ff1287d04b90d0c8be02fb1e18d26406484a52a5b0dcf49498ae09e0d097024124fc2849655c344edf62bdb8478f2d9a8bcb"
     DeriveaKeyRequest:
       title: Derive a Key Request
       required:
@@ -5217,7 +5080,7 @@ components:
           type: string
       example:
         id: 02e81595-ef57-4e71-8e27-1c8b2dfdefbf
-        created_at: '2021-04-17T21:07:16.098+0000'
+        created_at: 2021-04-17T21:07:16.098+0000
         vault_id: ae3c07d9-8a41-4cd3-92c0-e6358cbd516c
         type: symmetric
         usage: encrypt/decrypt
@@ -5280,7 +5143,7 @@ components:
           type: string
       example:
         id: 4133ad1e-05ee-400a-9def-f1b99912976b
-        created_at: '2021-04-17T20:30:50.762+0000'
+        created_at: 2021-04-17T20:30:50.762+0000
         vault_id: ae3c07d9-8a41-4cd3-92c0-e6358cbd516c
         type: symmetric
         usage: encrypt/decrypt
@@ -5305,10 +5168,10 @@ components:
         value:
           type: string
       example:
-        name: 'secret #1'
+        name: "secret #1"
         type: sample secret
         description: this secret is being stored for demonstration purposes
-        value: 'mysecret :D'
+        value: mysecret :D
     StoreSecret:
       title: StoreSecret
       required:
@@ -5334,10 +5197,10 @@ components:
           type: string
       example:
         id: 130efb67-e742-4f10-8270-8609d030baec
-        created_at: '2021-04-17T20:35:34.062+0000'
+        created_at: 2021-04-17T20:35:34.062+0000
         vault_id: ae3c07d9-8a41-4cd3-92c0-e6358cbd516c
         type: sample secret
-        name: 'secret #1'
+        name: "secret #1"
         description: this secret is being stored for demonstration purposes
     RetrieveSecret:
       title: Retrievesecret
@@ -5367,12 +5230,12 @@ components:
           type: string
       example:
         id: 5d86a503-dcc3-48ee-9c15-9943f211b0d1
-        created_at: '2021-04-17T20:54:38.468+0000'
+        created_at: 2021-04-17T20:54:38.468+0000
         vault_id: ae3c07d9-8a41-4cd3-92c0-e6358cbd516c
         type: sample secret
-        name: 'secret #1'
+        name: "secret #1"
         description: this secret is being stored for demonstration purposes
-        value: 'mysecret :D'
+        value: mysecret :D
     DeleteSecretRequest:
       title: Delete a Secret Request
       required:
@@ -5429,7 +5292,7 @@ components:
           type: string
       example:
         id: 5933aef0-d48a-4675-99a0-8727182fbc14
-        created_at: '2021-04-17T20:42:40.391682519Z'
+        created_at: 2021-04-17T20:42:40.391Z
         name: Test Vault
         description: Organizational keystore
     ListVault:
@@ -5452,44 +5315,23 @@ components:
           nullable: true
       example:
         id: db03b170-7802-4687-b1b9-4459f49f6df6
-        created_at: '2020-12-18T04:29:24.909+0000'
+        created_at: 2020-12-18T04:29:24.909+0000
         name: Vault one
         description: Organizational keystore
     ListWellKnownKeys:
       title: List JSON Web Key Sets (JWKs)
+      required:
+        - e
+        - fingerprint
+        - kid
+        - 'n'
+        - public_key
       type: object
-      example:
-        kid: 'c5:eb:8d:59:44:38:63:06:c9:d3:e4:97:08:fb:68:9c'
-        'n': '995527063618956193410833036962507246986474398054602179908260487445806246489215766039251752652683534248392227323379449531373094174748653054997706465668689972252213093587018180990218764975713772974100211316813863025129179630019623482456703746731298216105196239902672165546333004057492239784978826286556220816776336241042696753088894672303989781706643733233579846968753349402992192452275172979617296256431304053528963070154587755597334718471566532697695566806848739816890462413410326248045976990042651171835110004317895064969114765347902086739148556954319383964003317643357488047800335770372072590234276602697951534723513814120780494254368686116204741180163099781052651805841038832515887268451518717672650541960189952548208271063651390926536783230127645827697776323106258247121628807721231425504345976051589179188919820510476741228874102006646132604055010539746291533048142740994895058566847763900593989114102754149269150841200709200458437074129362211966398371438300510481258132560736028943646699639829561555724431474507308017460343637655844991892817988961745641951250027197531503911248482778035085865533953601104790476037915508823689020619850341247576271568925023930116394277127637893466936882893442420321634189068402675796649097631203'
-        e: 10001
-        fingerprint: 'e6:f7:d5:24:e2:59:06:2b:bc:a2:8c:35:9d:ca:0a:87'
-        public_key: .inf
-      x-examples:
-        Well-known keys:
-          kid: 'c5:eb:8d:59:44:38:63:06:c9:d3:e4:97:08:fb:68:9c'
-          'n': '995527063618956193410833036962507246986474398054602179908260487445806246489215766039251752652683534248392227323379449531373094174748653054997706465668689972252213093587018180990218764975713772974100211316813863025129179630019623482456703746731298216105196239902672165546333004057492239784978826286556220816776336241042696753088894672303989781706643733233579846968753349402992192452275172979617296256431304053528963070154587755597334718471566532697695566806848739816890462413410326248045976990042651171835110004317895064969114765347902086739148556954319383964003317643357488047800335770372072590234276602697951534723513814120780494254368686116204741180163099781052651805841038832515887268451518717672650541960189952548208271063651390926536783230127645827697776323106258247121628807721231425504345976051589179188919820510476741228874102006646132604055010539746291533048142740994895058566847763900593989114102754149269150841200709200458437074129362211966398371438300510481258132560736028943646699639829561555724431474507308017460343637655844991892817988961745641951250027197531503911248482778035085865533953601104790476037915508823689020619850341247576271568925023930116394277127637893466936882893442420321634189068402675796649097631203'
-          e: 10001
-          fingerprint: 'e6:f7:d5:24:e2:59:06:2b:bc:a2:8c:35:9d:ca:0a:87'
-          public_key: |
-            -----BEGIN PUBLIC KEY-----
-            MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA9AXkmbTnpXP5FhWEseGx
-            Z6xJV0ge824eZ597IMYjk7/YLqFz2sBha6B59/PD1iO6ZPFUbeSTJcVetsdGUgj5
-            aqsWOqQLNdhNkHCtXKs8h/2YwbB5AWSC5Kwbh2v6mAH//m2Tg/TKRvzXxqu3n3Wq
-            jUzKOs6fco4LHTmFWbIyF1R6Xz6+9bSut0+kyXVXk2un0c+CkLSAV/khX/lLV8X1
-            VjY8IMeLcys+U0lbcPs1I1ADct0YUFhmyVBeOQ/AEY8QbktepYH2YxtRBZ8xQBo3
-            LtJfsKhFmeJEE3TKMPt/a4B4jeYGq5weQ9dFbriT/hgJOH2QWpnz3hBdo2kEZCKy
-            S/HrPdiyoUl0ID6kD2ewjo6eqNVnW0F1G5lSGyWB3bpP7N1cbH0hqZG1DTHB8t5s
-            2ZDnEKGqOCAZYJecumnsCd4W9JW5WB2HdyIsViEt22ItaEU0UBNCylykjHyQB2Mm
-            NL2KpUhyJisdUMRvjOLZ4Lt4h2we6wEd4Euczi638IcNa3PSXjOXWzQ4872DhTpn
-            URjLCniUvVUp1h/MyuhbDu2b7m2n/UgVDdFGGKd2/l+q7V/hekzhWPhyIfHxcolS
-            ya+2uVuTkg1bjtrrq/JF5xEDqDVuBLMEEa7WmYjmKQHLRAHNfZrTwKzdufqUJpFq
-            COW4VfKtvWpic+pvrXRlFeMCAwEAAQ==
-            -----END PUBLIC KEY-----
       properties:
         kid:
           type: string
           description: The unique identifier for the key.
-        'n':
+        n:
           type: string
           description: The modulus for the RSA public key.
         e:
@@ -5499,12 +5341,29 @@ components:
           type: string
         public_key:
           type: string
-      required:
-        - kid
-        - 'n'
-        - e
-        - fingerprint
-        - public_key
+      example:
+        kid: c5:eb:8d:59:44:38:63:06:c9:d3:e4:97:08:fb:68:9c
+        n: "995527063618956193410833036962507246986474398054602179908260487445806246489\
+          215766039251752652683534248392227323379449531373094174748653054997706\
+          465668689972252213093587018180990218764975713772974100211316813863025\
+          129179630019623482456703746731298216105196239902672165546333004057492\
+          239784978826286556220816776336241042696753088894672303989781706643733\
+          233579846968753349402992192452275172979617296256431304053528963070154\
+          587755597334718471566532697695566806848739816890462413410326248045976\
+          990042651171835110004317895064969114765347902086739148556954319383964\
+          003317643357488047800335770372072590234276602697951534723513814120780\
+          494254368686116204741180163099781052651805841038832515887268451518717\
+          672650541960189952548208271063651390926536783230127645827697776323106\
+          258247121628807721231425504345976051589179188919820510476741228874102\
+          006646132604055010539746291533048142740994895058566847763900593989114\
+          102754149269150841200709200458437074129362211966398371438300510481258\
+          132560736028943646699639829561555724431474507308017460343637655844991\
+          892817988961745641951250027197531503911248482778035085865533953601104\
+          790476037915508823689020619850341247576271568925023930116394277127637\
+          893466936882893442420321634189068402675796649097631203"
+        e: 10001
+        fingerprint: e6:f7:d5:24:e2:59:06:2b:bc:a2:8c:35:9d:ca:0a:87
+        public_key: 0x055c95n123456f3216eaeba7d165a1ff1287d04b90d0c8be02fb1e18d26406484a52a5b0dcf49498ae09e0d097024124fc2849655c344edf62bdb8478f2d9a8bcb
     CreateSealorUnsealkey:
       title: Create seal/unseal key
       required:
@@ -5517,7 +5376,9 @@ components:
         validation_hash:
           type: string
       example:
-        key: quantum mirror summer general keep west promote satisfy limit butter mother oyster lazy whip earn spot ticket protect mean play script peace parent intact
+        key: quantum mirror summer general keep west promote satisfy limit butter mother
+          oyster lazy whip earn spot ticket protect mean play script peace
+          parent intact
         validation_hash: 7.513656111758505e+76
     UnsealVaultRequest:
       title: Unseal vault request
@@ -5528,14 +5389,16 @@ components:
         key:
           type: string
       example:
-        key: quantum mirror summer general keep west promote satisfy limit butter mother oyster lazy whip earn spot ticket protect mean play script peace parent intact
+        key: quantum mirror summer general keep west promote satisfy limit butter mother
+          oyster lazy whip earn spot ticket protect mean play script peace
+          parent intact
       oneOf:
-        - $ref: '#/components/schemas/CreateAsymmetricKeyRequest'
-        - $ref: '#/components/schemas/CreateSymmetricKeyRequest'
+        - $ref: "#/components/schemas/CreateAsymmetricKeyRequest"
+        - $ref: "#/components/schemas/CreateSymmetricKeyRequest"
     inline_response_201:
       oneOf:
-        - $ref: '#/components/schemas/CreateAsymmetricKey'
-        - $ref: '#/components/schemas/CreateSymmetricKey'
+        - $ref: "#/components/schemas/CreateAsymmetricKey"
+        - $ref: "#/components/schemas/CreateSymmetricKey"
     CreateCircuitRequest:
       title: CreateCircuitRequest
       required:
@@ -5592,21 +5455,21 @@ components:
       title: VerifyRequest
       required:
         - proof
-        - 'witness:'
+        - "witness:"
       type: object
       properties:
-        'witness:':
-          $ref: '#/components/schemas/Witness'
+        "witness:":
+          $ref: "#/components/schemas/Witness"
         proof:
           type: string
           description: The hex-formatted proof to verify
         store:
           type: boolean
-          description: 'when true, the proof hash is written to the configured circuit store'
+          description: when true, the proof hash is written to the configured circuit store
       example:
-        'witness:':
-          X: '3'
-          'Y': '35'
+        "witness:":
+          X: "3"
+          Y: "35"
         proof: 88b8d340795f4258c1f2c0ed8478b44859c90472af9ccdc5c54b02c85bcd879d9ddf3a3fb7c6926ea247c0b1c411abe2f5ba9c8deba60ab476428272767a761d1e14e343208024326429e361ebbc4c11daf5f16dbb7f7f4679cf85b17b59b1bdaa379a82ddab4dcbb7cd2bc32cdebadc6825c72d5f8e624f6d0f6b07906a8248
     Witness:
       title: Witness
@@ -5617,89 +5480,205 @@ components:
       properties:
         X:
           type: string
-        'Y':
+        Y:
           type: string
       description: Public and private inputs used to generate the proof
       example:
-        X: '3'
-        'Y': '35'
+        X: "3"
+        Y: "35"
     Balance:
-      title: Balance
+      type: integer
+    inline_response_422:
       type: object
       properties:
-        Balance:
-          type: integer
-          format: int32
-          example: 17.5
-          minimum: 0
-          readOnly: true
-  
+        errors:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/inline_response_422_errors"
+      readOnly: true
+      x-examples:
+        example-1:
+          errors:
+            - message: 'pq: null value in column "name" violates not-null constraint'
+    inline_response_202:
+      type: object
+      properties:
+        baseline_id:
+          type: string
+        opcode:
+          type: string
+        identifier:
+          type: string
+        type:
+          type: string
+        payload:
+          $ref: "#/components/schemas/inline_response_202_payload"
+    Authentication_user:
+      type: object
+      properties:
+        schema:
+          $ref: "#/components/schemas/User"
+    Authentication_token:
+      type: object
+      properties:
+        schema:
+          $ref: "#/components/schemas/Token"
+    Workgroup_config:
+      type: object
+      properties:
+        baselined:
+          type: boolean
+        webhook_secret:
+          minLength: 1
+          type: string
+        network_id:
+          type: string
+      description: Configuration object intended for use by integrated services.
+    inline_response_422_errors:
+      type: object
+      properties:
+        message:
+          minLength: 1
+          type: string
+    inline_response_202_payload_witness:
+      type: object
+      properties:
+        Document.Hash:
+          type: string
+        Document.PreImage:
+          type: string
+    inline_response_202_payload:
+      type: object
+      properties:
+        proof:
+          type: string
+        type:
+          type: string
+        witness:
+          $ref: "#/components/schemas/inline_response_202_payload_witness"
   responses:
     NoContent:
-      description: The request was successful but did not return a response\
+      description: The request was successful but did not return a response
     Unauthorized:
-      description: 'The request required an API Authorization header, or one was provided which could not be authenticated. Please verify that your credentials are correct and try again.'
+      description: The request required an API Authorization header, or one was
+        provided which could not be authenticated. Please verify that your
+        credentials are correct and try again.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
     Forbidden:
-      description: The supplied API Authorization header does not have permission to access the requested resource. Please verify that you have sufficient permissions and try again.
+      description: The supplied API Authorization header does not have permission to
+        access the requested resource. Please verify that you have sufficient
+        permissions and try again.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
     NotFound:
       description: The specified resource was not found
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
     InternalServerError:
       description: The request resulted in an internal error during processing.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
     ServiceUnavailable:
-      description: The request cannot be fulfiled due to temporary unavailablity of a backend service
+      description: The request cannot be fulfilled due to temporary unavailability of a
+        backend service
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
-  
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: |-
-        The presence of a `bearer` API token is required to authorize most Baseline API calls. A `bearer` API token is an encoded JWT which contains a subject claim (`sub`) which references an authorized entity (i.e., the `User`, `Application` or `Organization`). The authorized entity uses a signed `bearer` authorization Token to access one or more resources for which the Token was authorized. 
-
-
-        Unless otherwise noted, all API requests must include a header such as `Authorization: bearer <jwt>`
-    OAuth2:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: 'https://ident.provide.services/api/v1/oauth/authorize'
-          scopes:
-            email: email and password
-            offline_access: access/refresh token authorization model
-            profile: ''
-            openid: ''
-      description: |-
-        OAuth2 support. In accordance with the OAuth 2.0 specification, when an entity is authorized and the requested `scope` includes `offline_access`, a refresh token is vended and returned on behalf of the caller. This refresh token is long-lived and can be used to authorize short-lived access tokens using the `refresh_token `grant type on subsequent authorization requests.
-
-        This pattern is useful for machine-to-machine applications; a secure practice is to store the long-lived refresh token in a Vault instance (i.e., as a secret), read it into application memory during container initialization and then use it to authorize a short-lived access token. If the container remains running long enough for the access token to expire, the refresh token should once again be used to seamlessly authorize a new access token.
-  
+            $ref: "#/components/schemas/Error"
+  parameters:
+    id:
+      name: id
+      in: path
+      description: ID of the record you are acting upon.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: Limits resulting response to the page number specified
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: integer
+    resultsPerPage:
+      name: rpp
+      in: query
+      description: Sets the number of results included per page
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: integer
+    public:
+      name: public
+      in: query
+      description: When `TRUE` limits results to non-private records
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: boolean
   requestBodies:
     CreateAccountRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Account'
-    
-externalDocs:
-  description: Additional information about this API can be found here
-  url: 'https://docs.provide.services'
+            $ref: "#/components/schemas/Account"
+  headers:
+    X-Total-Results-Count:
+      style: simple
+      explode: false
+      schema:
+        type: integer
+        description: Number of results
+    X-Request-Id:
+      style: simple
+      explode: false
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: >-
+        The presence of a `bearer` API token is required to authorize most
+        Baseline API calls. A `bearer` API token is an encoded JWT which
+        contains a subject claim (`sub`) which references an authorized entity
+        (i.e., the `User`, `Application` or `Organization`). The authorized
+        entity uses a signed `bearer` authorization Token to access one or more
+        resources for which the Token was authorized. 
+        Unless otherwise noted, all API requests must include a header such as `Authorization: bearer <jwt>`
+      scheme: bearer
+      bearerFormat: JWT
+    OAuth2:
+      type: oauth2
+      description: >-
+        OAuth2 support. In accordance with the OAuth 2.0 specification, when an
+        entity is authorized and the requested `scope` includes
+        `offline_access`, a refresh token is vended and returned on behalf of
+        the caller. This refresh token is long-lived and can be used to
+        authorize short-lived access tokens using the `refresh_token `grant type
+        on subsequent authorization requests.
+        This pattern is useful for machine-to-machine applications; a secure practice is to store the long-lived refresh token in a Vault instance (i.e., as a secret), read it into application memory during container initialization and then use it to authorize a short-lived access token. If the container remains running long enough for the access token to expire, the refresh token should once again be used to seamlessly authorize a new access token.
+      flows:
+        implicit:
+          authorizationUrl: https://ident.provide.services/api/v1/oauth/authorize
+          scopes:
+            email: email and password
+            offline_access: access/refresh token authorization model
+            profile: ""
+            openid: ""
