@@ -23811,13 +23811,7 @@
 							},
 							"request": {
 								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjEwOjJlOmQ5OmUxOmI4OmEyOjM0OjM3Ojk5OjNhOjI0OmZjOmFhOmQxOmM4OjU5IiwidHlwIjoiSldUIn0.eyJhdWQiOiJodHRwczovL3Byb3ZpZGUuc2VydmljZXMvYXBpL3YxIiwiZXhwIjoxNjIxNjIwODc5LCJpYXQiOjE2MjE1MzQ0NzksImlzcyI6Imh0dHBzOi8vaWRlbnQucHJvdmlkZS5zZXJ2aWNlcyIsImp0aSI6ImQyZWM0ODNiLWI0ZjUtNGZhZC05MWYzLTdjODM0MjIyMzI5YSIsIm5hdHMiOnsicGVybWlzc2lvbnMiOnsicHVibGlzaCI6eyJhbGxvdyI6WyJiYXNlbGluZS5cdTAwM2UiXX0sInN1YnNjcmliZSI6eyJhbGxvdyI6WyJ1c2VyLmI0YjRlOGRkLTNjM2ItNGJmNi1hMmM1LWY0YjIwNWZjZDYwNSIsIm5ldHdvcmsuKi5jb25uZWN0b3IuKiIsIm5ldHdvcmsuKi5zdGF0dXMiLCJwbGF0Zm9ybS5cdTAwM2UiLCJiYXNlbGluZS5cdTAwM2UiXX19fSwicHJ2ZCI6eyJwZXJtaXNzaW9ucyI6NDE1LCJ1c2VyX2lkIjoiYjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0sInN1YiI6InVzZXI6YjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0.EAJ8Ivh0i6SXeRAhGkmviiZMDHnFh1q5qPVwh5EimU8w7DBj0l4i06KGeng4K9T2g_JaOjRmR5jDvpNtqctuEVLRVppd-XcYSHAzhbyn_mSuDGiL_Hq_oVgn3Fnda6_xC6fZ9T2g2URaTovp3gKBkNess0VUn7yPP67Ruftyw8PUES_-QqXApRwzEL1TG9cgvrIGEvhNi_Uq_CpQk32NWdAx0UgUzqxqE9G1wH3EqyaYkWQUyVOa1HuC-Jkei9fkEgbBiT0pzSKrcXahc1wuuM-IKImrdQXtL56c0vvaLyX00vDqO4tveqJRb3Rh74qAgxrHpYr5vT4E_ACcVBfyC3nStxDi3ivgVu7m-mkjEn1z4ZtnHZkAHJMapio37aGJ6uIQQYUVXz8A976ceKot9ZuT7J8gLyTFoDyz6-R71WmwsxjtlNCmHDhqt0G957CyFZZalwv-qUCHHTv6NLA1snvRN9p8vQPn09-iatnlSxH03Lj85OjWGhF1bRLJP-oyStb-vepTsHrJWab2DAtY08vUgTJq8YipBeUJGul-U_cfK6Z3a_hBMkYVLatii5Ohg_UurXawqBZhUCLjV-bO15Hqe__Lc6eg9cBE5mr4MFDZRF13cFi6K29SwWkVyobxPtgRjauf-hnKR_SmnEWAqHT9Nq11YZNbWepVr9faOQQ",
-										"type": "text"
-									}
-								],
+								"header": [],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"type\": \"dex\",\r\n    \"name\": \"test facility\",\r\n    \"description\": \"random facility\"\r\n}",
@@ -23884,13 +23878,7 @@
 							},
 							"request": {
 								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjEwOjJlOmQ5OmUxOmI4OmEyOjM0OjM3Ojk5OjNhOjI0OmZjOmFhOmQxOmM4OjU5IiwidHlwIjoiSldUIn0.eyJhdWQiOiJodHRwczovL3Byb3ZpZGUuc2VydmljZXMvYXBpL3YxIiwiZXhwIjoxNjIxNjIwODc5LCJpYXQiOjE2MjE1MzQ0NzksImlzcyI6Imh0dHBzOi8vaWRlbnQucHJvdmlkZS5zZXJ2aWNlcyIsImp0aSI6ImQyZWM0ODNiLWI0ZjUtNGZhZC05MWYzLTdjODM0MjIyMzI5YSIsIm5hdHMiOnsicGVybWlzc2lvbnMiOnsicHVibGlzaCI6eyJhbGxvdyI6WyJiYXNlbGluZS5cdTAwM2UiXX0sInN1YnNjcmliZSI6eyJhbGxvdyI6WyJ1c2VyLmI0YjRlOGRkLTNjM2ItNGJmNi1hMmM1LWY0YjIwNWZjZDYwNSIsIm5ldHdvcmsuKi5jb25uZWN0b3IuKiIsIm5ldHdvcmsuKi5zdGF0dXMiLCJwbGF0Zm9ybS5cdTAwM2UiLCJiYXNlbGluZS5cdTAwM2UiXX19fSwicHJ2ZCI6eyJwZXJtaXNzaW9ucyI6NDE1LCJ1c2VyX2lkIjoiYjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0sInN1YiI6InVzZXI6YjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0.EAJ8Ivh0i6SXeRAhGkmviiZMDHnFh1q5qPVwh5EimU8w7DBj0l4i06KGeng4K9T2g_JaOjRmR5jDvpNtqctuEVLRVppd-XcYSHAzhbyn_mSuDGiL_Hq_oVgn3Fnda6_xC6fZ9T2g2URaTovp3gKBkNess0VUn7yPP67Ruftyw8PUES_-QqXApRwzEL1TG9cgvrIGEvhNi_Uq_CpQk32NWdAx0UgUzqxqE9G1wH3EqyaYkWQUyVOa1HuC-Jkei9fkEgbBiT0pzSKrcXahc1wuuM-IKImrdQXtL56c0vvaLyX00vDqO4tveqJRb3Rh74qAgxrHpYr5vT4E_ACcVBfyC3nStxDi3ivgVu7m-mkjEn1z4ZtnHZkAHJMapio37aGJ6uIQQYUVXz8A976ceKot9ZuT7J8gLyTFoDyz6-R71WmwsxjtlNCmHDhqt0G957CyFZZalwv-qUCHHTv6NLA1snvRN9p8vQPn09-iatnlSxH03Lj85OjWGhF1bRLJP-oyStb-vepTsHrJWab2DAtY08vUgTJq8YipBeUJGul-U_cfK6Z3a_hBMkYVLatii5Ohg_UurXawqBZhUCLjV-bO15Hqe__Lc6eg9cBE5mr4MFDZRF13cFi6K29SwWkVyobxPtgRjauf-hnKR_SmnEWAqHT9Nq11YZNbWepVr9faOQQ",
-										"type": "text"
-									}
-								],
+								"header": [],
 								"body": {
 									"mode": "raw",
 									"raw": ""
@@ -23949,13 +23937,7 @@
 									]
 								},
 								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjEwOjJlOmQ5OmUxOmI4OmEyOjM0OjM3Ojk5OjNhOjI0OmZjOmFhOmQxOmM4OjU5IiwidHlwIjoiSldUIn0.eyJhdWQiOiJodHRwczovL3Byb3ZpZGUuc2VydmljZXMvYXBpL3YxIiwiZXhwIjoxNjIxNjIwODc5LCJpYXQiOjE2MjE1MzQ0NzksImlzcyI6Imh0dHBzOi8vaWRlbnQucHJvdmlkZS5zZXJ2aWNlcyIsImp0aSI6ImQyZWM0ODNiLWI0ZjUtNGZhZC05MWYzLTdjODM0MjIyMzI5YSIsIm5hdHMiOnsicGVybWlzc2lvbnMiOnsicHVibGlzaCI6eyJhbGxvdyI6WyJiYXNlbGluZS5cdTAwM2UiXX0sInN1YnNjcmliZSI6eyJhbGxvdyI6WyJ1c2VyLmI0YjRlOGRkLTNjM2ItNGJmNi1hMmM1LWY0YjIwNWZjZDYwNSIsIm5ldHdvcmsuKi5jb25uZWN0b3IuKiIsIm5ldHdvcmsuKi5zdGF0dXMiLCJwbGF0Zm9ybS5cdTAwM2UiLCJiYXNlbGluZS5cdTAwM2UiXX19fSwicHJ2ZCI6eyJwZXJtaXNzaW9ucyI6NDE1LCJ1c2VyX2lkIjoiYjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0sInN1YiI6InVzZXI6YjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0.EAJ8Ivh0i6SXeRAhGkmviiZMDHnFh1q5qPVwh5EimU8w7DBj0l4i06KGeng4K9T2g_JaOjRmR5jDvpNtqctuEVLRVppd-XcYSHAzhbyn_mSuDGiL_Hq_oVgn3Fnda6_xC6fZ9T2g2URaTovp3gKBkNess0VUn7yPP67Ruftyw8PUES_-QqXApRwzEL1TG9cgvrIGEvhNi_Uq_CpQk32NWdAx0UgUzqxqE9G1wH3EqyaYkWQUyVOa1HuC-Jkei9fkEgbBiT0pzSKrcXahc1wuuM-IKImrdQXtL56c0vvaLyX00vDqO4tveqJRb3Rh74qAgxrHpYr5vT4E_ACcVBfyC3nStxDi3ivgVu7m-mkjEn1z4ZtnHZkAHJMapio37aGJ6uIQQYUVXz8A976ceKot9ZuT7J8gLyTFoDyz6-R71WmwsxjtlNCmHDhqt0G957CyFZZalwv-qUCHHTv6NLA1snvRN9p8vQPn09-iatnlSxH03Lj85OjWGhF1bRLJP-oyStb-vepTsHrJWab2DAtY08vUgTJq8YipBeUJGul-U_cfK6Z3a_hBMkYVLatii5Ohg_UurXawqBZhUCLjV-bO15Hqe__Lc6eg9cBE5mr4MFDZRF13cFi6K29SwWkVyobxPtgRjauf-hnKR_SmnEWAqHT9Nq11YZNbWepVr9faOQQ",
-										"type": "text"
-									}
-								],
+								"header": [],
 								"url": {
 									"raw": "{{bookieBaseUrl}}/api/v1/facilities/:id",
 									"host": [
@@ -24019,13 +24001,7 @@
 									]
 								},
 								"method": "PUT",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjEwOjJlOmQ5OmUxOmI4OmEyOjM0OjM3Ojk5OjNhOjI0OmZjOmFhOmQxOmM4OjU5IiwidHlwIjoiSldUIn0.eyJhdWQiOiJodHRwczovL3Byb3ZpZGUuc2VydmljZXMvYXBpL3YxIiwiZXhwIjoxNjIxNjIwODc5LCJpYXQiOjE2MjE1MzQ0NzksImlzcyI6Imh0dHBzOi8vaWRlbnQucHJvdmlkZS5zZXJ2aWNlcyIsImp0aSI6ImQyZWM0ODNiLWI0ZjUtNGZhZC05MWYzLTdjODM0MjIyMzI5YSIsIm5hdHMiOnsicGVybWlzc2lvbnMiOnsicHVibGlzaCI6eyJhbGxvdyI6WyJiYXNlbGluZS5cdTAwM2UiXX0sInN1YnNjcmliZSI6eyJhbGxvdyI6WyJ1c2VyLmI0YjRlOGRkLTNjM2ItNGJmNi1hMmM1LWY0YjIwNWZjZDYwNSIsIm5ldHdvcmsuKi5jb25uZWN0b3IuKiIsIm5ldHdvcmsuKi5zdGF0dXMiLCJwbGF0Zm9ybS5cdTAwM2UiLCJiYXNlbGluZS5cdTAwM2UiXX19fSwicHJ2ZCI6eyJwZXJtaXNzaW9ucyI6NDE1LCJ1c2VyX2lkIjoiYjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0sInN1YiI6InVzZXI6YjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0.EAJ8Ivh0i6SXeRAhGkmviiZMDHnFh1q5qPVwh5EimU8w7DBj0l4i06KGeng4K9T2g_JaOjRmR5jDvpNtqctuEVLRVppd-XcYSHAzhbyn_mSuDGiL_Hq_oVgn3Fnda6_xC6fZ9T2g2URaTovp3gKBkNess0VUn7yPP67Ruftyw8PUES_-QqXApRwzEL1TG9cgvrIGEvhNi_Uq_CpQk32NWdAx0UgUzqxqE9G1wH3EqyaYkWQUyVOa1HuC-Jkei9fkEgbBiT0pzSKrcXahc1wuuM-IKImrdQXtL56c0vvaLyX00vDqO4tveqJRb3Rh74qAgxrHpYr5vT4E_ACcVBfyC3nStxDi3ivgVu7m-mkjEn1z4ZtnHZkAHJMapio37aGJ6uIQQYUVXz8A976ceKot9ZuT7J8gLyTFoDyz6-R71WmwsxjtlNCmHDhqt0G957CyFZZalwv-qUCHHTv6NLA1snvRN9p8vQPn09-iatnlSxH03Lj85OjWGhF1bRLJP-oyStb-vepTsHrJWab2DAtY08vUgTJq8YipBeUJGul-U_cfK6Z3a_hBMkYVLatii5Ohg_UurXawqBZhUCLjV-bO15Hqe__Lc6eg9cBE5mr4MFDZRF13cFi6K29SwWkVyobxPtgRjauf-hnKR_SmnEWAqHT9Nq11YZNbWepVr9faOQQ",
-										"type": "text"
-									}
-								],
+								"header": [],
 								"body": {
 									"mode": "raw",
 									"raw": "{\n  \"description\": \"Centralized exchange specializing in Invoice assets.\"\n}\n"
@@ -24092,13 +24068,7 @@
 									]
 								},
 								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjEwOjJlOmQ5OmUxOmI4OmEyOjM0OjM3Ojk5OjNhOjI0OmZjOmFhOmQxOmM4OjU5IiwidHlwIjoiSldUIn0.eyJhdWQiOiJodHRwczovL3Byb3ZpZGUuc2VydmljZXMvYXBpL3YxIiwiZXhwIjoxNjIxNjIwODc5LCJpYXQiOjE2MjE1MzQ0NzksImlzcyI6Imh0dHBzOi8vaWRlbnQucHJvdmlkZS5zZXJ2aWNlcyIsImp0aSI6ImQyZWM0ODNiLWI0ZjUtNGZhZC05MWYzLTdjODM0MjIyMzI5YSIsIm5hdHMiOnsicGVybWlzc2lvbnMiOnsicHVibGlzaCI6eyJhbGxvdyI6WyJiYXNlbGluZS5cdTAwM2UiXX0sInN1YnNjcmliZSI6eyJhbGxvdyI6WyJ1c2VyLmI0YjRlOGRkLTNjM2ItNGJmNi1hMmM1LWY0YjIwNWZjZDYwNSIsIm5ldHdvcmsuKi5jb25uZWN0b3IuKiIsIm5ldHdvcmsuKi5zdGF0dXMiLCJwbGF0Zm9ybS5cdTAwM2UiLCJiYXNlbGluZS5cdTAwM2UiXX19fSwicHJ2ZCI6eyJwZXJtaXNzaW9ucyI6NDE1LCJ1c2VyX2lkIjoiYjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0sInN1YiI6InVzZXI6YjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0.EAJ8Ivh0i6SXeRAhGkmviiZMDHnFh1q5qPVwh5EimU8w7DBj0l4i06KGeng4K9T2g_JaOjRmR5jDvpNtqctuEVLRVppd-XcYSHAzhbyn_mSuDGiL_Hq_oVgn3Fnda6_xC6fZ9T2g2URaTovp3gKBkNess0VUn7yPP67Ruftyw8PUES_-QqXApRwzEL1TG9cgvrIGEvhNi_Uq_CpQk32NWdAx0UgUzqxqE9G1wH3EqyaYkWQUyVOa1HuC-Jkei9fkEgbBiT0pzSKrcXahc1wuuM-IKImrdQXtL56c0vvaLyX00vDqO4tveqJRb3Rh74qAgxrHpYr5vT4E_ACcVBfyC3nStxDi3ivgVu7m-mkjEn1z4ZtnHZkAHJMapio37aGJ6uIQQYUVXz8A976ceKot9ZuT7J8gLyTFoDyz6-R71WmwsxjtlNCmHDhqt0G957CyFZZalwv-qUCHHTv6NLA1snvRN9p8vQPn09-iatnlSxH03Lj85OjWGhF1bRLJP-oyStb-vepTsHrJWab2DAtY08vUgTJq8YipBeUJGul-U_cfK6Z3a_hBMkYVLatii5Ohg_UurXawqBZhUCLjV-bO15Hqe__Lc6eg9cBE5mr4MFDZRF13cFi6K29SwWkVyobxPtgRjauf-hnKR_SmnEWAqHT9Nq11YZNbWepVr9faOQQ",
-										"type": "text"
-									}
-								],
+								"header": [],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"name\": \"Trade Finance Agreement\",\r\n    \"billing_account_id\": \"{{billing_account_id}}\",\r\n    \"pdf\": \"[]\"\r\n}",
@@ -24167,13 +24137,7 @@
 							"name": "Get all facility agreements",
 							"request": {
 								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjEwOjJlOmQ5OmUxOmI4OmEyOjM0OjM3Ojk5OjNhOjI0OmZjOmFhOmQxOmM4OjU5IiwidHlwIjoiSldUIn0.eyJhdWQiOiJodHRwczovL3Byb3ZpZGUuc2VydmljZXMvYXBpL3YxIiwiZXhwIjoxNjIxNjIwODc5LCJpYXQiOjE2MjE1MzQ0NzksImlzcyI6Imh0dHBzOi8vaWRlbnQucHJvdmlkZS5zZXJ2aWNlcyIsImp0aSI6ImQyZWM0ODNiLWI0ZjUtNGZhZC05MWYzLTdjODM0MjIyMzI5YSIsIm5hdHMiOnsicGVybWlzc2lvbnMiOnsicHVibGlzaCI6eyJhbGxvdyI6WyJiYXNlbGluZS5cdTAwM2UiXX0sInN1YnNjcmliZSI6eyJhbGxvdyI6WyJ1c2VyLmI0YjRlOGRkLTNjM2ItNGJmNi1hMmM1LWY0YjIwNWZjZDYwNSIsIm5ldHdvcmsuKi5jb25uZWN0b3IuKiIsIm5ldHdvcmsuKi5zdGF0dXMiLCJwbGF0Zm9ybS5cdTAwM2UiLCJiYXNlbGluZS5cdTAwM2UiXX19fSwicHJ2ZCI6eyJwZXJtaXNzaW9ucyI6NDE1LCJ1c2VyX2lkIjoiYjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0sInN1YiI6InVzZXI6YjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0.EAJ8Ivh0i6SXeRAhGkmviiZMDHnFh1q5qPVwh5EimU8w7DBj0l4i06KGeng4K9T2g_JaOjRmR5jDvpNtqctuEVLRVppd-XcYSHAzhbyn_mSuDGiL_Hq_oVgn3Fnda6_xC6fZ9T2g2URaTovp3gKBkNess0VUn7yPP67Ruftyw8PUES_-QqXApRwzEL1TG9cgvrIGEvhNi_Uq_CpQk32NWdAx0UgUzqxqE9G1wH3EqyaYkWQUyVOa1HuC-Jkei9fkEgbBiT0pzSKrcXahc1wuuM-IKImrdQXtL56c0vvaLyX00vDqO4tveqJRb3Rh74qAgxrHpYr5vT4E_ACcVBfyC3nStxDi3ivgVu7m-mkjEn1z4ZtnHZkAHJMapio37aGJ6uIQQYUVXz8A976ceKot9ZuT7J8gLyTFoDyz6-R71WmwsxjtlNCmHDhqt0G957CyFZZalwv-qUCHHTv6NLA1snvRN9p8vQPn09-iatnlSxH03Lj85OjWGhF1bRLJP-oyStb-vepTsHrJWab2DAtY08vUgTJq8YipBeUJGul-U_cfK6Z3a_hBMkYVLatii5Ohg_UurXawqBZhUCLjV-bO15Hqe__Lc6eg9cBE5mr4MFDZRF13cFi6K29SwWkVyobxPtgRjauf-hnKR_SmnEWAqHT9Nq11YZNbWepVr9faOQQ",
-										"type": "text"
-									}
-								],
+								"header": [],
 								"url": {
 									"raw": "{{bookieBaseUrl}}/api/v1/facilities/:id/agreements",
 									"host": [
@@ -24229,13 +24193,7 @@
 							"name": "Get facility agreement details",
 							"request": {
 								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjEwOjJlOmQ5OmUxOmI4OmEyOjM0OjM3Ojk5OjNhOjI0OmZjOmFhOmQxOmM4OjU5IiwidHlwIjoiSldUIn0.eyJhdWQiOiJodHRwczovL3Byb3ZpZGUuc2VydmljZXMvYXBpL3YxIiwiZXhwIjoxNjIxNjIwODc5LCJpYXQiOjE2MjE1MzQ0NzksImlzcyI6Imh0dHBzOi8vaWRlbnQucHJvdmlkZS5zZXJ2aWNlcyIsImp0aSI6ImQyZWM0ODNiLWI0ZjUtNGZhZC05MWYzLTdjODM0MjIyMzI5YSIsIm5hdHMiOnsicGVybWlzc2lvbnMiOnsicHVibGlzaCI6eyJhbGxvdyI6WyJiYXNlbGluZS5cdTAwM2UiXX0sInN1YnNjcmliZSI6eyJhbGxvdyI6WyJ1c2VyLmI0YjRlOGRkLTNjM2ItNGJmNi1hMmM1LWY0YjIwNWZjZDYwNSIsIm5ldHdvcmsuKi5jb25uZWN0b3IuKiIsIm5ldHdvcmsuKi5zdGF0dXMiLCJwbGF0Zm9ybS5cdTAwM2UiLCJiYXNlbGluZS5cdTAwM2UiXX19fSwicHJ2ZCI6eyJwZXJtaXNzaW9ucyI6NDE1LCJ1c2VyX2lkIjoiYjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0sInN1YiI6InVzZXI6YjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0.EAJ8Ivh0i6SXeRAhGkmviiZMDHnFh1q5qPVwh5EimU8w7DBj0l4i06KGeng4K9T2g_JaOjRmR5jDvpNtqctuEVLRVppd-XcYSHAzhbyn_mSuDGiL_Hq_oVgn3Fnda6_xC6fZ9T2g2URaTovp3gKBkNess0VUn7yPP67Ruftyw8PUES_-QqXApRwzEL1TG9cgvrIGEvhNi_Uq_CpQk32NWdAx0UgUzqxqE9G1wH3EqyaYkWQUyVOa1HuC-Jkei9fkEgbBiT0pzSKrcXahc1wuuM-IKImrdQXtL56c0vvaLyX00vDqO4tveqJRb3Rh74qAgxrHpYr5vT4E_ACcVBfyC3nStxDi3ivgVu7m-mkjEn1z4ZtnHZkAHJMapio37aGJ6uIQQYUVXz8A976ceKot9ZuT7J8gLyTFoDyz6-R71WmwsxjtlNCmHDhqt0G957CyFZZalwv-qUCHHTv6NLA1snvRN9p8vQPn09-iatnlSxH03Lj85OjWGhF1bRLJP-oyStb-vepTsHrJWab2DAtY08vUgTJq8YipBeUJGul-U_cfK6Z3a_hBMkYVLatii5Ohg_UurXawqBZhUCLjV-bO15Hqe__Lc6eg9cBE5mr4MFDZRF13cFi6K29SwWkVyobxPtgRjauf-hnKR_SmnEWAqHT9Nq11YZNbWepVr9faOQQ",
-										"type": "text"
-									}
-								],
+								"header": [],
 								"url": {
 									"raw": "{{bookieBaseUrl}}/api/v1/facilities/:id/agreements/:agreement_id",
 									"host": [
@@ -24298,13 +24256,7 @@
 							"name": "Update facility agreement",
 							"request": {
 								"method": "PUT",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjEwOjJlOmQ5OmUxOmI4OmEyOjM0OjM3Ojk5OjNhOjI0OmZjOmFhOmQxOmM4OjU5IiwidHlwIjoiSldUIn0.eyJhdWQiOiJodHRwczovL3Byb3ZpZGUuc2VydmljZXMvYXBpL3YxIiwiZXhwIjoxNjIxNjIwODc5LCJpYXQiOjE2MjE1MzQ0NzksImlzcyI6Imh0dHBzOi8vaWRlbnQucHJvdmlkZS5zZXJ2aWNlcyIsImp0aSI6ImQyZWM0ODNiLWI0ZjUtNGZhZC05MWYzLTdjODM0MjIyMzI5YSIsIm5hdHMiOnsicGVybWlzc2lvbnMiOnsicHVibGlzaCI6eyJhbGxvdyI6WyJiYXNlbGluZS5cdTAwM2UiXX0sInN1YnNjcmliZSI6eyJhbGxvdyI6WyJ1c2VyLmI0YjRlOGRkLTNjM2ItNGJmNi1hMmM1LWY0YjIwNWZjZDYwNSIsIm5ldHdvcmsuKi5jb25uZWN0b3IuKiIsIm5ldHdvcmsuKi5zdGF0dXMiLCJwbGF0Zm9ybS5cdTAwM2UiLCJiYXNlbGluZS5cdTAwM2UiXX19fSwicHJ2ZCI6eyJwZXJtaXNzaW9ucyI6NDE1LCJ1c2VyX2lkIjoiYjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0sInN1YiI6InVzZXI6YjRiNGU4ZGQtM2MzYi00YmY2LWEyYzUtZjRiMjA1ZmNkNjA1In0.EAJ8Ivh0i6SXeRAhGkmviiZMDHnFh1q5qPVwh5EimU8w7DBj0l4i06KGeng4K9T2g_JaOjRmR5jDvpNtqctuEVLRVppd-XcYSHAzhbyn_mSuDGiL_Hq_oVgn3Fnda6_xC6fZ9T2g2URaTovp3gKBkNess0VUn7yPP67Ruftyw8PUES_-QqXApRwzEL1TG9cgvrIGEvhNi_Uq_CpQk32NWdAx0UgUzqxqE9G1wH3EqyaYkWQUyVOa1HuC-Jkei9fkEgbBiT0pzSKrcXahc1wuuM-IKImrdQXtL56c0vvaLyX00vDqO4tveqJRb3Rh74qAgxrHpYr5vT4E_ACcVBfyC3nStxDi3ivgVu7m-mkjEn1z4ZtnHZkAHJMapio37aGJ6uIQQYUVXz8A976ceKot9ZuT7J8gLyTFoDyz6-R71WmwsxjtlNCmHDhqt0G957CyFZZalwv-qUCHHTv6NLA1snvRN9p8vQPn09-iatnlSxH03Lj85OjWGhF1bRLJP-oyStb-vepTsHrJWab2DAtY08vUgTJq8YipBeUJGul-U_cfK6Z3a_hBMkYVLatii5Ohg_UurXawqBZhUCLjV-bO15Hqe__Lc6eg9cBE5mr4MFDZRF13cFi6K29SwWkVyobxPtgRjauf-hnKR_SmnEWAqHT9Nq11YZNbWepVr9faOQQ",
-										"type": "text"
-									}
-								],
+								"header": [],
 								"url": {
 									"raw": "{{bookieBaseUrl}}/api/v1/facilities/:id/agreements/:agreement_id",
 									"host": [
