@@ -1,0 +1,4895 @@
+{
+	"info": {
+		"_postman_id": "8faa74f4-7449-453b-b145-3320136694a0",
+		"name": "Vault",
+		"description": "API specification for Provide Technologies API\n\nContact Support:\n Name: Provide support\n Email: support@provide.services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Keys",
+			"item": [
+				{
+					"name": "List keys",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{vaultBaseUrl}}/api/v1/vaults/:id/keys",
+							"host": [
+								"{{vaultBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								":id",
+								"keys"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Limits resulting response to the page number specified",
+									"disabled": true
+								},
+								{
+									"key": "rpp",
+									"value": "20",
+									"description": "Sets the number of results included per page",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{vault_id}}",
+									"description": "(Required) ID of target `Vault`. _UUID as specified by RFC4122_"
+								}
+							]
+						},
+						"description": "Retrieves a list of Keys in target `Vault`."
+					},
+					"response": [
+						{
+							"name": "The request was successful",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys?page=1&rpp=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "rpp",
+											"value": "20"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Total-Results-Count",
+									"value": "<integer>",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"name\": \"<string>\",\n  \"spec\": \"<string>\",\n  \"type\": \"<string>\",\n  \"usage\": \"<string>\",\n  \"description\": \"<string>\",\n  \"public_key\": \"<string>\"\n },\n {\n  \"name\": \"<string>\",\n  \"spec\": \"<string>\",\n  \"type\": \"<string>\",\n  \"usage\": \"<string>\",\n  \"description\": \"<string>\",\n  \"public_key\": \"<string>\"\n }\n]"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys?page=1&rpp=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "rpp",
+											"value": "20"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys?page=1&rpp=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "rpp",
+											"value": "20"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys?page=1&rpp=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "rpp",
+											"value": "20"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Too many requests",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys?page=1&rpp=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "rpp",
+											"value": "20"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Implemented",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys?page=1&rpp=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "rpp",
+											"value": "20"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Service Unavailable",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys?page=1&rpp=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "rpp",
+											"value": "20"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create a key",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Sets the vault_id from the id received in response",
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"key_id\", response.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"symmetric\",\n    \"usage\": \"encrypt/decrypt\",\n    \"spec\": \"ChaCha20\",\n    \"name\": \"private chat\",\n    \"description\": \"this is a secure channel\"\n}"
+						},
+						"url": {
+							"raw": "{{vaultBaseUrl}}/api/v1/vaults/:id/keys",
+							"host": [
+								"{{vaultBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								":id",
+								"keys"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{vault_id}}",
+									"description": "(Required) ID of target `Vault`. _UUID as specified by RFC4122_"
+								}
+							]
+						},
+						"description": "Create a `Key` in target `Vault`"
+					},
+					"response": [
+						{
+							"name": "The request was successful and a new entity was created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"name\": \"<string>\",\n \"spec\": \"<string>\",\n \"type\": \"<string>\",\n \"usage\": \"<string>\",\n \"description\": \"<string>\",\n \"public_key\": \"<string>\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Too many requests",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Implemented",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Service Unavailable",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete a key",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{vaultBaseUrl}}/api/v1/vaults/:id/keys/:key_id",
+							"host": [
+								"{{vaultBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								":id",
+								"keys",
+								":key_id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{vault_id}}",
+									"description": "(Required) ID of host `Vault`. _UUID as specified by RFC4122_"
+								},
+								{
+									"key": "key_id",
+									"value": "{{key_id}}",
+									"description": "(Required) ID of target `Key`. _UUID as specified by RFC4122_"
+								}
+							]
+						},
+						"description": "Delete target `Key`"
+					},
+					"response": [
+						{
+							"name": "The request was successful but did not return a response.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Too many requests",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Implemented",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Service Unavailable",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Derive a key",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nonce\": 2,\n    \"context\": \"postman test context 1\",\n    \"name\": \"private chat\",\n    \"description\": \"this is a secure channel\"\n}"
+						},
+						"url": {
+							"raw": "{{vaultBaseUrl}}/api/v1/vaults/:id/keys/:key_id/derive",
+							"host": [
+								"{{vaultBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								":id",
+								"keys",
+								":key_id",
+								"derive"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{vault_id}}",
+									"description": "(Required) ID of host `Vault`. _UUID as specified by RFC4122_"
+								},
+								{
+									"key": "key_id",
+									"value": "{{key_id}}",
+									"description": "(Required) Name of derived `Key`"
+								}
+							]
+						},
+						"description": "Derives the target `Key`."
+					},
+					"response": [
+						{
+							"name": "The request was successful and a new entity was created.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"context\": \"<string>\",\n \"description\": \"<string>\",\n \"name\": \"<string>\",\n \"nonce\": \"<integer>\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Too many requests",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Implemented",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Service Unavailable",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Encrypt",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Sets the vault_id from the id received in response",
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"encrypted_data\", response.data)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": \"this is for encrypting something so as to keep it uber double secret private.\"\n}"
+						},
+						"url": {
+							"raw": "{{vaultBaseUrl}}/api/v1/vaults/:id/keys/:key_id/encrypt",
+							"host": [
+								"{{vaultBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								":id",
+								"keys",
+								":key_id",
+								"encrypt"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{vault_id}}",
+									"description": "(Required) ID of host `Vault`. _UUID as specified by RFC4122_"
+								},
+								{
+									"key": "key_id",
+									"value": "{{key_id}}",
+									"description": "(Required) Name of derived `Key`"
+								}
+							]
+						},
+						"description": "Derives the target `Key`."
+					},
+					"response": [
+						{
+							"name": "The request was successful and a new entity was created.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"context\": \"<string>\",\n \"description\": \"<string>\",\n \"name\": \"<string>\",\n \"nonce\": \"<integer>\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Too many requests",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Implemented",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Service Unavailable",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Decrypt",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": \"{{encrypted_data}}\"\n}"
+						},
+						"url": {
+							"raw": "{{vaultBaseUrl}}/api/v1/vaults/:id/keys/:key_id/decrypt",
+							"host": [
+								"{{vaultBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								":id",
+								"keys",
+								":key_id",
+								"decrypt"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{vault_id}}",
+									"description": "(Required) ID of host `Vault`. _UUID as specified by RFC4122_"
+								},
+								{
+									"key": "key_id",
+									"value": "{{key_id}}",
+									"description": "(Required) Name of derived `Key`"
+								}
+							]
+						},
+						"description": "Derives the target `Key`."
+					},
+					"response": [
+						{
+							"name": "The request was successful and a new entity was created.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"context\": \"<string>\",\n \"description\": \"<string>\",\n \"name\": \"<string>\",\n \"nonce\": \"<integer>\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Too many requests",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Implemented",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Service Unavailable",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"spec\": \"<string>\",\n    \"type\": \"<string>\",\n    \"usage\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/keys/:key_id/derive",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"keys",
+										":key_id",
+										"derive"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "key_id"
+										}
+									]
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Secrets",
+			"item": [
+				{
+					"name": "List secrets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{vaultBaseUrl}}/api/v1/vaults/:id/secrets",
+							"host": [
+								"{{vaultBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								":id",
+								"secrets"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Limits resulting response to the page number specified",
+									"disabled": true
+								},
+								{
+									"key": "rpp",
+									"value": "20",
+									"description": "Sets the number of results included per page",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{vault_id}}",
+									"description": "(Required) ID of `Vault` containing at least one `Secret`. _UUID as specified by RFC4122_"
+								}
+							]
+						},
+						"description": "Re"
+					},
+					"response": [
+						{
+							"name": "The request was successful",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets?page=1&rpp=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "rpp",
+											"value": "20"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Total-Results-Count",
+									"value": "<integer>",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"id\": \"<uuid>\",\n  \"created_at\": \"<dateTime>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n },\n {\n  \"id\": \"<uuid>\",\n  \"created_at\": \"<dateTime>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n }\n]"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets?page=1&rpp=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "rpp",
+											"value": "20"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets?page=1&rpp=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "rpp",
+											"value": "20"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets?page=1&rpp=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "rpp",
+											"value": "20"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Too many requests",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets?page=1&rpp=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "rpp",
+											"value": "20"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Implemented",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets?page=1&rpp=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "rpp",
+											"value": "20"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Service Unavailable",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets?page=1&rpp=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "rpp",
+											"value": "20"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Store secret",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Sets the secret_id from the id received in response",
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"secret_id\", response.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"sample secret\",\n    \"name\": \"secret #1\",\n    \"description\": \"this secret is being stored for demonstration purposes\",\n    \"value\": \"0x\"\n}"
+						},
+						"url": {
+							"raw": "{{vaultBaseUrl}}/api/v1/vaults/:id/secrets",
+							"host": [
+								"{{vaultBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								":id",
+								"secrets"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{vault_id}}",
+									"description": "(Required) ID of target `Vault`. _UUID as specified by RFC4122_"
+								}
+							]
+						},
+						"description": "Store a `Secret` in target `Vault`."
+					},
+					"response": [
+						{
+							"name": "The request was successful and a new entity was created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"vault_id\": \"<string>\",\n    \"value\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"description\": \"<string>\",\n \"name\": \"<string>\",\n \"type\": \"<string>\",\n \"vault_id\": \"<string>\",\n \"value\": \"<string>\",\n \"id\": \"<uuid>\",\n \"created_at\": \"<string>\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"vault_id\": \"<string>\",\n    \"value\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"vault_id\": \"<string>\",\n    \"value\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"vault_id\": \"<string>\",\n    \"value\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Too many requests",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"vault_id\": \"<string>\",\n    \"value\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Implemented",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"vault_id\": \"<string>\",\n    \"value\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Service Unavailable",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"vault_id\": \"<string>\",\n    \"value\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieve secret",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{vaultBaseUrl}}/api/v1/vaults/:id/secrets/:secret_id",
+							"host": [
+								"{{vaultBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaults",
+								":id",
+								"secrets",
+								":secret_id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{vault_id}}",
+									"description": "(Required) ID of host `Vault` containing target `Secret`. _UUID as specified by RFC4122_"
+								},
+								{
+									"key": "secret_id",
+									"value": "{{secret_id}}",
+									"description": "(Required) ID of target `Secret`. _UUID as specified by RFC4122_"
+								}
+							]
+						},
+						"description": "Retrieves a previously created `Secret` from host `Vault`"
+					},
+					"response": [
+						{
+							"name": "The request was successful",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets/:secret_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets",
+										":secret_id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "secret_id"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"description\": \"<string>\",\n \"name\": \"<string>\",\n \"type\": \"<string>\",\n \"vault_id\": \"<string>\",\n \"value\": \"<string>\",\n \"id\": \"<uuid>\",\n \"created_at\": \"<string>\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets/:secret_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets",
+										":secret_id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "secret_id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets/:secret_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets",
+										":secret_id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "secret_id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets/:secret_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets",
+										":secret_id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "secret_id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Too many requests",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets/:secret_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets",
+										":secret_id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "secret_id"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Implemented",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets/:secret_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets",
+										":secret_id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "secret_id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Service Unavailable",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets/:secret_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets",
+										":secret_id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "secret_id"
+										}
+									]
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete secret",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{vaultBaseUrl}}/vaults/:id/secrets/:secret_id",
+							"host": [
+								"{{vaultBaseUrl}}"
+							],
+							"path": [
+								"vaults",
+								":id",
+								"secrets",
+								":secret_id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{vault_id}}",
+									"description": "(Required) ID of `Vault` containing target `Secret`. _UUID as specified by RFC4122_"
+								},
+								{
+									"key": "secret_id",
+									"value": "{{secret_id}}",
+									"description": "(Required) ID of target `Secret`. _UUID as specified by RFC4122_"
+								}
+							]
+						},
+						"description": "Delete target `Secret` from host `Vault`"
+					},
+					"response": [
+						{
+							"name": "The request was successful but did not return a response.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets/:secret_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets",
+										":secret_id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "secret_id"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"description\": \"<string>\",\n \"name\": \"<string>\",\n \"type\": \"<string>\",\n \"vault_id\": \"<string>\",\n \"value\": \"<string>\",\n \"id\": \"<uuid>\",\n \"created_at\": \"<string>\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets/:secret_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets",
+										":secret_id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "secret_id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets/:secret_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets",
+										":secret_id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "secret_id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets/:secret_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets",
+										":secret_id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "secret_id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Too many requests",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets/:secret_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets",
+										":secret_id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "secret_id"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Implemented",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets/:secret_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets",
+										":secret_id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "secret_id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Service Unavailable",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/vaults/:id/secrets/:secret_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"vaults",
+										":id",
+										"secrets",
+										":secret_id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										},
+										{
+											"key": "secret_id"
+										}
+									]
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "List vaults",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{vaultBaseUrl}}/api/v1/vaults",
+					"host": [
+						"{{vaultBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"vaults"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"description": "Limits resulting response to the page number specified",
+							"disabled": true
+						},
+						{
+							"key": "rpp",
+							"value": "20",
+							"description": "Sets the number of results included per page",
+							"disabled": true
+						}
+					]
+				},
+				"description": "List Vaults for the authorized context."
+			},
+			"response": [
+				{
+					"name": "The request was successful",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/vaults?page=1&rpp=20",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"vaults"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "rpp",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Total-Results-Count",
+							"value": "<integer>",
+							"description": ""
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "[\n {\n  \"id\": \"<uuid>\",\n  \"created_at\": \"<dateTime>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n },\n {\n  \"id\": \"<uuid>\",\n  \"created_at\": \"<dateTime>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n }\n]"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/vaults?page=1&rpp=20",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"vaults"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "rpp",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Forbidden",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/vaults?page=1&rpp=20",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"vaults"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "rpp",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Not Found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/vaults?page=1&rpp=20",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"vaults"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "rpp",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Too many requests",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/vaults?page=1&rpp=20",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"vaults"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "rpp",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"status": "Too Many Requests",
+					"code": 429,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Not Implemented",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/vaults?page=1&rpp=20",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"vaults"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "rpp",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Service Unavailable",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/vaults?page=1&rpp=20",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"vaults"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "rpp",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"status": "Service Unavailable",
+					"code": 503,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create a vault",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Sets the vault_id from the id received in response",
+							"const response = pm.response.json();",
+							"",
+							"pm.environment.set(\"vault_id\", response.id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Demo vault name\",\n    \"description\": \"Sample vault description\"\n}"
+				},
+				"url": {
+					"raw": "{{vaultBaseUrl}}/api/v1/vaults",
+					"host": [
+						"{{vaultBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"vaults"
+					]
+				},
+				"description": "Create a `Vault` for authorized context"
+			},
+			"response": [
+				{
+					"name": "The request was successful and a new Vault was created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/vaults",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"vaults"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"id\": \"<uuid>\",\n \"created_at\": \"<dateTime>\",\n \"name\": \"<string>\",\n \"description\": \"<string>\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/vaults",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"vaults"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Forbidden",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/vaults",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"vaults"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Not Found",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/vaults",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"vaults"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Too many requests",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/vaults",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"vaults"
+							]
+						}
+					},
+					"status": "Too Many Requests",
+					"code": 429,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Not Implemented",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/vaults",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"vaults"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Service Unavailable",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/vaults",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"vaults"
+							]
+						}
+					},
+					"status": "Service Unavailable",
+					"code": 503,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Seal/Unseal Key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Sets the vault_id from the id received in response",
+							"const response = pm.response.json();",
+							"",
+							"pm.environment.set(\"unseal_key\", response.key);",
+							"pm.environment.set(\"validation_hash\", response.validation_hash)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{vaultBaseUrl}}/api/v1/unsealerkey",
+					"host": [
+						"{{vaultBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"unsealerkey"
+					]
+				},
+				"description": "Unseals a `Vault` and  enables additional interaction within authorized scope. \n\nOne sealing key is valid for all vaults within a single instance. The SEAL_UNSEAL_VALIDATION_HASH  environment variable contains a SHA-256 hash of the 256-bit entropy BIP39 seed phrase used for the seal/unseal key. When a valid sealing key is presented to the vault (i.e. one that has the same SHA-256 hash value as the SEAL_UNSEAL_VALIDATION_HASH environment variable), the seal/unseal key will then be cloaked (i.e., encrypted with a random, ephemeral, in-memory cloaking key) in memory and decrypted only when required for operations by the cloaking key.\n"
+			},
+			"response": [
+				{
+					"name": "The request was successful but did not return a response.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/unseal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"unseal"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/unseal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"unseal"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Forbidden",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/unseal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"unseal"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Not Found",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/unseal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"unseal"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Too many requests",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/unseal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"unseal"
+							]
+						}
+					},
+					"status": "Too Many Requests",
+					"code": 429,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Not Implemented",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/unseal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"unseal"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Service Unavailable",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/unseal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"unseal"
+							]
+						}
+					},
+					"status": "Service Unavailable",
+					"code": 503,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Unseal vault",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"key\": \"{{unseal_key}}\"\n}"
+				},
+				"url": {
+					"raw": "{{vaultBaseUrl}}/api/v1/unseal",
+					"host": [
+						"{{vaultBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"unseal"
+					]
+				},
+				"description": "Unseals a `Vault` and  enables additional interaction within authorized scope. \n\nOne sealing key is valid for all vaults within a single instance. The SEAL_UNSEAL_VALIDATION_HASH  environment variable contains a SHA-256 hash of the 256-bit entropy BIP39 seed phrase used for the seal/unseal key. When a valid sealing key is presented to the vault (i.e. one that has the same SHA-256 hash value as the SEAL_UNSEAL_VALIDATION_HASH environment variable), the seal/unseal key will then be cloaked (i.e., encrypted with a random, ephemeral, in-memory cloaking key) in memory and decrypted only when required for operations by the cloaking key.\n"
+			},
+			"response": [
+				{
+					"name": "The request was successful but did not return a response.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/unseal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"unseal"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/unseal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"unseal"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Forbidden",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/unseal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"unseal"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Not Found",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/unseal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"unseal"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Too many requests",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/unseal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"unseal"
+							]
+						}
+					},
+					"status": "Too Many Requests",
+					"code": 429,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Not Implemented",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/unseal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"unseal"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Service Unavailable",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/unseal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"unseal"
+							]
+						}
+					},
+					"status": "Service Unavailable",
+					"code": 503,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwt_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

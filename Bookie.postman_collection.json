@@ -1,0 +1,679 @@
+{
+	"info": {
+		"_postman_id": "b3dde871-b27a-4c49-b94e-2415f07ba335",
+		"name": "Bookie",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Billing Accounts",
+			"item": [
+				{
+					"name": "Create billing account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Sets the vault_id from the id received in response",
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"billing_account_id\", response.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"provider\": \"plaid\",\n  \"type\": \"moneyservice\",\n  \"params\": {\n    \"institution\": {\n      \"name\": \"Wells Fargo\",\n      \"institution_id\": \"ins_4\"\n    },\n    \"account\": {\n      \"id\": \"AZp4a66LVnuXKDaXV878hQmvN4JBd4F1z9XxJ\",\n      \"name\": \"Plaid Saving\",\n      \"type\": \"depository\",\n      \"subtype\": \"savings\",\n      \"mask\": \"1111\"\n    },\n    \"account_id\": \"AZp4a66LVnuXKDaXV878hQmvN4JBd4F1z9XxJ\",\n    \"accounts\": [\n      {\n        \"id\": \"AZp4a66LVnuXKDaXV878hQmvN4JBd4F1z9XxJ\",\n        \"name\": \"Plaid Saving\",\n        \"mask\": \"1111\",\n        \"type\": \"depository\",\n        \"subtype\": \"savings\"\n      }\n    ],\n    \"link_session_id\": \"0747d102-074f-46d3-95f0-a13508e5383f\",\n    \"public_token\": \"public-sandbox-b8f65135-66c1-445c-9c18-80ec547ab75d\"\n  },\n  \"user_id\": \"0989aeb9-9d6b-4013-90cf-e54e2c869d1b\",\n  \"metadata\": {\n    \"orientation\": \"borrower\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bookieBaseUrl}}/api/v1/billing_accounts",
+							"host": [
+								"{{bookieBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"billing_accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List billing accounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bookieBaseUrl}}/api/v1/billing_accounts",
+							"host": [
+								"{{bookieBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"billing_accounts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Facilities",
+			"item": [
+				{
+					"name": "Create facility",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Sets the facility_id from the id received in response",
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"facility_id\", response.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"dex\",\r\n    \"name\": \"test facility\",\r\n    \"description\": \"random facility\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bookieBaseUrl}}/api/v1/facilities",
+							"host": [
+								"{{bookieBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities"
+							]
+						},
+						"description": "Creates a `Facility`"
+					},
+					"response": [
+						{
+							"name": "Create facility",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer {{jwt_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"dex\",\r\n    \"name\": \"test facility\",\r\n    \"description\": \"random facility\"\r\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8083/api/v1/facilities",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"api",
+										"v1",
+										"facilities"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Get all facilities",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{bookieBaseUrl}}/api/v1/facilities",
+							"host": [
+								"{{bookieBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities"
+							]
+						},
+						"description": "Returns a list of all `Facilities` within the given scope."
+					},
+					"response": [
+						{
+							"name": "Get all facilities",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8083/api/v1/facilities",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"api",
+										"v1",
+										"facilities"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Get facility details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bookieBaseUrl}}/api/v1/facilities/:id",
+							"host": [
+								"{{bookieBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6e35273d-1ed7-4516-befb-7c4a77ef3119",
+									"description": "ID of Facility"
+								}
+							]
+						},
+						"description": "Retrieves details for the specified `Facility`"
+					},
+					"response": [
+						{
+							"name": "Get facility details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8083/api/v1/facilities/e0334c7b-a125-4237-8d9d-cea36594546a",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"api",
+										"v1",
+										"facilities",
+										"e0334c7b-a125-4237-8d9d-cea36594546a"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Update facility",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Centralized exchange specializing in Invoice assets.\"\n}\n"
+						},
+						"url": {
+							"raw": "{{bookieBaseUrl}}/api/v1/facilities/:id",
+							"host": [
+								"{{bookieBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "29f97b49-4df9-419c-be33-7df1ff73f6c9"
+								}
+							]
+						},
+						"description": "Updates the specified `Facility`"
+					},
+					"response": [
+						{
+							"name": "Get facility details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8083/api/v1/facilities/e0334c7b-a125-4237-8d9d-cea36594546a",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"api",
+										"v1",
+										"facilities",
+										"e0334c7b-a125-4237-8d9d-cea36594546a"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Create facility agreement",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Trade Finance Agreement\",\r\n    \"billing_account_id\": \"{{billing_account_id}}\",\r\n    \"pdf\": \"[]\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bookieBaseUrl}}/api/v1/facilities/:id/agreements",
+							"host": [
+								"{{bookieBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities",
+								":id",
+								"agreements"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{facility_id}}",
+									"description": "ID of Facility"
+								}
+							]
+						},
+						"description": "Add an agreement to the specified `Facility`. Agreement must be base64 encoded PDF"
+					},
+					"response": [
+						{
+							"name": "Create facility agreement",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"billing_account_id\": \"8d087505-5ecb-4e81-bfa8-55de502b0cdc\",\r\n    \"pdf\": []\r\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8083/api/v1/facilities/e0334c7b-a125-4237-8d9d-cea36594546a/agreements",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"api",
+										"v1",
+										"facilities",
+										"e0334c7b-a125-4237-8d9d-cea36594546a",
+										"agreements"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Get all facility agreements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bookieBaseUrl}}/api/v1/facilities/:id/agreements",
+							"host": [
+								"{{bookieBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities",
+								":id",
+								"agreements"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{facility_id}}",
+									"description": "ID of target `Facility`"
+								}
+							]
+						},
+						"description": "Returns a list of facility agreements within the given scope."
+					},
+					"response": [
+						{
+							"name": "Get all facility agreements",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8083/api/v1/facilities/e0334c7b-a125-4237-8d9d-cea36594546a/agreements",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"api",
+										"v1",
+										"facilities",
+										"e0334c7b-a125-4237-8d9d-cea36594546a",
+										"agreements"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Get facility agreement details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bookieBaseUrl}}/api/v1/facilities/:id/agreements/:agreement_id",
+							"host": [
+								"{{bookieBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities",
+								":id",
+								"agreements",
+								":agreement_id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{facility_id}}",
+									"description": "ID of target Facility"
+								},
+								{
+									"key": "agreement_id",
+									"value": "{{agreement_id}}",
+									"description": "ID of target Agreement"
+								}
+							]
+						},
+						"description": "Retrieves details for specified `Facility`"
+					},
+					"response": [
+						{
+							"name": "Get facility agreement details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8083/api/v1/facilities/e0334c7b-a125-4237-8d9d-cea36594546a/agreements/afdeeb01-f337-42c3-857f-e4f03f332889",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"api",
+										"v1",
+										"facilities",
+										"e0334c7b-a125-4237-8d9d-cea36594546a",
+										"agreements",
+										"afdeeb01-f337-42c3-857f-e4f03f332889"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Update facility agreement",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{bookieBaseUrl}}/api/v1/facilities/:id/agreements/:agreement_id",
+							"host": [
+								"{{bookieBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"facilities",
+								":id",
+								"agreements",
+								":agreement_id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "29f97b49-4df9-419c-be33-7df1ff73f6c9",
+									"description": "ID of Facility"
+								},
+								{
+									"key": "agreement_id",
+									"value": "",
+									"description": "ID of Agreement being updated"
+								}
+							]
+						},
+						"description": "Updates the specified agreement for a given `Facility`."
+					},
+					"response": [
+						{
+							"name": "Get facility agreement details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8083/api/v1/facilities/e0334c7b-a125-4237-8d9d-cea36594546a/agreements/afdeeb01-f337-42c3-857f-e4f03f332889",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"api",
+										"v1",
+										"facilities",
+										"e0334c7b-a125-4237-8d9d-cea36594546a",
+										"agreements",
+										"afdeeb01-f337-42c3-857f-e4f03f332889"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Create New Transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"network_id\": \"{{network_id}}\",\n  \"user_id\": \"{{user_id}}\",\n  \"account_id\": \"{{account_id}}\",\n  \"to\": \"0x0E6081223ACCE2f7f402edE17ED2B0ABDe4E9D0c\",\n  \"value\": 178,\n  \"data\": \"0x\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bookieBaseUrl}}/api/v1/billing_accounts/:id/transactions",
+					"host": [
+						"{{bookieBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"billing_accounts",
+						":id",
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ":id",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{billing_account_id}}",
+							"description": "ID of reference Billing Account"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwt_token_organization}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

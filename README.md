@@ -11,7 +11,7 @@ Open Postman, select Import <p>
 Drag the cloned .JSON files into the Postman drag and drop UI and complete the import
 
 
-## Environment Confirguration
+## Environment Configuration
 
 Once imported, create the following three environment variables using your Ident login credentials, leaving the value for `jwt_token` blank:
 
@@ -24,7 +24,7 @@ Once imported, create the following three environment variables using your Ident
 
 ## Authentication
 
-Use the `Authentication` POST request to retreive a `user` `jwt_token`. 
+Use the `Authentication` POST request to retrieve a `user` `jwt_token`. 
 
 ```bash
 POST Authentication https://ident.provide.services/api/v1/authenticate
@@ -32,6 +32,6 @@ POST Authentication https://ident.provide.services/api/v1/authenticate
 
 The `jwt_token` included in the response will be automatically appended to the environment variable created previously. 
 
-Subsequent requests across all collections will automatically retreive a new token as necessary and save any necessary response data as additional environment variables. 
+Subsequent requests across all collections will automatically retrieve a new token as necessary and save any necessary response data as additional environment variables. 
 
 
