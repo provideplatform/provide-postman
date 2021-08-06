@@ -9,6 +9,298 @@
 			"name": "Accounts",
 			"item": [
 				{
+					"name": "Create account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Sets the user_id from the id received in response",
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"account_id\", response.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"network_id\": \"{{network_id}}\",\n    \"vault_id\": \"{{vault_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{nchainBaseUrl}}/api/v1/accounts",
+							"host": [
+								"{{nchainBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"accounts"
+							]
+						},
+						"description": "Creates an `Account` (also referred to as a signing identity) capable of storing cryptocurrencies and tokens native to a specific `Network`. Rather than representing a a `User`,  \n\nAn `Account` may be setup as custodial or non-custodial, and may be derived from a `Wallet`. If the `Account` is custodial then the platform will sign and broadcast transactions to the\n`Network` on behalf of an authorized `User` or `Application`."
+					},
+					"response": [
+						{
+							"name": "The request was successful and a new `Account` was created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
+								},
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"id\": \"<uuid>\",\n \"created_at\": \"<dateTime>\",\n \"network_id\": \"<uuid>\",\n \"user_id\": \"<uuid>\",\n \"vault_id\": \"<uuid>\",\n \"key_id\": \"<uuid>\",\n \"public_key\": \"<string>\",\n \"address\": \"<string>\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
+								},
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
+								},
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
+								},
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Too many requests",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
+								},
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Implemented",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
+								},
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Service Unavailable",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
+								},
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "unexpected error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
+								},
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<string>\",\n \"message\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
 					"name": "List accounts",
 					"request": {
 						"method": "GET",
@@ -38,7 +330,7 @@
 								}
 							]
 						},
-						"description": "'Retrieves a list of `Account` instances used for storing cryptocurrency or tokens on behalf of users managing cryptographic material (i.e., for signing transactions). \n\nAn `Account` is an arbitrary keypair capable of storing value on the underlying `Network`'"
+						"description": "'Retrieves a list of `Account` instances used for storing cryptocurrency or tokens on behalf of users managing cryptographic material (i.e., for signing transactions). \n\nAn `Account` is an arbitrary keypair capable of storing value on the underlying `Network`"
 					},
 					"response": [
 						{
@@ -376,298 +668,6 @@
 											"value": "20"
 										}
 									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"code\": \"<string>\",\n \"message\": \"<string>\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Create account",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Sets the user_id from the id received in response",
-									"const response = pm.response.json();",
-									"",
-									"pm.environment.set(\"account_id\", response.id)"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"network_id\": \"{{network_id}}\",\n    \"vault_id\": \"{{vault_id}}\"\n}"
-						},
-						"url": {
-							"raw": "{{nchainBaseUrl}}/api/v1/accounts",
-							"host": [
-								"{{nchainBaseUrl}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"accounts"
-							]
-						},
-						"description": "Creates an `Account` (also referred to as a signing identity) capable of storing cryptocurrencies and tokens native to a specific `Network`. Rather than representing a a `User`,  \n\nAn `Account` may be setup as custodial or non-custodial, and may be derived from a `Wallet`. If the `Account` is custodial then the platform will sign and broadcast transactions to the\n`Network` on behalf of an authorized `User` or `Application`."
-					},
-					"response": [
-						{
-							"name": "The request was successful and a new `Account` was created",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: bearer",
-										"key": "Authorization",
-										"value": "Bearer <token>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
-								},
-								"url": {
-									"raw": ""
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"id\": \"<uuid>\",\n \"created_at\": \"<dateTime>\",\n \"network_id\": \"<uuid>\",\n \"user_id\": \"<uuid>\",\n \"vault_id\": \"<uuid>\",\n \"key_id\": \"<uuid>\",\n \"public_key\": \"<string>\",\n \"address\": \"<string>\"\n}"
-						},
-						{
-							"name": "Unauthorized",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: bearer",
-										"key": "Authorization",
-										"value": "Bearer <token>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
-								},
-								"url": {
-									"raw": ""
-								}
-							},
-							"status": "Unauthorized",
-							"code": 401,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-						},
-						{
-							"name": "Forbidden",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: bearer",
-										"key": "Authorization",
-										"value": "Bearer <token>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
-								},
-								"url": {
-									"raw": ""
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-						},
-						{
-							"name": "Not Found",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: bearer",
-										"key": "Authorization",
-										"value": "Bearer <token>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
-								},
-								"url": {
-									"raw": ""
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-						},
-						{
-							"name": "Too many requests",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: bearer",
-										"key": "Authorization",
-										"value": "Bearer <token>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
-								},
-								"url": {
-									"raw": ""
-								}
-							},
-							"status": "Too Many Requests",
-							"code": 429,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-						},
-						{
-							"name": "Not Implemented",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: bearer",
-										"key": "Authorization",
-										"value": "Bearer <token>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
-								},
-								"url": {
-									"raw": ""
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-						},
-						{
-							"name": "Service Unavailable",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: bearer",
-										"key": "Authorization",
-										"value": "Bearer <token>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
-								},
-								"url": {
-									"raw": ""
-								}
-							},
-							"status": "Service Unavailable",
-							"code": 503,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-						},
-						{
-							"name": "unexpected error",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: bearer",
-										"key": "Authorization",
-										"value": "Bearer <token>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"network_id\": \"<uuid>\"\n}"
-								},
-								"url": {
-									"raw": ""
 								}
 							},
 							"status": "Internal Server Error",
@@ -1373,7 +1373,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"Application_id\": \"{{application_id}}\",\n    \"network_id\": \"{{network_id}}\",\n    \"name\": \"Sample Connector\",\n    \"type\": \"provide\",\n        \"config\": {\n        \"api_port\": 8080,\n        \"api_url\": \"https://ceeb3bca-3b92-44b9-8ac5-fdd4564-717022042.us-east-2.elb.amazonaws.com:8080\",\n        \"container\": \"providenetwork-ipfs\",\n        \"image\": \"provide/ident\",\n        \"provider_id\": \"docker\",\n        \"region\": \"us-east-2\",\n        \"role\": \"peer\",\n        \"security\": {\n            \"egress\": \"*\",\n            \"ingress\": {\n                \"0.0.0.0/0\": {\n                    \"tcp\": [\n                        8080\n                    ],\n                    \"udp\": []\n                }\n            }\n        },\n        \"target_id\": \"aws\"\n    }\n}"
+							"raw": "{\n    \"Application_id\": \"{{application_id}}\",\n    \"network_id\": \"{{network_id}}\",\n    \"name\": \"Sample Connector\",\n    \"type\": \"provide\"\n}"
 						},
 						"url": {
 							"raw": "{{nchainBaseUrl}}/api/v1/connectors",
@@ -2057,8 +2057,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "{{connector_id}}",
-									"description": "(Required) ID of the target `Connector`. _UUID as specified by RFC4122_"
+									"value": "{{connector_id}}"
 								}
 							]
 						},
@@ -3283,7 +3282,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "0"
+							"raw": "{\r\n  \"params\": [\r\n    \"123-456-789\",\r\n    \"some.random.topic\",\r\n    \"987-654-321\",\r\n    \"default.topic\",\r\n    \"2.0\",\r\n    \"BOL\",\r\n    \"{}\"\r\n  ],\r\n  \"value\": 0,\r\n  \"account_id\": \"{{account_id}}\"\r\n}"
 						},
 						"url": {
 							"raw": "{{nchainBaseUrl}}/api/v1/contracts/:id/execute",
@@ -3300,7 +3299,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "Ut pariatur ipsum",
+									"value": "{{contract_id}}",
 									"description": "(Required) ID of contract being executed. _UUID as specified by RFC4122_"
 								}
 							]
@@ -3897,7 +3896,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"description\": \"Network detail\",\n    \"created_at\": \"2021-04-16T15:07:01.962+0000\",\n    \"Application_id\": \"dc767890-0bbc-4c1d-bc04-f5842330018f\",\n    \"name\": \"Sample Testnet\",\n    \"enabled\": true,\n    \"chain_id\": \"0x1618585621\",\n    \"config\": {\n        \"chain\": \"test\",\n        \"chainspec\": {\n            \"alloc\": {},\n            \"coinbase\": 0,\n            \"config\": {\n                \"byzantiumBlock\": 0,\n                \"constantinopleBlock\": 0,\n                \"eip150Block\": 0,\n                \"eip155Block\": 0,\n                \"eip158Block\": 0,\n                \"homesteadBlock\": 0,\n                \"petersburgBlock\": 0\n            },\n            \"difficulty\": 131072,\n            \"extraData\": \"\",\n            \"gasLimit\": 3141592,\n            \"mixhash\": 0,\n            \"nonce\": 66,\n            \"parentHash\": 0,\n            \"timestamp\": 0\n        },\n        \"engine_id\": \"ethash\",\n        \"native_currency\": \"TEST\",\n        \"network_id\": 1618585621,\n        \"platform\": \"evm\",\n        \"protocol_id\": \"pow\"\n    }\n}"
+							"raw": "{\n    \"description\": \"Network detail\",\n    \"name\": \"Sample Testnet\",\n    \"enabled\": true,\n    \"chain_id\": \"0x1618585621\",\n    \"config\": {\n        \"chain\": \"test\",\n        \"chainspec\": {\n            \"alloc\": {},\n            \"coinbase\": 0,\n            \"config\": {\n                \"byzantiumBlock\": 0,\n                \"constantinopleBlock\": 0,\n                \"eip150Block\": 0,\n                \"eip155Block\": 0,\n                \"eip158Block\": 0,\n                \"homesteadBlock\": 0,\n                \"petersburgBlock\": 0\n            },\n            \"difficulty\": 131072,\n            \"extraData\": \"\",\n            \"gasLimit\": 3141592,\n            \"mixhash\": 0,\n            \"nonce\": 66,\n            \"parentHash\": 0,\n            \"timestamp\": 0\n        },\n        \"engine_id\": \"ethash\",\n        \"native_currency\": \"TEST\",\n        \"network_id\": 1618585621,\n        \"platform\": \"evm\",\n        \"protocol_id\": \"pow\"\n    }\n}"
 						},
 						"url": {
 							"raw": "{{nchainBaseUrl}}/api/v1/networks",
@@ -4144,7 +4143,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"description\": \"Network detail\",\n    \"created_at\": \"2021-04-16T15:07:01.962+0000\",\n    \"Application_id\": \"dc767890-0bbc-4c1d-bc04-f5842330018f\",\n    \"name\": \"Sample Testnet\",\n    \"enabled\": true,\n    \"chain_id\": \"0x1618585621\",\n    \"config\": {\n        \"chain\": \"test\",\n        \"chainspec\": {\n            \"alloc\": {},\n            \"coinbase\": 0,\n            \"config\": {\n                \"byzantiumBlock\": 0,\n                \"constantinopleBlock\": 0,\n                \"eip150Block\": 0,\n                \"eip155Block\": 0,\n                \"eip158Block\": 0,\n                \"homesteadBlock\": 0,\n                \"petersburgBlock\": 0\n            },\n            \"difficulty\": 131072,\n            \"extraData\": \"\",\n            \"gasLimit\": 3141592,\n            \"mixhash\": 0,\n            \"nonce\": 66,\n            \"parentHash\": 0,\n            \"timestamp\": 0\n        },\n        \"engine_id\": \"ethash\",\n        \"native_currency\": \"TEST\",\n        \"network_id\": 1618585621,\n        \"platform\": \"evm\",\n        \"protocol_id\": \"pow\"\n    }\n}"
+							"raw": "{\n    \"description\": \"Görli testnet\",\n    \"name\": \"Ethereum Görli testnet\",\n    \"enabled\": true\n}"
 						},
 						"url": {
 							"raw": "{{nchainBaseUrl}}/api/v1/networks/:id",
@@ -4160,7 +4159,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "Ut pariatur ipsum",
+									"value": "{{network_id}}",
 									"description": "(Required) ID of the target network. _UUID as specified by RFC4122_"
 								}
 							]
@@ -4407,7 +4406,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "Ut pariatur ipsum",
+									"value": "{{network_id}}",
 									"description": "(Required) ID of the target `Network`. _UUID as specified by RFC4122_"
 								}
 							]
@@ -6845,8 +6844,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "Ut pariatur ipsum",
-									"description": "(Required) "
+									"value": "{{transaction_id}}"
 								}
 							]
 						},
@@ -7131,6 +7129,16 @@
 				{
 					"name": "Retrieve load balancer details",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token_application}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -8050,7 +8058,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "Ut pariatur ipsum",
+									"value": "{{wallet_id}}",
 									"description": "(Required) ID of `Wallet` containing Accounts. _UUID as specified by RFC4122_"
 								}
 							]

@@ -20,7 +20,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"voluptate adipisicing quis\",\n    \"type\": \"consectetur\"\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "{{baselineUrl}}/api/v1/objects",
@@ -267,7 +267,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"voluptate adipisicing quis\",\n    \"type\": \"consectetur\"\n}"
+					"raw": "{\n    \"type\": \"baseline\"\n}"
 				},
 				"url": {
 					"raw": "{{baselineUrl}}/api/v1/objects",
@@ -1681,7 +1681,7 @@
 			]
 		},
 		{
-			"name": "Create a `Workstep` instance",
+			"name": "Create a Workstep instance",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -1692,7 +1692,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"2fffec13-590e-41eb-9a84-69ed881e0036\",\n    \"circuit_id\": \"dd615561-83e6-4f53-ac0f-aaf1749df139\",\n    \"parcicipants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"require_finality\": true,\n    \"workflow_id\": \"f9227803-5541-4c13-a554-f6980f03362a\"\n}"
+					"raw": "{\n    \"circuit_id\": \"dd615561-83e6-4f53-ac0f-aaf1749df139\",\n    \"parcicipants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"require_finality\": true,\n    \"workflow_id\": \"f9227803-5541-4c13-a554-f6980f03362a\"\n}"
 				},
 				"url": {
 					"raw": "{{baseUrl}}/worksteps",
@@ -2273,7 +2273,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/worksteps?page=1&rpp=20",
+					"raw": "{{baseUrl}}/worksteps",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -2284,12 +2284,14 @@
 						{
 							"key": "page",
 							"value": "1",
-							"description": "Limits resulting response to the page number specified"
+							"description": "Limits resulting response to the page number specified",
+							"disabled": true
 						},
 						{
 							"key": "rpp",
 							"value": "20",
-							"description": "Sets the number of results included per page"
+							"description": "Sets the number of results included per page",
+							"disabled": true
 						}
 					]
 				},
@@ -2605,7 +2607,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://baseline.proxy/api/v1/states?page=6406977&rpp=6406977",
+					"raw": "https://baseline.proxy/api/v1/states",
 					"protocol": "https",
 					"host": [
 						"baseline",
@@ -2620,12 +2622,14 @@
 						{
 							"key": "page",
 							"value": "6406977",
-							"description": "Limits resulting response to the page number specified"
+							"description": "Limits resulting response to the page number specified",
+							"disabled": true
 						},
 						{
 							"key": "rpp",
 							"value": "6406977",
-							"description": "Sets the number of results included per page"
+							"description": "Sets the number of results included per page",
+							"disabled": true
 						}
 					]
 				},
