@@ -772,9 +772,9 @@
 					"raw": "{\n    \"identifier\": \"<string>\",\n    \"participants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"shield\": \"<string>\",\n    \"workstep_index\": \"<long>\"\n}"
 				},
 				"url": {
-					"raw": "{{baseUrl}}/workflows",
+					"raw": "{{baselineUrl}}/workflows",
 					"host": [
-						"{{baseUrl}}"
+						"{{baselineUrl}}"
 					],
 					"path": [
 						"workflows"
@@ -1386,9 +1386,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/workflows/:id",
+					"raw": "{{baselineUrl}}/workflows/:id",
 					"host": [
-						"{{baseUrl}}"
+						"{{baselineUrl}}"
 					],
 					"path": [
 						"workflows",
@@ -1695,9 +1695,9 @@
 					"raw": "{\n    \"circuit_id\": \"dd615561-83e6-4f53-ac0f-aaf1749df139\",\n    \"parcicipants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"require_finality\": true,\n    \"workflow_id\": \"f9227803-5541-4c13-a554-f6980f03362a\"\n}"
 				},
 				"url": {
-					"raw": "{{baseUrl}}/worksteps",
+					"raw": "{{baselineUrl}}/worksteps",
 					"host": [
-						"{{baseUrl}}"
+						"{{baselineUrl}}"
 					],
 					"path": [
 						"worksteps"
@@ -2273,9 +2273,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/worksteps",
+					"raw": "{{baselineUrl}}/worksteps",
 					"host": [
-						"{{baseUrl}}"
+						"{{baselineUrl}}"
 					],
 					"path": [
 						"worksteps"
@@ -2607,11 +2607,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://baseline.proxy/api/v1/states",
-					"protocol": "https",
+					"raw": "{{baselineUrl}}/api/v1/states",
 					"host": [
-						"baseline",
-						"proxy"
+						"{{baselineUrl}}"
 					],
 					"path": [
 						"api",
@@ -2924,11 +2922,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://baseline.proxy/api/v1/states/:id",
-					"protocol": "https",
+					"raw": "{{baselineUrl}}/api/v1/states/:id",
 					"host": [
-						"baseline",
-						"proxy"
+						"{{baselineUrl}}"
 					],
 					"path": [
 						"api",
