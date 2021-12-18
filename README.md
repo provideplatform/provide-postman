@@ -6,12 +6,12 @@ Clone the project
  git clone git@github.com:provideservices/provide-postman.git
 ```
 
-Open Postman, select Import <p>
+Open Postman, and select Import <p>
 
 Drag the cloned .JSON files into the Postman drag and drop UI and complete the import
 
 
-## Environment Confirguration
+## Environment Configuration
 
 Once imported, create the following three environment variables using your Ident login credentials, leaving the value for `jwt_token` blank:
 
