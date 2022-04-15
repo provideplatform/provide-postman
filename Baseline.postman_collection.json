@@ -260,12 +260,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "x-api-key",
-								"value": "PMAK-619e872e473a8b00355ecb40-1c25431a7f0d07212de39a42e2015235a8",
-								"type": "text",
-								"disabled": true
 							}
 						],
 						"url": {
