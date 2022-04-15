@@ -6,464 +6,230 @@
 	},
 	"item": [
 		{
-			"name": "List Circuits",
+			"name": "List Provers",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{org.access_token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{privacyBaseUrl}}/api/v1/circuits",
+					"raw": "{{privacyBaseUrl}}/api/v1/provers",
 					"host": [
 						"{{privacyBaseUrl}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"circuits"
-					],
-					"query": [
+						"provers"
+					]
+				},
+				"description": "Retrieves a list of `Prover` instances"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Circuit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Sets the org_id from the id received in response",
+							"const response = pm.response.json();",
+							"",
+							"pm.environment.set(\"circuit_id\", response.id),",
+							"pm.environment.set(\"note_store_id\", response.store_id),",
+							"pm.environment.set(\"nullifier_store_id\", response.nullifier_store_id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "curve",
-							"value": "Ut pariatur ipsum",
-							"description": "filter the response by elliptic curve",
-							"disabled": true
-						},
-						{
-							"key": "identifier",
-							"value": "Ut pariatur ipsum",
-							"description": "filter the response by identifier",
-							"disabled": true
-						},
-						{
-							"key": "provider",
-							"value": "Ut pariatur ipsum",
-							"description": "filter the response by provider",
-							"disabled": true
-						},
-						{
-							"key": "proving scheme",
-							"value": "Ut pariatur ipsum",
-							"description": "filter the response by proving scheme",
-							"disabled": true
-						},
-						{
-							"key": "status",
-							"value": "Ut pariatur ipsum",
-							"description": "filter the response by the status",
-							"disabled": true
+							"key": "token",
+							"value": "{{org.access_token}}",
+							"type": "string"
 						}
 					]
 				},
-				"description": "Retrieves a list of `Circuit` instances"
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Prover demo name\",\n    \"identifier\": \"cubic\",\n    \"provider\": \"gnark\",\n    \"proving_scheme\": \"groth16\",\n    \"curve\": \"BN254\"\n}"
+				},
+				"url": {
+					"raw": "{{privacyBaseUrl}}/api/v1/provers",
+					"host": [
+						"{{privacyBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"provers"
+					]
+				},
+				"description": "Creates a `Circuit`.\n\nYou must provision a circuit before it can be used to generate and verify proofs. The foregoing holds true regardless of which provider, proving_scheme, curve and circuit identifier you specify (or source, if the raw source code of the `Circuit` is provided instead of an identifier).\n\nA powerful aspect of this API is the asynchronous nature by which computationally-intensive cryptographic operations are executed. The lifecycle of a zero-knowledge circuit depends largely on the chosen proving_scheme. For example, zkSNARK proving schemes (i.e., groth16) require a trusted setup whereas more modern schemes (i.e., plonk) do not.\n\nA persistent store is implicitly initialized upon the creation of a new circuit unless an existing store_id is provided and the referenced store is valid in the context of the circuit and authorized `scope`.\n"
 			},
 			"response": [
 				{
-					"name": "The request was successful",
+					"name": "Circuit Created",
 					"originalRequest": {
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
+								"key": "Content-Type",
+								"value": "application/json"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Prover demo name\",\n    \"identifier\": \"Cubic\",\n    \"provider\": \"gnark\",\n    \"proving_scheme\": \"groth16\",\n    \"curve\": \"BN254\",\n    \"vault_id\": \"{{vault_id}}\",\n    \"description\": \"Prover example description\",\n    \"type\": \"circuit\",\n    \"key_id\": \"{{key_id}}\"\n}"
+						},
 						"url": {
-							"raw": "{{baseUrl}}/circuits?curve=<string>&identifier=<string>&provider=<string>&proving scheme=<string>&status=<string>",
+							"raw": "{{privacyBaseUrl}}/api/v1/circuits",
 							"host": [
-								"{{baseUrl}}"
+								"{{privacyBaseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"circuits"
-							],
-							"query": [
-								{
-									"key": "curve",
-									"value": "<string>"
-								},
-								{
-									"key": "identifier",
-									"value": "<string>"
-								},
-								{
-									"key": "provider",
-									"value": "<string>"
-								},
-								{
-									"key": "proving scheme",
-									"value": "<string>"
-								},
-								{
-									"key": "status",
-									"value": "<string>"
-								}
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
+					"status": "Created",
+					"code": 201,
 					"_postman_previewlanguage": "json",
 					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 15 Nov 2021 15:29:11 GMT"
+						},
 						{
 							"key": "Content-Type",
 							"value": "application/json; charset=UTF-8"
-						}
-					],
-					"cookie": [],
-					"body": "[\n {\n  \"name\": \"<string>\",\n  \"identifier\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"proving_scheme\": \"<string>\",\n  \"curve\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"created_at\": \"<dateTime>\",\n  \"vault_id\": \"<uuid>\",\n  \"proving_key_id\": \"<uuid>\",\n  \"verifying_key_id\": \"<uuid>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"store_id\": \"<string>\"\n },\n {\n  \"name\": \"<string>\",\n  \"identifier\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"proving_scheme\": \"<string>\",\n  \"curve\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"created_at\": \"<dateTime>\",\n  \"vault_id\": \"<uuid>\",\n  \"proving_key_id\": \"<uuid>\",\n  \"verifying_key_id\": \"<uuid>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"store_id\": \"<string>\"\n }\n]"
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits?curve=<string>&identifier=<string>&provider=<string>&proving scheme=<string>&status=<string>",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits"
-							],
-							"query": [
-								{
-									"key": "curve",
-									"value": "<string>"
-								},
-								{
-									"key": "identifier",
-									"value": "<string>"
-								},
-								{
-									"key": "provider",
-									"value": "<string>"
-								},
-								{
-									"key": "proving scheme",
-									"value": "<string>"
-								},
-								{
-									"key": "status",
-									"value": "<string>"
-								}
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
+						},
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits?curve=<string>&identifier=<string>&provider=<string>&proving scheme=<string>&status=<string>",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits"
-							],
-							"query": [
-								{
-									"key": "curve",
-									"value": "<string>"
-								},
-								{
-									"key": "identifier",
-									"value": "<string>"
-								},
-								{
-									"key": "provider",
-									"value": "<string>"
-								},
-								{
-									"key": "proving scheme",
-									"value": "<string>"
-								},
-								{
-									"key": "status",
-									"value": "<string>"
-								}
-							]
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
+							"key": "Content-Length",
+							"value": "572"
+						},
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits?curve=<string>&identifier=<string>&provider=<string>&proving scheme=<string>&status=<string>",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits"
-							],
-							"query": [
-								{
-									"key": "curve",
-									"value": "<string>"
-								},
-								{
-									"key": "identifier",
-									"value": "<string>"
-								},
-								{
-									"key": "provider",
-									"value": "<string>"
-								},
-								{
-									"key": "proving scheme",
-									"value": "<string>"
-								},
-								{
-									"key": "status",
-									"value": "<string>"
-								}
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
+							"key": "Connection",
+							"value": "keep-alive"
+						},
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits?curve=<string>&identifier=<string>&provider=<string>&proving scheme=<string>&status=<string>",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits"
-							],
-							"query": [
-								{
-									"key": "curve",
-									"value": "<string>"
-								},
-								{
-									"key": "identifier",
-									"value": "<string>"
-								},
-								{
-									"key": "provider",
-									"value": "<string>"
-								},
-								{
-									"key": "proving scheme",
-									"value": "<string>"
-								},
-								{
-									"key": "status",
-									"value": "<string>"
-								}
-							]
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits?curve=<string>&identifier=<string>&provider=<string>&proving scheme=<string>&status=<string>",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits"
-							],
-							"query": [
-								{
-									"key": "curve",
-									"value": "<string>"
-								},
-								{
-									"key": "identifier",
-									"value": "<string>"
-								},
-								{
-									"key": "provider",
-									"value": "<string>"
-								},
-								{
-									"key": "proving scheme",
-									"value": "<string>"
-								},
-								{
-									"key": "status",
-									"value": "<string>"
-								}
-							]
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
+							"key": "Access-Control-Allow-Headers",
+							"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+						},
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits?curve=<string>&identifier=<string>&provider=<string>&proving scheme=<string>&status=<string>",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits"
-							],
-							"query": [
-								{
-									"key": "curve",
-									"value": "<string>"
-								},
-								{
-									"key": "identifier",
-									"value": "<string>"
-								},
-								{
-									"key": "provider",
-									"value": "<string>"
-								},
-								{
-									"key": "proving scheme",
-									"value": "<string>"
-								},
-								{
-									"key": "status",
-									"value": "<string>"
-								}
-							]
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
 						{
-							"key": "Content-Type",
-							"value": "application/json"
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "X-Total-Results-Count"
 						}
 					],
 					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+					"body": "{\n    \"id\": \"a5c4a5b4-2a21-4475-9522-28dca1accfef\",\n    \"created_at\": \"2021-11-15T15:29:07.495270809Z\",\n    \"vault_id\": \"62c1d447-c3a1-4c02-865d-cb15150c12ba\",\n    \"encryption_key_id\": null,\n    \"proving_key_id\": null,\n    \"verifying_key_id\": null,\n    \"name\": \"Prover demo name\",\n    \"description\": null,\n    \"identifier\": \"Cubic\",\n    \"provider\": \"gnark\",\n    \"proving_scheme\": \"groth16\",\n    \"curve\": \"BN254\",\n    \"status\": \"pending_setup\",\n    \"note_store_id\": \"f0b63d3f-ae8b-4748-a7a5-950854cc00a3\",\n    \"nullifier_store_id\": \"04c49dcb-de0d-4237-bfa5-0f9b87a24cf1\"\n}"
 				}
 			]
 		},
 		{
-			"name": "Get circuit details",
+			"name": "Retrieve Store Value",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{org.access_token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{privacyBaseUrl}}/api/v1/circuits/:id",
+					"raw": "{{privacyBaseUrl}}/api/v1/provers/:id/store",
 					"host": [
 						"{{privacyBaseUrl}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"circuits",
-						":id"
+						"provers",
+						":id",
+						"store"
 					],
 					"variable": [
 						{
 							"key": "id",
 							"value": "{{circuit_id}}",
-							"description": "(Required) ID of target `Circuit`. _UUID as specified by RFC4122_"
+							"description": "(Required) ID of target `Prover`. _UUID as specified by RFC4122_"
+						}
+					]
+				},
+				"description": "Returns the store value of the specified `Circuit`. The store value is a hash of the proof."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Circuit Details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{org.access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{privacyBaseUrl}}/api/v1/provers/:id",
+					"host": [
+						"{{privacyBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"provers",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{circuit_id}}"
 						}
 					]
 				},
@@ -471,28 +237,25 @@
 			},
 			"response": [
 				{
-					"name": "The request was successful",
+					"name": "Circuit details returned",
 					"originalRequest": {
 						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
+						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/circuits/:id",
+							"raw": "{{privacyBaseUrl}}/api/v1/circuits/:id",
 							"host": [
-								"{{baseUrl}}"
+								"{{privacyBaseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"circuits",
 								":id"
 							],
 							"variable": [
 								{
-									"key": "id"
+									"key": "id",
+									"value": "{{circuit_id}}"
 								}
 							]
 						}
@@ -502,252 +265,73 @@
 					"_postman_previewlanguage": "json",
 					"header": [
 						{
+							"key": "Date",
+							"value": "Mon, 15 Nov 2021 15:30:36 GMT"
+						},
+						{
 							"key": "Content-Type",
 							"value": "application/json; charset=UTF-8"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"name\": \"<string>\",\n \"identifier\": \"<string>\",\n \"provider\": \"<string>\",\n \"proving_scheme\": \"<string>\",\n \"curve\": \"<string>\",\n \"id\": \"<uuid>\",\n \"created_at\": \"<dateTime>\",\n \"vault_id\": \"<uuid>\",\n \"proving_key_id\": \"<uuid>\",\n \"verifying_key_id\": \"<uuid>\",\n \"description\": \"<string>\",\n \"status\": \"<string>\",\n \"store_id\": \"<string>\"\n}"
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
+						},
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
+							"key": "Content-Length",
+							"value": "1702"
+						},
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
+							"key": "Connection",
+							"value": "keep-alive"
+						},
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
+							"key": "Access-Control-Allow-Headers",
+							"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+						},
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
 						{
-							"key": "Content-Type",
-							"value": "application/json"
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "X-Total-Results-Count"
 						}
 					],
 					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+					"body": "{\n    \"id\": \"a5c4a5b4-2a21-4475-9522-28dca1accfef\",\n    \"created_at\": \"2021-11-15T15:29:07.495271Z\",\n    \"vault_id\": \"62c1d447-c3a1-4c02-865d-cb15150c12ba\",\n    \"encryption_key_id\": null,\n    \"proving_key_id\": null,\n    \"verifying_key_id\": null,\n    \"name\": \"Prover demo name\",\n    \"description\": \"unspecified error\",\n    \"identifier\": \"Cubic\",\n    \"provider\": \"gnark\",\n    \"proving_scheme\": \"groth16\",\n    \"curve\": \"BN254\",\n    \"status\": \"failed\",\n    \"note_store_id\": \"f0b63d3f-ae8b-4748-a7a5-950854cc00a3\",\n    \"nullifier_store_id\": \"04c49dcb-de0d-4237-bfa5-0f9b87a24cf1\",\n    \"artifacts\": {\n        \"binary\": \"a9734e62496e7465726e616c5661726961626c657302714e625075626c69635661726961626c657302714e625365637265745661726961626c657301644c6f677380694465627567496e666f81a266466f726d6174782c5b282573202a20312920213d20282573202a203529202b20282573202a203129202b20282573202a2031295d69546f5265736f6c766584010002046d4e62436f6e73747261696e7473036f4e62434f436f6e73747261696e7473026b436f6e73747261696e747383a4614c811bd8000000200000026152811bd800000020000002614f811b980000002000000366536f6c76657200a4614c811b98000000200000036152811bd800000020000002614f811b980000002000000466536f6c76657200a4614c811b58000000200000016152811b5800000020000000614f831b40000000800000001bd8000000200000021b980000002000000466536f6c766572006c436f656666696369656e7473858400000000841bac96341c4ffffffb1b36fc76959f60cd291b666ea36f7879462e1b0e0a77c19a07df2f841b592c68389ffffff61b6df8ed2b3ec19a531bccdd46def0f28c5c1b1c14ef83340fbe5e841b974bc177a00000061bf13771b2da58a3671b51e1a2470908122e1b2259d6b14729c0fa841b1b0d0ef99fffffe61beaba68a3a32a913f1b47d8eb76d8dd06891b15d0085520f5bbc3\",\n        \"proving_key\": \"\",\n        \"verifying_key\": \"\"\n    }\n}"
 				}
 			]
 		},
 		{
-			"name": "Create circuit",
+			"name": "Generate Proof",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.environment.set(\"proof\", response.proof);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{org.access_token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
@@ -757,646 +341,17 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Circuit demo name\",\n    \"identifier\": \"Cubic\",\n    \"provider\": \"gnark\",\n    \"proving_scheme\": \"groth16\",\n    \"curve\": \"BN256\",\n    \"vault_id\": \"{{vault_id}}\",\n    \"description\": \"Circuit demo description\"\n}"
+					"raw": "{\n    \"name\": \"Prover demo name\",\n    \"identifier\": \"cubic\",\n    \"provider\": \"gnark\",\n    \"proving_scheme\": \"groth16\",\n    \"curve\": \"BN254\",    \n    \"store_id\": \"{{store_id}}\",\n    \"witness\": {\n        \"X\": \"3\",\n        \"Y\": \"35\"\n    }\n}"
 				},
 				"url": {
-					"raw": "{{privacyBaseUrl}}/api/v1/circuits",
+					"raw": "{{privacyBaseUrl}}/api/v1/provers/:id/prove",
 					"host": [
 						"{{privacyBaseUrl}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"circuits"
-					]
-				},
-				"description": "Creates a `Circuit`.\n\nYou must provision a circuit before it can be used to generate and verify proofs. The foregoing holds true regardless of which provider, proving_scheme, curve and circuit identifier you specify (or source, if the raw source code of the `Circuit` is provided instead of an identifier).\n\nA powerful aspect of this API is the asynchronous nature by which computationally-intensive cryptographic operations are executed. The lifecycle of a zero-knowledge circuit depends largely on the chosen proving_scheme. For example, zkSNARK proving schemes (i.e., groth16) require a trusted setup whereas more modern schemes (i.e., plonk) do not.\n\nA persistent store is implicitly initialized upon the creation of a new circuit unless an existing store_id is provided and the referenced store is valid in the context of the circuit and authorized `scope`.\n"
-			},
-			"response": [
-				{
-					"name": "The request was successful and a new `Circuit` was created.",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\",\n    \"curve\": \"<string>\",\n    \"vault_id\": \"<uuid>\",\n    \"proving_key_id\": \"<uuid>\",\n    \"verifying_key_id\": \"<uuid>\",\n    \"description\": \"<string>\",\n    \"status\": \"<string>\",\n    \"store_id\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits"
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\",\n    \"curve\": \"<string>\",\n    \"vault_id\": \"<uuid>\",\n    \"proving_key_id\": \"<uuid>\",\n    \"verifying_key_id\": \"<uuid>\",\n    \"description\": \"<string>\",\n    \"status\": \"<string>\",\n    \"store_id\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits"
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\",\n    \"curve\": \"<string>\",\n    \"vault_id\": \"<uuid>\",\n    \"proving_key_id\": \"<uuid>\",\n    \"verifying_key_id\": \"<uuid>\",\n    \"description\": \"<string>\",\n    \"status\": \"<string>\",\n    \"store_id\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits"
-							]
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\",\n    \"curve\": \"<string>\",\n    \"vault_id\": \"<uuid>\",\n    \"proving_key_id\": \"<uuid>\",\n    \"verifying_key_id\": \"<uuid>\",\n    \"description\": \"<string>\",\n    \"status\": \"<string>\",\n    \"store_id\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits"
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\",\n    \"curve\": \"<string>\",\n    \"vault_id\": \"<uuid>\",\n    \"proving_key_id\": \"<uuid>\",\n    \"verifying_key_id\": \"<uuid>\",\n    \"description\": \"<string>\",\n    \"status\": \"<string>\",\n    \"store_id\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits"
-							]
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\",\n    \"curve\": \"<string>\",\n    \"vault_id\": \"<uuid>\",\n    \"proving_key_id\": \"<uuid>\",\n    \"verifying_key_id\": \"<uuid>\",\n    \"description\": \"<string>\",\n    \"status\": \"<string>\",\n    \"store_id\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits"
-							]
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\",\n    \"curve\": \"<string>\",\n    \"vault_id\": \"<uuid>\",\n    \"proving_key_id\": \"<uuid>\",\n    \"verifying_key_id\": \"<uuid>\",\n    \"description\": \"<string>\",\n    \"status\": \"<string>\",\n    \"store_id\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits"
-							]
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Retrieve store value",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/circuits/:id/store/:index",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"circuits",
-						":id",
-						"store",
-						":index"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "Ut pariatur ipsum",
-							"description": "(Required) ID of target `Circuit`. _UUID as specified by RFC4122_"
-						},
-						{
-							"key": "index",
-							"value": "Ut pariatur ipsum",
-							"description": "(Required) The index of the leaf in the Merkle tree for the underlying data structure."
-						}
-					]
-				},
-				"description": "Returns the store value of the specified `Circuit`. The store value is a hash of the proof."
-			},
-			"response": [
-				{
-					"name": "The request was successful.",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/store/:index",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"store",
-								":index"
-							],
-							"variable": [
-								{
-									"key": "id"
-								},
-								{
-									"key": "index"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"proof\": \"<string>\",\n \"witness\": {\n  \"X\": \"irure tempor dolore sed\",\n  \"Y\": \"in reprehenderit ma\"\n },\n \"store\": \"<boolean>\"\n}"
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/store/:index",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"store",
-								":index"
-							],
-							"variable": [
-								{
-									"key": "id"
-								},
-								{
-									"key": "index"
-								}
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/store/:index",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"store",
-								":index"
-							],
-							"variable": [
-								{
-									"key": "id"
-								},
-								{
-									"key": "index"
-								}
-							]
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/store/:index",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"store",
-								":index"
-							],
-							"variable": [
-								{
-									"key": "id"
-								},
-								{
-									"key": "index"
-								}
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/store/:index",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"store",
-								":index"
-							],
-							"variable": [
-								{
-									"key": "id"
-								},
-								{
-									"key": "index"
-								}
-							]
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/store/:index",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"store",
-								":index"
-							],
-							"variable": [
-								{
-									"key": "id"
-								},
-								{
-									"key": "index"
-								}
-							]
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/store/:index",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"store",
-								":index"
-							],
-							"variable": [
-								{
-									"key": "id"
-								},
-								{
-									"key": "index"
-								}
-							]
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Prove circuit",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"identifier\": \"cubic\",\n    \"proving_scheme\": \"groth16\",\n    \"curve\": \"BN256\",\n    \"provider\": \"gnark\",\n    \"name\": \"my 1337 circuit\"\n}"
-				},
-				"url": {
-					"raw": "{{privacyBaseUrl}}/circuits/:id/prove",
-					"host": [
-						"{{privacyBaseUrl}}"
-					],
-					"path": [
-						"circuits",
+						"provers",
 						":id",
 						"prove"
 					],
@@ -1404,7 +359,7 @@
 						{
 							"key": "id",
 							"value": "{{circuit_id}}",
-							"description": "(Required) ID of target `Circuit`. _UUID as specified by RFC4122_"
+							"description": "(Required) ID of target `Prover`. _UUID as specified by RFC4122_"
 						}
 					]
 				},
@@ -1412,362 +367,99 @@
 			},
 			"response": [
 				{
-					"name": "The request was successful",
+					"name": "Prove Circuit",
 					"originalRequest": {
 						"method": "POST",
 						"header": [
 							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
+								"key": "Content-Type",
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"curve\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"name\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\"\n}"
+							"raw": "{\n    \"witness\":{\n        \"X\": \"3\",\n        \"Y\": \"35\"\n    }\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/prove",
+							"raw": "{{privacyBaseUrl}}/api/v1/circuits/:id/prove",
 							"host": [
-								"{{baseUrl}}"
+								"{{privacyBaseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"circuits",
 								":id",
 								"prove"
 							],
 							"variable": [
 								{
-									"key": "id"
+									"key": "id",
+									"value": "{{circuit_id}}",
+									"description": "(Required) ID of target `Prover`. _UUID as specified by RFC4122_"
 								}
 							]
 						}
 					},
 					"status": "OK",
 					"code": 200,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"curve\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"name\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/prove",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"prove"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
 					"_postman_previewlanguage": "json",
 					"header": [
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"curve\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"name\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\"\n}"
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 13:21:02 GMT"
 						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/prove",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"prove"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
 						{
 							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"curve\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"name\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\"\n}"
+							"value": "application/json; charset=UTF-8"
 						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/prove",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"prove"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "The API returns a 422 status code and human-readable error message(s) if (i) the witness parameters is not provided, (ii) required circuit arguments (i.e., fields) are not included within the given witness parameter or (iii) when Circuit constraints are n",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"curve\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"name\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\"\n}"
+							"key": "Content-Length",
+							"value": "276"
 						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/prove",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"prove"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-					"code": 422,
-					"_postman_previewlanguage": "text",
-					"header": [
 						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"curve\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"name\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\"\n}"
+							"key": "Connection",
+							"value": "keep-alive"
 						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/prove",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"prove"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"curve\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"name\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\"\n}"
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
 						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/prove",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"prove"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"curve\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"name\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"proving_scheme\": \"<string>\"\n}"
+							"key": "Access-Control-Allow-Headers",
+							"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
 						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/prove",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"prove"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
 						{
-							"key": "Content-Type",
-							"value": "application/json"
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "X-Total-Results-Count"
 						}
 					],
 					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+					"body": "{\n    \"proof\": \"85e76bc34d6c61b5e96407f07b91d98b92fc96c695e4d8b5756a4f3a45ef9d64a49719f3203c2131c3becd4076b9a0e919c48f782167564e3fed6347f78691c2292c270a72c084f6e684c62abc100857be64d299186780cb74164a7262dab3eea60a45cbd17def94cea1fd43355c3606c21868d1e6dcb9db2831105f660e88f8\"\n}"
 				}
 			]
 		},
 		{
-			"name": "Verify",
+			"name": "Verify Proof",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{org.access_token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
@@ -1777,336 +469,109 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"witness\": {\n        \"X\": \"3\",\n        \"Y\": \"35\"\n    },\n    \"proof\": \"88b8d340795f4258c1f2c0ed8478b44859c90472af9ccdc5c54b02c85bcd879d9ddf3a3fb7c6926ea247c0b1c411abe2f5ba9c8deba60ab476428272767a761d1e14e343208024326429e361ebbc4c11daf5f16dbb7f7f4679cf85b17b59b1bdaa379a82ddab4dcbb7cd2bc32cdebadc6825c72d5f8e624f6d0f6b07906a8248\"\n}"
+					"raw": "{\n    \"witness\": {\n        \"X\": \"3\",\n        \"Y\": \"35\"\n    },\n    \"proof\": \"{{proof}}\"\n}"
 				},
 				"url": {
-					"raw": "{{baseUrl}}/circuits/:id/verify",
+					"raw": "{{privacyBaseUrl}}/api/v1/provers/:id/verify",
 					"host": [
-						"{{baseUrl}}"
+						"{{privacyBaseUrl}}"
 					],
 					"path": [
-						"circuits",
+						"api",
+						"v1",
+						"provers",
 						":id",
 						"verify"
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": "Ut pariatur ipsum",
-							"description": "(Required) ID of target `Circuit`. _UUID as specified by RFC4122_"
+							"value": "{{circuit_id}}",
+							"description": "(Required) ID of target `Prover`. _UUID as specified by RFC4122_"
 						}
 					]
 				},
-				"description": "Verify a `Proof` using the given `Witness` parameters."
+				"description": "Verify a `Proof` using the given `Witness` parameters.\n\nA `Proof` is returned in the `prove_circuit` request. The `x` and `y` values should be the same as the values used in the `prove_circuit` request."
 			},
 			"response": [
 				{
-					"name": "The request was successful",
+					"name": "Verify",
 					"originalRequest": {
 						"method": "POST",
 						"header": [
 							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
+								"key": "Content-Type",
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"proof\": \"<string>\",\n    \"witness\": {\n        \"X\": \"irure tempor dolore sed\",\n        \"Y\": \"in reprehenderit ma\"\n    },\n    \"store\": \"<boolean>\"\n}"
+							"raw": "{\n    \"witness\": {\n        \"X\": \"3\",\n        \"Y\": \"35\"\n    },\n    \"proof\": \"{{proof}}\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/verify",
+							"raw": "{{privacyBaseUrl}}/api/v1/circuits/:id/verify",
 							"host": [
-								"{{baseUrl}}"
+								"{{privacyBaseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"circuits",
 								":id",
 								"verify"
 							],
 							"variable": [
 								{
-									"key": "id"
+									"key": "id",
+									"value": "{{circuit_id}}",
+									"description": "(Required) ID of target `Prover`. _UUID as specified by RFC4122_"
 								}
 							]
 						}
 					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"proof\": \"<string>\",\n    \"witness\": {\n        \"X\": \"irure tempor dolore sed\",\n        \"Y\": \"in reprehenderit ma\"\n    },\n    \"store\": \"<boolean>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/verify",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"verify"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
+					"status": "OK",
+					"code": 200,
 					"_postman_previewlanguage": "json",
 					"header": [
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"proof\": \"<string>\",\n    \"witness\": {\n        \"X\": \"irure tempor dolore sed\",\n        \"Y\": \"in reprehenderit ma\"\n    },\n    \"store\": \"<boolean>\"\n}"
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 13:22:13 GMT"
 						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/verify",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"verify"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
 						{
 							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"proof\": \"<string>\",\n    \"witness\": {\n        \"X\": \"irure tempor dolore sed\",\n        \"Y\": \"in reprehenderit ma\"\n    },\n    \"store\": \"<boolean>\"\n}"
+							"value": "application/json; charset=UTF-8"
 						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/verify",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"verify"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"proof\": \"<string>\",\n    \"witness\": {\n        \"X\": \"irure tempor dolore sed\",\n        \"Y\": \"in reprehenderit ma\"\n    },\n    \"store\": \"<boolean>\"\n}"
+							"key": "Content-Length",
+							"value": "23"
 						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/verify",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"verify"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"proof\": \"<string>\",\n    \"witness\": {\n        \"X\": \"irure tempor dolore sed\",\n        \"Y\": \"in reprehenderit ma\"\n    },\n    \"store\": \"<boolean>\"\n}"
+							"key": "Connection",
+							"value": "keep-alive"
 						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/verify",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"verify"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"proof\": \"<string>\",\n    \"witness\": {\n        \"X\": \"irure tempor dolore sed\",\n        \"Y\": \"in reprehenderit ma\"\n    },\n    \"store\": \"<boolean>\"\n}"
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
 						},
-						"url": {
-							"raw": "{{baseUrl}}/circuits/:id/verify",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"circuits",
-								":id",
-								"verify"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
 						{
-							"key": "Content-Type",
-							"value": "application/json"
+							"key": "Access-Control-Allow-Headers",
+							"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "X-Total-Results-Count"
 						}
 					],
 					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
+					"body": "{\n    \"result\": true\n}"
 				}
 			]
 		}
@@ -2116,7 +581,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "{{jwt_token_organization}}",
+				"value": "{{jwt_token_application}}",
 				"type": "string"
 			}
 		]
