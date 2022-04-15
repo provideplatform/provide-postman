@@ -1,547 +1,2845 @@
 {
 	"info": {
-		"_postman_id": "e1fd9f8c-05a4-4a03-a03f-9051122ac931",
+		"_postman_id": "268a212f-063f-476b-9257-3ddfcd10e000",
 		"name": "Baseline",
+		"description": "Provide Baseline is an API Suite for integrating systems of record, curating enterprise ecosystems and managing zero-knowledge workflows within a baseline context. Provide Baseline bundles the architecture, components and functionality necessary for baselining with REST API availability and the scalability and adaptability of a web3 infrastructure. Additional features have been incorporated into the framework that increase usability, decrease on-ramp delays and further expand the capabilities of the standard.\n\nThe Baseline Protocol is a process standard for using blockchain or distributed ledger technology as a common frame of reference between two or more disparate systems. Enforcing real time data-reciprocity between ERPs, databases or state machines, or amongst other distributed technologies allows participants to verify counterparty data integrity throughout any business process. It is particularly promising as a way to reduce capital expense and other overheads while increasing operational integrity when automating business processes across multiple companies.\n\nProvide Baseline can be run locally, in hybrid ecosystems and is available for general use in Provide's production environment.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Get Baseline objects",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "Mappings",
+			"item": [
+				{
+					"name": "Create Mapping",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"mapping_model_id\", response.models[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomBsAdjective}} {{$randomBsNoun}}\",\n    \"description\": \"{{$randomIngverb}} {{$randomBsAdjective}} {{$randomBsAdjective}} {{$randomBsNoun}} for {{$randomBsAdjective}} {{$randomJobTitle}}s\",\n    \"type\": \"mapping_type\",\n    \"workgroup_id\": \"{{application_id}}\",\n    \"ref_mapping_id\": \"\",\n    \"models\": [\n        {\n            \"description\": \"{{$randomBsAdjective}} {{$randomBsNoun}}\",\n            \"primary_key\": \"id\",\n            \"type\": \"Invoice\",\n            \"standard\": \"openshift\",\n            \"ref_model_id\": \"\",\n            \"fields\": [\n                {\n                    \"is_primary_key\": true,\n                    \"ref_field_id\": \"\",\n                    \"name\": \"id\",\n                    \"description\": \"{{$randomCatchPhraseDescriptor}}\",\n                    \"type\": \"string\",\n                    \"default_value\": \"TK421\"\n                }\n            ]\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/mappings",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mappings"
+							]
+						},
+						"description": "Creates a `mapping`"
+					},
+					"response": [
+						{
+							"name": "Create Mapping",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Mapping name\",\n    \"description\": \"Mapping intended for demonstration purposes\",\n    \"type\": \"mapping_type\",\n    \"workgroup_id\": \"{{application_id}}\",\n    \"models\": [\n        {\n            \"description\": \"Mapping model name\",\n            \"primary_key\": \"id\",\n            \"type\": \"uuid\",\n            \"fields\": [\n                {\n                    \"is_primary_key\": true,\n                    \"name\": \"id\",\n                    \"description\": null,\n                    \"type\": \"string\",\n                    \"default_value\": null\n                }\n            ]\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{baselineUrl}}/api/v1/mappings",
+									"host": [
+										"{{baselineUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"mappings"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 10 Dec 2021 20:59:50 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1131"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"f3dadc5d-76d0-4ea0-be44-c9ca2d354924\",\n    \"created_at\": \"2021-12-10T20:59:50.648482934Z\",\n    \"name\": \"Mapping name\",\n    \"description\": \"Mapping intended for demonstration purposes\",\n    \"type\": \"mapping_type\",\n    \"models\": [\n        {\n            \"id\": \"5a6d0da5-c923-417d-8beb-3bb59e22dd7d\",\n            \"created_at\": \"2021-12-10T20:59:50.649965564Z\",\n            \"description\": \"Mapping model name\",\n            \"primary_key\": \"id\",\n            \"type\": \"uuid\",\n            \"mapping_id\": \"f3dadc5d-76d0-4ea0-be44-c9ca2d354924\",\n            \"fields\": [\n                {\n                    \"id\": \"d71825ec-0b2e-4aae-a419-07603aaedfda\",\n                    \"created_at\": \"2021-12-10T20:59:50.650813981Z\",\n                    \"is_primary_key\": true,\n                    \"name\": \"id\",\n                    \"description\": null,\n                    \"type\": \"string\",\n                    \"mapping_model_id\": \"5a6d0da5-c923-417d-8beb-3bb59e22dd7d\"\n                }\n            ]\n        }\n    ],\n    \"organization_id\": \"5a37cf55-5169-46fe-a7c5-070d79d4569d\",\n    \"workgroup_id\": \"a746d83d-6d5e-4d41-9588-300e7e7ff0bc\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update mapping",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomBsAdjective}} {{$randomBsNoun}}\",\n    \"description\": \"{{$randomIngverb}} {{$randomBsAdjective}} {{$randomBsAdjective}} {{$randomBsNoun}} for {{$randomBsAdjective}} {{$randomJobTitle}}s\",\n    \"type\": \"mapping_type\",\n    \"workgroup_id\": \"{{application_id}}\",\n    \"models\": [\n        {\n            \"description\": \"{{$randomBsAdjective}} {{$randomBsNoun}}\",\n            \"primary_key\": \"id\",\n            \"type\": \"Transport Data\",\n            \"mapping_id\": \"{{mapping_id}}\",\n            \"standard\": \"openshift\",\n            \"fields\": [\n                {\n                    \"is_primary_key\": true,\n                    \"name\": \"id\",\n                    \"description\": null,\n                    \"type\": \"string\",\n                    \"default_value\": null\n                }\n            ]\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/mappings/:id",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mappings",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{mapping_id}}"
+								}
+							]
+						},
+						"description": "Creates a `Workflow` instance."
+					},
+					"response": [
+						{
+							"name": "Update mapping",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Update test name\",\n    \"description\": null,\n    \"type\": \"mapping_type\",\n    \"models\": [\n        {\n            \"description\": \"test model\",\n            \"primary_key\": \"id\",\n            \"type\": \"test\",\n            \"fields\": [\n                {\n                    \"is_primary_key\": false,\n                    \"name\": \"id\",\n                    \"description\": null,\n                    \"type\": \"string\",\n                    \"default_value\": null\n                }\n            ]\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "10.0.0.3:8080/api/v1/mappings/{{mapping_id}}",
+									"host": [
+										"10",
+										"0",
+										"0",
+										"3"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"mappings",
+										"{{mapping_id}}"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 28 Nov 2021 19:13:00 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "List Mappings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-api-key",
+								"value": "PMAK-619e872e473a8b00355ecb40-1c25431a7f0d07212de39a42e2015235a8",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/mappings",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mappings"
+							]
+						},
+						"description": "Returns a list of `Mapping` records for the authorized scope."
+					},
+					"response": [
+						{
+							"name": "Ok- List of mappings returned",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baselineUrl}}/mappings",
+									"host": [
+										"{{baselineUrl}}"
+									],
+									"path": [
+										"mappings"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Nov 2021 13:20:08 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1394"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"3486a43a-6ffd-4227-81f8-ace08ad2c416\",\n        \"created_at\": \"2021-11-15T11:58:12.93956Z\",\n        \"name\": \"\",\n        \"description\": null,\n        \"type\": null,\n        \"models\": null,\n        \"organization_id\": \"5a37cf55-5169-46fe-a7c5-070d79d4569d\",\n        \"workgroup_id\": \"a746d83d-6d5e-4d41-9588-300e7e7ff0bc\"\n    },\n    {\n        \"id\": \"a3462cde-8cd0-40b5-b19e-cc29b3b57536\",\n        \"created_at\": \"2021-11-15T12:12:45.469679Z\",\n        \"name\": \"\",\n        \"description\": null,\n        \"type\": \"fields\",\n        \"models\": null,\n        \"organization_id\": \"5a37cf55-5169-46fe-a7c5-070d79d4569d\",\n        \"workgroup_id\": \"a746d83d-6d5e-4d41-9588-300e7e7ff0bc\"\n    },\n    {\n        \"id\": \"d15fe6d2-c4df-4e9d-af68-463ec224bd87\",\n        \"created_at\": \"2021-11-15T12:13:16.137695Z\",\n        \"name\": \"\",\n        \"description\": null,\n        \"type\": \"fields\",\n        \"models\": null,\n        \"organization_id\": \"5a37cf55-5169-46fe-a7c5-070d79d4569d\",\n        \"workgroup_id\": \"a746d83d-6d5e-4d41-9588-300e7e7ff0bc\"\n    },\n    {\n        \"id\": \"8c8f68db-3978-4822-87db-0cf274dd666a\",\n        \"created_at\": \"2021-11-15T12:17:09.085733Z\",\n        \"name\": \"\",\n        \"description\": null,\n        \"type\": \"fields\",\n        \"models\": null,\n        \"organization_id\": \"5a37cf55-5169-46fe-a7c5-070d79d4569d\",\n        \"workgroup_id\": \"a746d83d-6d5e-4d41-9588-300e7e7ff0bc\"\n    }\n]"
+						}
+					]
+				}
+			],
+			"description": "# Overview\n\nSuccessfully implementing a Baseline process relies heavily on arbitrary data models from disparate systems of record having similar data structures. Mappings enables persistent data alignment through a collection of RESTful API interfaces that allow a developer to define and maintain Mapping, MappingModel and MappingField objects as they relate to external data structures within a baseline workgroup.\n\n## Application\n\nMappings should be used by participants in a Workgroup taking part in a Workflow to align the data used in a Workstep. A Mapping is referenced as a domain model when defining a Workstep within a draft Workflow. They are utilized at run-time upon WorkstepInstance instantiation to align data models between a primary and secondary system of record. This alignment is paramount in the processes involved in a baseline process, such as zero-knowledge state synchronization.  \nMappings created through the API are used to dynamically generate mapping tables that are stored in a postgres database within the provide stack (local, hybrid or cloud). Input and output that conforms to the MappingModel defined in a Mapping within a domain model is referenced in a Workstep.\n\n# Fundamentals\n\n### Schema\n\nA mapping is a hierarchically structured object that contains the information necessary to process and align data elements (fields) between two disparate data models.\n\nMappings are composed of three distinct components:\n\n*   A `Mapping` object that provides context for a nested array of `MappingModel` objects\n*   A `MappingModel` object that provides context for a nested array of MappingField objects\n*   A `MappingField` object that defines field attributes and relationships between the source and a target schema\n    \n\nAll objects and related tables within a mapping are programmatically generated from the data included in the request. `Mapping`, `MappingModel` and `MappingField` objects do not have separate endpoints.\n\n## Using Mappings\n\n### Prerequisites\n\n  \nThe Mappings API is intended to function within the context of an Organization acting as a Participant in a Workgroup.*  \nWithin this context, it is assumed that:*\n\n*   an Organization scoped JWT is available for use\n*   Organization has connected a system of record (the SOR to be mapped)\n*   Workgroup has more than 1 system of record connected\n*   destination SOR data structure is known\n*   origin SOR data structure is known"
+		},
+		{
+			"name": "Workflows",
+			"item": [
+				{
+					"name": "Create Workflow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"To Check if id is Null\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).not.eql(null);",
+									"});",
+									"",
+									"pm.test(\"Check the active environment\", () => {",
+									"  pm.expect(pm.environment.name).to.eql(\"Provide-account\");",
+									"});",
+									"",
+									"const response = pm.response.json();",
+									"pm.environment.set(\"workflow_id\", response.id);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomCatchPhraseAdjective}} {{$randomCatchPhraseNoun}}\",\n    \"description\": \"Workflow for {{$randomCatchPhraseAdjective}} {{$randomCatchPhraseDescriptor}} {{$randomCatchPhraseNoun}}\",\n    \"workgroup_id\": \"{{application_id}}\",\n    \"status\": \"draft\",\n    \"version\": \"1.0\"\n}\n"
+						},
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows"
+							]
+						},
+						"description": "Creates a `Workflow`.\n\nA `workflow` is a representation (template) of a baseline business process, typically shared amongst two or more participants and composed of one or more stepwise worksteps. Once deployed, a workflow is referenced as the blueprint for real time `workflow_instance` generation as qualifying trigger events occur.\n\n** Statuses\n\n| **Status** | **Description** |\n| --- | --- |\n| draft | non published; editable |\n| deployed | readies `Workflow` for generation of Workflow Instances.  <br>  <br>When a `Workflow` is updated to deployed, it begins actively listening for the `Workstep` trigger defined in the leading Workstep. Upon triggering, a `WorkflowInstance` will be generated.  <br>  <br>A `Workflow` must have a `version` assigned before it can be deployed. |\n| deprecated | removed from deployment. No longer listening for `Workstep` triggers. Cannot be used spawn Workflow Instances. |\n\n** Version\n\n**"
+					},
+					"response": [
+						{
+							"name": "Workflow Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{$randomCatchPhraseAdjective}} {{$randomCatchPhraseNoun}}\",\n    \"description\": \"Workflow for {{$randomCatchPhraseAdjective}} {{$randomCatchPhraseDescriptor}} {{$randomCatchPhraseNoun}}\",\n    \"workgroup_id\": \"{{application_id}}\",\n    \"status\": \"draft\",\n    \"version\": \"1.0\"\n}\n"
+								},
+								"url": {
+									"raw": "{{baselineUrl}}/api/v1/workflows",
+									"host": [
+										"{{baselineUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"workflows"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Feb 2022 14:55:02 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "420"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"5864d8a9-9d6c-4965-808b-67b87bfa1faf\",\n    \"created_at\": \"2022-02-10T14:55:02.246638527Z\",\n    \"deployed_at\": null,\n    \"status\": \"draft\",\n    \"version\": \"1.0\",\n    \"name\": \"Business-focused framework\",\n    \"description\": \"Workflow for Fundamental analyzing strategy\",\n    \"updated_at\": \"2022-02-10T14:55:02.246638527Z\",\n    \"workgroup_id\": \"fe507301-5dda-41b3-bce9-d822a18e4370\",\n    \"workflow_id\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Workflow Instance",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"To Check if id is Null\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).not.eql(null);",
+									"});",
+									"",
+									"pm.test(\"Check the active environment\", () => {",
+									"  pm.expect(pm.environment.name).to.eql(\"Provide-account\");",
+									"});",
+									"",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"workflow_instance_id\", response.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomBsNoun}}\",\n    \"workgroup_id\": \"{{application_id}}\",\n    \"workflow_id\": \"{{workflow_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows"
+							]
+						},
+						"description": "Creates a `WorkflowInstance`.\n\nWorkflow Instances can only be generated from a deployed `Workflow`. A `WorkflowInstance` generation process can occur automatically when the first `Workstep` in the `Workflow` is triggered, or can occur manually when a user assigns a `workflow_id` equal to the current `id` of the `Workflow`.\n\nWhen an instance is created,"
+					},
+					"response": [
+						{
+							"name": "Workflow Instance created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"test4\",\n    \"workgroup_id\": \"{{application_id}}\",\n    \"workflow_id\": \"{{workflow_id}}\"\n}"
+								},
+								"url": {
+									"raw": "10.0.0.3:8080/api/v1/workflows",
+									"host": [
+										"10",
+										"0",
+										"0",
+										"3"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"workflows"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Nov 2021 06:25:53 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "314"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"5ba229ce-eca0-479d-bc04-fa5b29bfdf68\",\n    \"created_at\": \"2021-11-27T06:25:53.673942389Z\",\n    \"status\": \"init\",\n    \"version\": null,\n    \"name\": \"test4\",\n    \"participants\": null,\n    \"workgroup_id\": \"a746d83d-6d5e-4d41-9588-300e7e7ff0bc\",\n    \"workflow_id\": \"10abf153-403b-4518-9bcf-285a66c76bb6\"\n}"
+						}
+					]
+				},
+				{
+					"name": "List Workflows/Instances",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Limits resulting response to the page number specified",
+									"disabled": true
+								},
+								{
+									"key": "rpp",
+									"value": "20",
+									"description": "Sets the number of results included per page",
+									"disabled": true
+								},
+								{
+									"key": "filter_prototypes",
+									"value": "true",
+									"description": "When true, only Workflow instances will be returned",
+									"disabled": true
+								},
+								{
+									"key": "filter_instances",
+									"value": "true",
+									"description": "When true, only Workflow prototypes will be returned",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Returns a list of Workflows or Workflow Instances.\n\nBoolean query param `filter_prototypes` or `filter_instances` can be applied to filter response as needed."
+					},
+					"response": [
+						{
+							"name": "List Workflows",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baselineUrl}}/api/v1/workflows",
+									"host": [
+										"{{baselineUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"workflows"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1",
+											"description": "Limits resulting response to the page number specified",
+											"disabled": true
+										},
+										{
+											"key": "rpp",
+											"value": "20",
+											"description": "Sets the number of results included per page",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "X-Total-Results-Count",
+									"value": "1"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 26 Nov 2021 16:46:00 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "321"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"7279f7a7-6976-4d10-869b-36a15c8eeac6\",\n        \"created_at\": \"2021-11-26T16:45:30.364582Z\",\n        \"status\": \"draft\",\n        \"version\": null,\n        \"name\": \"test\",\n        \"participants\": null,\n        \"workgroup_id\": \"a746d83d-6d5e-4d41-9588-300e7e7ff0bc\",\n        \"workflow_id\": null\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Delete Workflow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows/:id",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{workflow_id}}"
+								}
+							]
+						},
+						"description": "Deletes a specified `Workflow`.\n\nA `Workflow` can only be deleted if the status is `draft`. Workflows that are in deployed or deprecated status cannot be deleted."
+					},
+					"response": [
+						{
+							"name": "Create Workflow",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"test\",\n    \"workgroup_id\": \"{{application_id}}\"\n}"
+								},
+								"url": {
+									"raw": "10.0.0.3:8080/api/v1/workflows",
+									"host": [
+										"10",
+										"0",
+										"0",
+										"3"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"workflows"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 26 Nov 2021 16:45:30 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "280"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"7279f7a7-6976-4d10-869b-36a15c8eeac6\",\n    \"created_at\": \"2021-11-26T16:45:30.364582373Z\",\n    \"status\": \"draft\",\n    \"version\": null,\n    \"name\": \"test\",\n    \"participants\": null,\n    \"workgroup_id\": \"a746d83d-6d5e-4d41-9588-300e7e7ff0bc\",\n    \"workflow_id\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Workflow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"version\": \"1\",\n    \"status\": \"draft\"\n}"
+						},
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows/:id",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{workflow_id}}"
+								}
+							]
+						},
+						"description": "Updates a `Workflow`. Use this endpoint to update the `status` and `version` of a `Workflow` prior to creating a `WorkflowInstance.`\n\nUpon deployment, `Workstep` artifacts are generated, including the on and off chain artifacts; i.e. the `Prover`\n\nPrior to deploying `Workflow` that will generate a `WorkflowInstance`, the `Workflow` must be versioned and deployed. Updating the following fields on a `Workflow` will prepare it for deployment:\n\n| **Field** | **Value** |\n| --- | --- |\n| deployed | 1.0 |\n| status | deployed |\n\n##Workflow Statuses\n\n| **Status** | **Definition** |\n| --- | --- |\n| draft | preliminary version of a `Workflow`. Only draft workflows can be edited |\n| deployed | live & listening for `Workstep` triggers to create `WorkflowInstance` |\n| deprecated |  |"
+					},
+					"response": [
+						{
+							"name": "Create Workflow",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"test\",\n    \"workgroup_id\": \"{{application_id}}\"\n}"
+								},
+								"url": {
+									"raw": "10.0.0.3:8080/api/v1/workflows",
+									"host": [
+										"10",
+										"0",
+										"0",
+										"3"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"workflows"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 26 Nov 2021 16:45:30 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "280"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"7279f7a7-6976-4d10-869b-36a15c8eeac6\",\n    \"created_at\": \"2021-11-26T16:45:30.364582373Z\",\n    \"status\": \"draft\",\n    \"version\": null,\n    \"name\": \"test\",\n    \"participants\": null,\n    \"workgroup_id\": \"a746d83d-6d5e-4d41-9588-300e7e7ff0bc\",\n    \"workflow_id\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Workflow Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows/:id",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{workflow_id}}"
+								}
+							]
+						},
+						"description": "Creates a `Workflow` instance."
+					},
+					"response": [
+						{
+							"name": "Get Workflow Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "10.0.0.3:8080/api/v1/workflows/:id",
+									"host": [
+										"10",
+										"0",
+										"0",
+										"3"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"workflows",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{workflow_id}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 02 Dec 2021 04:29:18 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "368"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"edd5a68f-f201-4930-8f4f-c8adf8d73157\",\n    \"created_at\": \"2021-12-02T04:27:44.037646Z\",\n    \"deployed_at\": \"2021-12-02T04:28:30.062439Z\",\n    \"status\": \"deployed\",\n    \"version\": \"1\",\n    \"name\": \"Synchronised hybrid artificial intelligence\",\n    \"participants\": null,\n    \"workgroup_id\": \"a746d83d-6d5e-4d41-9588-300e7e7ff0bc\",\n    \"workflow_id\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "List Workflow Worksteps",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows/:id/worksteps",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows",
+								":id",
+								"worksteps"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{workflow_id}}"
+								}
+							]
+						},
+						"description": "Creates a `Workflow` instance."
+					},
+					"response": [
+						{
+							"name": "Get Workflow Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "10.0.0.3:8080/api/v1/workflows/:id",
+									"host": [
+										"10",
+										"0",
+										"0",
+										"3"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"workflows",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{workflow_id}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 02 Dec 2021 04:29:18 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "368"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"edd5a68f-f201-4930-8f4f-c8adf8d73157\",\n    \"created_at\": \"2021-12-02T04:27:44.037646Z\",\n    \"deployed_at\": \"2021-12-02T04:28:30.062439Z\",\n    \"status\": \"deployed\",\n    \"version\": \"1\",\n    \"name\": \"Synchronised hybrid artificial intelligence\",\n    \"participants\": null,\n    \"workgroup_id\": \"a746d83d-6d5e-4d41-9588-300e7e7ff0bc\",\n    \"workflow_id\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "List Workflow Instance Workstep",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"workstep_instance_id\", response[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows/:id/worksteps",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows",
+								":id",
+								"worksteps"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{workflow_instance_id}}"
+								}
+							]
+						},
+						"description": "Creates a `Workflow` instance."
+					},
+					"response": [
+						{
+							"name": "Get Workflow Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "10.0.0.3:8080/api/v1/workflows/:id",
+									"host": [
+										"10",
+										"0",
+										"0",
+										"3"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"workflows",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{workflow_id}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 02 Dec 2021 04:29:18 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "368"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"edd5a68f-f201-4930-8f4f-c8adf8d73157\",\n    \"created_at\": \"2021-12-02T04:27:44.037646Z\",\n    \"deployed_at\": \"2021-12-02T04:28:30.062439Z\",\n    \"status\": \"deployed\",\n    \"version\": \"1\",\n    \"name\": \"Synchronised hybrid artificial intelligence\",\n    \"participants\": null,\n    \"workgroup_id\": \"a746d83d-6d5e-4d41-9588-300e7e7ff0bc\",\n    \"workflow_id\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Deploy Workflow",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows/:id/deploy",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows",
+								":id",
+								"deploy"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{workflow_id}}"
+								}
+							]
+						},
+						"description": "Deploys a specified `Workflow`.\n\nPrior to deploying `Workflow` that will generate a `WorkflowInstance`, the `Workflow` must be versioned and deployed.\n\nUpon `Workflow` deployment, child `Workstep` artifacts are generated, including the on and off chain artifacts; i.e. the `Prover`"
+					},
+					"response": [
+						{
+							"name": "Get Workflow Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "10.0.0.3:8080/api/v1/workflows/:id",
+									"host": [
+										"10",
+										"0",
+										"0",
+										"3"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"workflows",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{workflow_id}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 02 Dec 2021 04:29:18 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "368"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"edd5a68f-f201-4930-8f4f-c8adf8d73157\",\n    \"created_at\": \"2021-12-02T04:27:44.037646Z\",\n    \"deployed_at\": \"2021-12-02T04:28:30.062439Z\",\n    \"status\": \"deployed\",\n    \"version\": \"1\",\n    \"name\": \"Synchronised hybrid artificial intelligence\",\n    \"participants\": null,\n    \"workgroup_id\": \"a746d83d-6d5e-4d41-9588-300e7e7ff0bc\",\n    \"workflow_id\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Workflow Instance Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows/:id",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{workflow_instance_id}}"
+								}
+							]
+						},
+						"description": "Returns details for a specified `WorkflowInstance`"
+					},
+					"response": []
+				}
+			],
+			"description": "# Overview\n\nA Workflow is a prototype collection of stepwise Workstep prototypes corresponding to a real-world business process. Workflows provide a means of defining the relationships, rulesets and order of execution to be implemented in a baseline business process.\n\nWhile the baseline protocol standard defines a WorkflowInstance, the provisioning and management of these instances is left to the implementation provider. Provide Baseline introduces a Workflow staging layer that enables drafting, templating, deployment and automatic real-time generation of workflow instances. Once deployed, a Workflow is referenced as a prototype for the spawning of WorkflowInstance executions as qualifying trigger events occur.\n\n## Application\n\nWorkflows are useful for designing end-to-end baseline processes as they pertain to a specific use case. Composed of `Workstep` objects containing zero-knowledge proofs, a Workflow can be used to verifiably synchronize the entire lifecycle of any shared business process without exposing any sensitive data.\n\n# Fundamentals\n\n### Proof\n\nRefers to the output of a zero-knowledge prover; the result of a successfully executed Workstep. In a baseline context, the proof resulting from a completed workflow instance provides verifiable proof that the data shared by participants in the workflow remained synchronized throughout the entire process.\n\n### Workstep\n\nWorkflows are composed of individual stepwise processes called worksteps. A `workstep` is characterized by input, the deterministic application of a set of logic rules and data to that input, and the generation of a verifiably deterministic and verifiably correct output. Worksteps output a proof by way of a prover.\n\n### Workflow Instance\n\nA workflow instance is a real-time execution of a deployed workflow. Workflow instances are spawned when conditions specified in the prime-workstep trigger are met. A Workflow is capable of spawning n number of workflow instances. A WorkflowInstance is distinguishable from a Workflow by the presence of a value in the workflow_id field. Deploying a workflow provisions it for use in the associated workgroup within the parameters defined in the workflow and its underlying worksteps. Upon deployment, a `workflow` will be assigned a `workflow_id`, indicating that it can now be referenced as the origin for spawned workflow instances.\n\nOnce deployed, a workflow begins actively listening for workstep trigger events, generating new workflow instances at each occurrence. A deployed workflow cannot be updated and must be versioned and redeployed to introduce changes.\n\n## Steps to deploying a `Workflow`\n\n1.  Create `Workflow -`\n2.  Create worksteps\n3.  Deploy `Workflow`"
+		},
+		{
+			"name": "Worksteps",
+			"item": [
+				{
+					"name": "List Worksteps",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/worksteps",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"worksteps"
+							],
+							"query": [
+								{
+									"key": "filter_prototypes",
+									"value": "true",
+									"description": "when true, returns only Workstep instances",
+									"disabled": true
+								},
+								{
+									"key": "filter_instances",
+									"value": "true",
+									"description": "when true, returns only Workstep prototypes",
+									"disabled": true
+								},
+								{
+									"key": "rpp",
+									"value": "20",
+									"description": "defines results per page",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "defines page number ",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Returns a list of worksteps and workstep instances for a given `Workflow`."
+					},
+					"response": [
+						{
+							"name": "List Worksteps",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "10.0.0.3:8080/api/v1/workflows/:id/worksteps",
+									"host": [
+										"10",
+										"0",
+										"0",
+										"3"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"workflows",
+										":id",
+										"worksteps"
+									],
+									"query": [
+										{
+											"key": "filter_prototypes",
+											"value": "true",
+											"description": "when true, returns only Workstep instances",
+											"disabled": true
+										},
+										{
+											"key": "filter_instances",
+											"value": "true",
+											"description": "when true, returns only Workstep prototypes",
+											"disabled": true
+										},
+										{
+											"key": "rpp",
+											"value": "20",
+											"description": "defines results per page",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"description": "defines page number ",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{workflow_id}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "X-Total-Results-Count",
+									"value": "11"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Dec 2021 09:24:34 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"9868f1e8-2045-4da3-9ffe-cedbff0a24bf\",\n        \"created_at\": \"2021-12-01T09:12:15.465476Z\",\n        \"name\": \"Functionality primary Computer New Web\",\n        \"cardinality\": 1,\n        \"deployed_at\": \"2021-12-01T09:13:36.984749Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"invoice heuristic Djibouti deliverables Franc\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"94bca26c-8df6-400c-bc3e-f889497f68b4\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"4ce7920b-a7c8-4c9b-9eb5-b68d25962458\",\n        \"created_at\": \"2021-12-01T09:12:17.420175Z\",\n        \"name\": \"Cambridgeshire Agent systems\",\n        \"cardinality\": 2,\n        \"deployed_at\": \"2021-12-01T09:13:37.25624Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"Granite application Fork Metal Pass\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"92d873c3-7954-44c1-9cf8-480c7e697af9\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"385266bc-7901-4170-b1b0-ff8dbf77b0a6\",\n        \"created_at\": \"2021-12-01T09:12:19.594275Z\",\n        \"name\": \"Michigan Checking\",\n        \"cardinality\": 3,\n        \"deployed_at\": \"2021-12-01T09:13:37.515836Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"Sausages HDD\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"4c5a05a4-8e2b-4203-87fa-a8c06eb5c07f\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"0bfe4584-30dd-4c4f-9d74-bdb47a13ea6c\",\n        \"created_at\": \"2021-12-01T09:12:20.837269Z\",\n        \"name\": \"Tasty Agent Bedfordshire open-source Crossroad\",\n        \"cardinality\": 4,\n        \"deployed_at\": \"2021-12-01T09:13:37.79689Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"Steel card\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"272d8ac3-1e4d-45cb-971a-e2bd08c94aa7\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"fecc698e-f8d8-4d43-9e26-af71f787301f\",\n        \"created_at\": \"2021-12-01T09:12:22.130674Z\",\n        \"name\": \"object-oriented Senior Bahraini Metal alarm\",\n        \"cardinality\": 5,\n        \"deployed_at\": \"2021-12-01T09:13:38.067412Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"transmitting bypass Right-sized calculating\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"55bba2b4-f9e3-4d0a-9c2a-3a1a3a8fc7f0\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"3e458fc4-2239-4f8b-91b2-5930435cbb27\",\n        \"created_at\": \"2021-12-01T09:12:23.117238Z\",\n        \"name\": \"Assistant Berkshire exploit\",\n        \"cardinality\": 6,\n        \"deployed_at\": \"2021-12-01T09:13:38.319966Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"Investor bluetooth\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"6882738c-9d9e-4b27-b157-2895d34bb442\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"708508f9-b8f8-42c1-b554-bcc7f92744d1\",\n        \"created_at\": \"2021-12-01T09:12:24.24345Z\",\n        \"name\": \"pink leading-edge\",\n        \"cardinality\": 7,\n        \"deployed_at\": \"2021-12-01T09:13:38.580767Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"array Functionality Nigeria\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"ff3147a9-3c2b-4c27-8572-e4d11fdb1976\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"0ace6484-2cda-47e4-a83e-adc234664453\",\n        \"created_at\": \"2021-12-01T09:12:25.28587Z\",\n        \"name\": \"Mouse Account Bike\",\n        \"cardinality\": 8,\n        \"deployed_at\": \"2021-12-01T09:13:38.83844Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"matrix indigo\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"0d1643c9-b484-4dc6-8fa3-8b73d0fe6ea4\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"62b72d23-cc15-421a-93c4-c0dee83ca554\",\n        \"created_at\": \"2021-12-01T09:12:26.108616Z\",\n        \"name\": \"sexy green Cyprus Lead\",\n        \"cardinality\": 9,\n        \"deployed_at\": \"2021-12-01T09:13:39.104925Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"Ireland Frozen Rubber quantify Markets\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"7cbd3b9b-53f9-41b3-bd22-ee9a7309d57c\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"bed689b0-ff91-4574-952b-1511671f3dd2\",\n        \"created_at\": \"2021-12-01T09:12:27.180664Z\",\n        \"name\": \"teal Handcrafted California Account\",\n        \"cardinality\": 10,\n        \"deployed_at\": \"2021-12-01T09:13:39.366694Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"Dollar Generic Enterprise-wide\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"8c25ab12-5d63-47b6-981d-1cf08296ca96\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"f7b0cfcd-7771-4c71-9bdc-5685235a79f0\",\n        \"created_at\": \"2021-12-01T09:13:29.550556Z\",\n        \"name\": \"Vision-oriented intranet Lead Florida\",\n        \"cardinality\": 11,\n        \"deployed_at\": \"2021-12-01T09:13:39.62697Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"intuitive Avon Market pixel\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"a439e28d-55a3-4538-9143-97b9a36548ed\",\n        \"require_finality\": true,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "List Workstep Instances",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Sets the jwt_token_application or jwt_token_organization from the token received in response",
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"workstep_instance_id\", response.id);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows/:id/worksteps",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows",
+								":id",
+								"worksteps"
+							],
+							"query": [
+								{
+									"key": "filter_prototypes",
+									"value": "true",
+									"description": "when true, returns only Workstep instances",
+									"disabled": true
+								},
+								{
+									"key": "filter_instances",
+									"value": "true",
+									"description": "when true, returns only Workstep prototypes",
+									"disabled": true
+								},
+								{
+									"key": "rpp",
+									"value": "20",
+									"description": "defines results per page",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "defines page number ",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{workflow_instance_id}}"
+								}
+							]
+						},
+						"description": "Returns a list of worksteps and workstep instances for a given `Workflow`."
+					},
+					"response": [
+						{
+							"name": "List Worksteps",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "10.0.0.3:8080/api/v1/workflows/:id/worksteps",
+									"host": [
+										"10",
+										"0",
+										"0",
+										"3"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"workflows",
+										":id",
+										"worksteps"
+									],
+									"query": [
+										{
+											"key": "filter_prototypes",
+											"value": "true",
+											"description": "when true, returns only Workstep instances",
+											"disabled": true
+										},
+										{
+											"key": "filter_instances",
+											"value": "true",
+											"description": "when true, returns only Workstep prototypes",
+											"disabled": true
+										},
+										{
+											"key": "rpp",
+											"value": "20",
+											"description": "defines results per page",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"description": "defines page number ",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{workflow_id}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "X-Total-Results-Count",
+									"value": "11"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Dec 2021 09:24:34 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"9868f1e8-2045-4da3-9ffe-cedbff0a24bf\",\n        \"created_at\": \"2021-12-01T09:12:15.465476Z\",\n        \"name\": \"Functionality primary Computer New Web\",\n        \"cardinality\": 1,\n        \"deployed_at\": \"2021-12-01T09:13:36.984749Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"invoice heuristic Djibouti deliverables Franc\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"94bca26c-8df6-400c-bc3e-f889497f68b4\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"4ce7920b-a7c8-4c9b-9eb5-b68d25962458\",\n        \"created_at\": \"2021-12-01T09:12:17.420175Z\",\n        \"name\": \"Cambridgeshire Agent systems\",\n        \"cardinality\": 2,\n        \"deployed_at\": \"2021-12-01T09:13:37.25624Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"Granite application Fork Metal Pass\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"92d873c3-7954-44c1-9cf8-480c7e697af9\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"385266bc-7901-4170-b1b0-ff8dbf77b0a6\",\n        \"created_at\": \"2021-12-01T09:12:19.594275Z\",\n        \"name\": \"Michigan Checking\",\n        \"cardinality\": 3,\n        \"deployed_at\": \"2021-12-01T09:13:37.515836Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"Sausages HDD\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"4c5a05a4-8e2b-4203-87fa-a8c06eb5c07f\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"0bfe4584-30dd-4c4f-9d74-bdb47a13ea6c\",\n        \"created_at\": \"2021-12-01T09:12:20.837269Z\",\n        \"name\": \"Tasty Agent Bedfordshire open-source Crossroad\",\n        \"cardinality\": 4,\n        \"deployed_at\": \"2021-12-01T09:13:37.79689Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"Steel card\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"272d8ac3-1e4d-45cb-971a-e2bd08c94aa7\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"fecc698e-f8d8-4d43-9e26-af71f787301f\",\n        \"created_at\": \"2021-12-01T09:12:22.130674Z\",\n        \"name\": \"object-oriented Senior Bahraini Metal alarm\",\n        \"cardinality\": 5,\n        \"deployed_at\": \"2021-12-01T09:13:38.067412Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"transmitting bypass Right-sized calculating\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"55bba2b4-f9e3-4d0a-9c2a-3a1a3a8fc7f0\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"3e458fc4-2239-4f8b-91b2-5930435cbb27\",\n        \"created_at\": \"2021-12-01T09:12:23.117238Z\",\n        \"name\": \"Assistant Berkshire exploit\",\n        \"cardinality\": 6,\n        \"deployed_at\": \"2021-12-01T09:13:38.319966Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"Investor bluetooth\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"6882738c-9d9e-4b27-b157-2895d34bb442\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"708508f9-b8f8-42c1-b554-bcc7f92744d1\",\n        \"created_at\": \"2021-12-01T09:12:24.24345Z\",\n        \"name\": \"pink leading-edge\",\n        \"cardinality\": 7,\n        \"deployed_at\": \"2021-12-01T09:13:38.580767Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"array Functionality Nigeria\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"ff3147a9-3c2b-4c27-8572-e4d11fdb1976\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"0ace6484-2cda-47e4-a83e-adc234664453\",\n        \"created_at\": \"2021-12-01T09:12:25.28587Z\",\n        \"name\": \"Mouse Account Bike\",\n        \"cardinality\": 8,\n        \"deployed_at\": \"2021-12-01T09:13:38.83844Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"matrix indigo\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"0d1643c9-b484-4dc6-8fa3-8b73d0fe6ea4\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"62b72d23-cc15-421a-93c4-c0dee83ca554\",\n        \"created_at\": \"2021-12-01T09:12:26.108616Z\",\n        \"name\": \"sexy green Cyprus Lead\",\n        \"cardinality\": 9,\n        \"deployed_at\": \"2021-12-01T09:13:39.104925Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"Ireland Frozen Rubber quantify Markets\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"7cbd3b9b-53f9-41b3-bd22-ee9a7309d57c\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"bed689b0-ff91-4574-952b-1511671f3dd2\",\n        \"created_at\": \"2021-12-01T09:12:27.180664Z\",\n        \"name\": \"teal Handcrafted California Account\",\n        \"cardinality\": 10,\n        \"deployed_at\": \"2021-12-01T09:13:39.366694Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"Dollar Generic Enterprise-wide\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"8c25ab12-5d63-47b6-981d-1cf08296ca96\",\n        \"require_finality\": false,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    },\n    {\n        \"id\": \"f7b0cfcd-7771-4c71-9bdc-5685235a79f0\",\n        \"created_at\": \"2021-12-01T09:13:29.550556Z\",\n        \"name\": \"Vision-oriented intranet Lead Florida\",\n        \"cardinality\": 11,\n        \"deployed_at\": \"2021-12-01T09:13:39.62697Z\",\n        \"metadata\": {\n            \"prover\": {\n                \"name\": \"intuitive Avon Market pixel\",\n                \"identifier\": \"cubic\",\n                \"provider\": \"gnark\",\n                \"proving_scheme\": \"groth16\",\n                \"curve\": \"BN254\"\n            }\n        },\n        \"prover_id\": \"a439e28d-55a3-4538-9143-97b9a36548ed\",\n        \"require_finality\": true,\n        \"status\": \"deployed\",\n        \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n        \"workstep_id\": null\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create Workstep",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Sets the jwt_token_application or jwt_token_organization from the token received in response",
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"workstep_id\", response.id);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomWord}}\",\n    \"status\": \"draft\",\n    \"require_finality\": true,\n    \"metadata\": {\n        \"prover\": {\n            \"identifier\": \"cubic\",\n            \"name\": \"{{$randomWord}}\",\n            \"provider\": \"gnark\",\n            \"proving_scheme\": \"groth16\",\n            \"curve\": \"BN254\"\n        },\n        \"mapping_model_id\": \"{{mapping_model_id}}\"\n    },\n    \"description\": \"{{$randomWords}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows/:id/worksteps",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows",
+								":id",
+								"worksteps"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{workflow_id}}"
+								}
+							]
+						},
+						"description": "# Creates a `Workstep`.\n\n### Body Parameters\n\n| **Field** | **Description** | **Required** | **Read only** |\n| --- | --- | --- | --- |\n| `workstep_id` | presence of `workstep_id` indicates that specific record is `WorkstepInstance` | false | true |\n| `created_at` | Datetime of `Workstep` creation | true | true |\n| `id` | `id` of `Workstep` | true | true |\n| `prover_id` | `id` of `prover` related to `Workstep`. `prover_id` will be automatically added to `workstep` upon parent `Workflow` deployment. | false  <br>  <br> | false |\n| `status` | status of `Workstep`. Upon creation, all Worksteps should have status `draft` | true | false |\n| `name` | arbitrary name of `Workstep` | true | false |\n| `require_finality` | when `true`, all children workstep instances will deposit corresponding proof to layer 1 defined on the `Workgroup.` Final `Workstep` in every `Workflow` must require finality. | false; When not included in request, default is `false` | false |\n| `cardinality` | defines the sequence positioning of a `Workstep`. | false; When not included in request, `cardinality` defaults to current workstep count + 1 | false |\n| `workflow_id` | `id` of parent `Workflow` | true | true |\n\n## Statuses\n\n| **Status** | **Definition** |\n| --- | --- |\n| `draft` | unpublished `Workstep`. Can be edited |\n| `pending_deployment` | `Workstep` provisioning. When a parent `Workflow` has been deployed, each child `Workstep` requires provisioning. During this time, the status is `pending_deployment`. |\n| `deployed` | `Workstep` has been provisioned and is available for generation of `WorkstepInstance` |\n| `deprecated` | `Workstep` has been removed from deployed and can no longer spawn Workstep Instances |"
+					},
+					"response": [
+						{
+							"name": "Create Workstep Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{$randomWords}}\",\n    \"status\": \"draft\",\n    \"require_finality\": true,\n    \"metadata\": {\n        \"prover\": {\n            \"name\": \"{{$randomWords}}\",\n            \"identifier\": \"cubic\",\n            \"provider\": \"gnark\",\n            \"proving_scheme\": \"groth16\",\n            \"curve\": \"BN254\"\n        }\n    }\n}"
+								},
+								"url": {
+									"raw": "10.0.0.3:8080/api/v1/workflows/:id/worksteps",
+									"host": [
+										"10",
+										"0",
+										"0",
+										"3"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"workflows",
+										":id",
+										"worksteps"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{workflow_id}}"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Dec 2021 09:13:29 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "610"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"f7b0cfcd-7771-4c71-9bdc-5685235a79f0\",\n    \"created_at\": \"2021-12-01T09:13:29.550556357Z\",\n    \"name\": \"Vision-oriented intranet Lead Florida\",\n    \"cardinality\": 11,\n    \"deployed_at\": null,\n    \"metadata\": {\n        \"prover\": {\n            \"name\": \"intuitive Avon Market pixel\",\n            \"identifier\": \"cubic\",\n            \"provider\": \"gnark\",\n            \"proving_scheme\": \"groth16\",\n            \"curve\": \"BN254\"\n        }\n    },\n    \"prover_id\": null,\n    \"require_finality\": true,\n    \"status\": \"draft\",\n    \"workflow_id\": \"78fdadee-61a9-493b-be07-dbd3b5881d45\",\n    \"workstep_id\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Execute Workstep Instance",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Sets the jwt_token_application or jwt_token_organization from the token received in response",
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"proof\", response.proof);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"witness\": {\n        \"X\": \"3\",\n        \"Y\": \"35\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows/:id/worksteps/:workstep_id/execute",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows",
+								":id",
+								"worksteps",
+								":workstep_id",
+								"execute"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{workflow_instance_id}}"
+								},
+								{
+									"key": "workstep_id",
+									"value": "{{workstep_instance_id}}"
+								}
+							]
+						},
+						"description": "# Execute a `Workstep Instance`\n\n### Body Parameters\n\n## Statuses"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Workstep Details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Sets the jwt_token_application or jwt_token_organization from the token received in response",
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"workstep_id\", response.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows/:id/worksteps/:workstep_id",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows",
+								":id",
+								"worksteps",
+								":workstep_id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{workflow_id}}"
+								},
+								{
+									"key": "workstep_id",
+									"value": "{{workstep_id}}"
+								}
+							]
+						},
+						"description": "Retrieves details for a specified `Workstep`."
+					},
+					"response": [
+						{
+							"name": "Update Workstep",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"test111\",\n    \"workgroup_id\": \"{{application_id}}\",\n    \"prover_id\": \"{{circuit_id}}\",\n    \"require_finality\": true\n}"
+								},
+								"url": {
+									"raw": "10.0.0.3:8080/api/v1/workflows/:id/worksteps",
+									"host": [
+										"10",
+										"0",
+										"0",
+										"3"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"workflows",
+										":id",
+										"worksteps"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{workflow_id}}"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Nov 2021 05:57:32 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "321"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"935f700d-d286-446c-9f34-759e8185c0a5\",\n    \"created_at\": \"2021-11-27T05:57:32.521359958Z\",\n    \"name\": \"test111\",\n    \"prover_id\": \"7884fc67-25fc-462c-8d63-b0950efc5067\",\n    \"require_finality\": true,\n    \"status\": \"draft\",\n    \"workflow_id\": \"6e77ddf0-c5a6-4d22-90b8-9626a2b807f9\",\n    \"WorkstepID\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Workstep",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cardinality\": 2,\n    \"status\": \"draft\",\n    \"name\": \"{{$randomAdjective}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows/:id/worksteps/:workstep_id",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows",
+								":id",
+								"worksteps",
+								":workstep_id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{workflow_id}}"
+								},
+								{
+									"key": "workstep_id",
+									"value": "{{workstep_id}}"
+								}
+							]
+						},
+						"description": "## Updates a specified `Workstep`.\n\n> Workstep `status` must be equal to `draft` in order to make any updates to a `Workstep`\n\n### Body Parameters\n\n| **Field** | **Description** | **Required** | **Read only** |\n| --- | --- | --- | --- |\n| `workstep_id` | presence of `workstep_id` indicates that specific record is `WorkstepInstance` | false | true |\n| `status` | status of `Workstep`. Upon creation, all Worksteps should have status `draft` | true | false |\n| `name` | arbitrary name of `Workstep` | true | false |\n| `require_finality` | when `true`, all children workstep instances will deposit corresponding proof to layer 1 defined on the `Workgroup.` Final `Workstep` in every `Workflow` must require finality. | false; When not included in request, default is `false` | false |\n| `cardinality` | defines the sequence positioning of a `Workstep`. When \\`Workstep\\` cardinality is updated, the cardinality of surrounding worksteps are automatically updated to reflect the change.  <br>  <br>  <br> | false; When not included in request, `cardinality` defaults to current workstep count + 1 | false |\n\n## Statuses\n\n| **Status** | **Definition** |\n| --- | --- |\n| `draft` | unpublished `Workstep`. Can be edited |\n| `pending_deployment` | `Workstep` provisioning. When a parent `Workflow` has been deployed, each child `Workstep` requires provisioning. During this time, the status is `pending_deployment`. |\n| `deployed` | `Workstep` has been provisioned and is available for generation of `WorkstepInstance` |\n| `deprecated` | `Workstep` has been removed from deployed and can no longer spawn Workstep Instances |"
+					},
+					"response": [
+						{
+							"name": "Update Workstep",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"test111\",\n    \"workgroup_id\": \"{{application_id}}\",\n    \"prover_id\": \"{{circuit_id}}\",\n    \"require_finality\": true\n}"
+								},
+								"url": {
+									"raw": "10.0.0.3:8080/api/v1/workflows/:id/worksteps",
+									"host": [
+										"10",
+										"0",
+										"0",
+										"3"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"workflows",
+										":id",
+										"worksteps"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{workflow_id}}"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Nov 2021 05:57:32 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "321"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"935f700d-d286-446c-9f34-759e8185c0a5\",\n    \"created_at\": \"2021-11-27T05:57:32.521359958Z\",\n    \"name\": \"test111\",\n    \"prover_id\": \"7884fc67-25fc-462c-8d63-b0950efc5067\",\n    \"require_finality\": true,\n    \"status\": \"draft\",\n    \"workflow_id\": \"6e77ddf0-c5a6-4d22-90b8-9626a2b807f9\",\n    \"WorkstepID\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Workstep",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows/:id/worksteps/:workstep_id",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows",
+								":id",
+								"worksteps",
+								":workstep_id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{workflow_id}}",
+									"description": "`id` of `workflow` containing target `workstep`"
+								},
+								{
+									"key": "workstep_id",
+									"value": "{{workstep_id}}",
+									"description": "`id` of `workstep` to be deleted"
+								}
+							]
+						},
+						"description": "Deletes a specified `Workstep`.\n\n`status` must be `draft` in order to delete a `Workstep`."
+					},
+					"response": [
+						{
+							"name": "Update Workstep",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"test111\",\n    \"workgroup_id\": \"{{application_id}}\",\n    \"prover_id\": \"{{circuit_id}}\",\n    \"require_finality\": true\n}"
+								},
+								"url": {
+									"raw": "10.0.0.3:8080/api/v1/workflows/:id/worksteps",
+									"host": [
+										"10",
+										"0",
+										"0",
+										"3"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"workflows",
+										":id",
+										"worksteps"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{workflow_id}}"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Accept, Accept-Encoding, Authorization, Cache-Control, Content-Length, Content-Type, Origin, User-Agent, X-CSRF-Token, X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-Total-Results-Count"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Nov 2021 05:57:32 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "321"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"935f700d-d286-446c-9f34-759e8185c0a5\",\n    \"created_at\": \"2021-11-27T05:57:32.521359958Z\",\n    \"name\": \"test111\",\n    \"prover_id\": \"7884fc67-25fc-462c-8d63-b0950efc5067\",\n    \"require_finality\": true,\n    \"status\": \"draft\",\n    \"workflow_id\": \"6e77ddf0-c5a6-4d22-90b8-9626a2b807f9\",\n    \"WorkstepID\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "List workstep instance participants",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workflows/:id/worksteps/:workstep_instance_id/participants",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workflows",
+								":id",
+								"worksteps",
+								":workstep_instance_id",
+								"participants"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{workflow_instance_id}}"
+								},
+								{
+									"key": "workstep_instance_id",
+									"value": "{{workstep_instance_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Overview\n\nA `workstep` is a prototype of one stepwise state transition contained in a `Workflow`. A Workstep contains a Prover that ingests data passed to the Workstep and outputs a zero-knowledge proof that can be used to verify synchronization of data amongst Workgroup participants.  \nApplication  \nWorksteps are useful for defining the real-world activities or operations to be used as synchronization check-points in a Workflow. They provide context for the data required to instantiate, populate and execute a zero-knowledge Prover as it relates to a corresponding business process.\n\nWhen used in series, a verified claim from a previously derived proof can be used as input for a subsequent Workstep to ensure that a Workflow cannot be completed if all participants are not in sync. As additional worksteps are completed and a Workflow is completed, the proof derived from the exit-workstep provides verifiable proof of synchronization amongst all participants."
+		},
+		{
+			"name": "Workgroups",
+			"item": [
+				{
+					"name": "Create Workgroup",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomBsAdjective}} {{$randomBsNoun}}\",\n    \"description\": \"{{$randomCatchPhraseDescriptor}}\",\n    \"type\": \"baseline\"\n}"
+						},
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workgroups",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workgroups"
+							]
+						},
+						"description": "Creates a Baseline object."
+					},
+					"response": [
+						{
+							"name": "Accepted",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Accepted",
+							"code": 202,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						}
+					]
+				},
+				{
+					"name": "List Workgroups",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workgroups",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workgroups"
+							]
+						},
+						"description": "Creates a Baseline object."
+					},
+					"response": [
+						{
+							"name": "Accepted",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Accepted",
+							"code": 202,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						}
+					]
+				},
+				{
+					"name": "List Workgroup Participants Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org.access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baselineUrl}}/api/v1/workgroups/:id/participants",
+							"host": [
+								"{{baselineUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"workgroups",
+								":id",
+								"participants"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{application_id}}"
+								}
+							]
+						},
+						"description": "Creates a Baseline object."
+					},
+					"response": [
+						{
+							"name": "Accepted",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Accepted",
+							"code": 202,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Get state details",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
+				"header": [],
 				"url": {
-					"raw": "{{baselineUrl}}/api/v1/objects",
+					"raw": "{{baselineUrl}}/api/v1/states/:id",
 					"host": [
 						"{{baselineUrl}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"objects"
-					]
-				},
-				"description": "Creates a Baseline object."
-			},
-			"response": [
-				{
-					"name": "Accepted",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Accepted",
-					"code": 202,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{}"
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Create a Baseline object",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"type\": \"baseline\"\n}"
-				},
-				"url": {
-					"raw": "{{baselineUrl}}/api/v1/objects",
-					"host": [
-						"{{baselineUrl}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"objects"
-					]
-				},
-				"description": "Creates a Baseline object."
-			},
-			"response": [
-				{
-					"name": "Accepted",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Accepted",
-					"code": 202,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{}"
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Update Object",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-				},
-				"url": {
-					"raw": "{{baselineUrl}}/api/v1/objects/:id",
-					"host": [
-						"{{baselineUrl}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"objects",
+						"states",
 						":id"
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": "{{object_id}}",
-							"description": "(Required) ID of target `Object`. _UUID as specified by RFC4122_"
+							"value": "proident ut cupidatat irure",
+							"description": "(Required) ID of the target `State`. _UUID as specified by RFC4122_"
 						}
 					]
 				},
-				"description": "Updates the target `Object`."
+				"description": "Returns details for the specified `State`"
 			},
 			"response": [
 				{
-					"name": "The request was successful and the object was updated.",
+					"name": "The account state of an `Organization`, which must only be changed as a result of a valid transaction (i.e., a successful `Workstep` execution) by way of a `StateClaim`.",
 					"originalRequest": {
-						"method": "PUT",
+						"method": "GET",
 						"header": [
 							{
 								"description": "Added as a part of security scheme: bearer",
@@ -549,16 +2847,12 @@
 								"value": "Bearer <token>"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
 						"url": {
 							"raw": ""
 						}
 					},
-					"status": "No Content",
-					"code": 204,
+					"status": "OK",
+					"code": 200,
 					"_postman_previewlanguage": "text",
 					"header": [
 						{
@@ -568,2036 +2862,6 @@
 					],
 					"cookie": [],
 					"body": ""
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n}"
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Create `Workflow` instance",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"identifier\": \"<string>\",\n    \"participants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"shield\": \"<string>\",\n    \"workstep_index\": \"<long>\"\n}"
-				},
-				"url": {
-					"raw": "{{baselineUrl}}/workflows",
-					"host": [
-						"{{baselineUrl}}"
-					],
-					"path": [
-						"workflows"
-					]
-				},
-				"description": "Creates a `Workflow` instance."
-			},
-			"response": [
-				{
-					"name": "The request was successful and a new entity was created",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<UUID>\",\n    \"identifier\": \"<string>\",\n    \"participants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"shield\": \"<string>\",\n    \"workstep_index\": \"<long>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/workflows",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows"
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "[\n {\n  \"id\": \"<UUID>\",\n  \"identifier\": \"<string>\",\n  \"participants\": [\n   \"<string>\",\n   \"<string>\"\n  ],\n  \"shield\": \"<string>\",\n  \"workstep_index\": \"<long>\"\n },\n {\n  \"id\": \"<UUID>\",\n  \"identifier\": \"<string>\",\n  \"participants\": [\n   \"<string>\",\n   \"<string>\"\n  ],\n  \"shield\": \"<string>\",\n  \"workstep_index\": \"<long>\"\n }\n]"
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<UUID>\",\n    \"identifier\": \"<string>\",\n    \"participants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"shield\": \"<string>\",\n    \"workstep_index\": \"<long>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/workflows",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows"
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<UUID>\",\n    \"identifier\": \"<string>\",\n    \"participants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"shield\": \"<string>\",\n    \"workstep_index\": \"<long>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/workflows",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows"
-							]
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<UUID>\",\n    \"identifier\": \"<string>\",\n    \"participants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"shield\": \"<string>\",\n    \"workstep_index\": \"<long>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/workflows",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows"
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<UUID>\",\n    \"identifier\": \"<string>\",\n    \"participants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"shield\": \"<string>\",\n    \"workstep_index\": \"<long>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/workflows",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows"
-							]
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<UUID>\",\n    \"identifier\": \"<string>\",\n    \"participants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"shield\": \"<string>\",\n    \"workstep_index\": \"<long>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/workflows",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows"
-							]
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<UUID>\",\n    \"identifier\": \"<string>\",\n    \"participants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"shield\": \"<string>\",\n    \"workstep_index\": \"<long>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/workflows",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows"
-							]
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				}
-			]
-		},
-		{
-			"name": "List workflow instances",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baselineUrl}}/api/v1/workflows",
-					"host": [
-						"{{baselineUrl}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"workflows"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "1",
-							"description": "Limits resulting response to the page number specified",
-							"disabled": true
-						},
-						{
-							"key": "rpp",
-							"value": "20",
-							"description": "Sets the number of results included per page",
-							"disabled": true
-						}
-					]
-				},
-				"description": "Retrieves a list of `Workflow` instances."
-			},
-			"response": [
-				{
-					"name": "The request was successful",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/workflows?page=1&rpp=20",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "rpp",
-									"value": "20"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "[\n {\n  \"id\": \"<UUID>\",\n  \"identifier\": \"<string>\",\n  \"participants\": [\n   \"<string>\",\n   \"<string>\"\n  ],\n  \"shield\": \"<string>\",\n  \"workstep_index\": \"<long>\"\n },\n {\n  \"id\": \"<UUID>\",\n  \"identifier\": \"<string>\",\n  \"participants\": [\n   \"<string>\",\n   \"<string>\"\n  ],\n  \"shield\": \"<string>\",\n  \"workstep_index\": \"<long>\"\n }\n]"
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/workflows?page=1&rpp=20",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "rpp",
-									"value": "20"
-								}
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/workflows?page=1&rpp=20",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "rpp",
-									"value": "20"
-								}
-							]
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/workflows?page=1&rpp=20",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "rpp",
-									"value": "20"
-								}
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/workflows?page=1&rpp=20",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "rpp",
-									"value": "20"
-								}
-							]
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/workflows?page=1&rpp=20",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "rpp",
-									"value": "20"
-								}
-							]
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/workflows?page=1&rpp=20",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "rpp",
-									"value": "20"
-								}
-							]
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Get workflow details",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baselineUrl}}/workflows/:id",
-					"host": [
-						"{{baselineUrl}}"
-					],
-					"path": [
-						"workflows",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "{{workflow_id}}",
-							"description": "(Required) ID of target `Workflow`. _UUID as specified by RFC4122_"
-						}
-					]
-				},
-				"description": "Returns target `Workflow` details"
-			},
-			"response": [
-				{
-					"name": "The request was successful",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/workflows/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"id\": \"<UUID>\",\n \"identifier\": \"<string>\",\n \"participants\": [\n  \"<string>\",\n  \"<string>\"\n ],\n \"shield\": \"<string>\",\n \"workstep_index\": \"<long>\"\n}"
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/workflows/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/workflows/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/workflows/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/workflows/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/workflows/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/workflows/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"workflows",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Create a Workstep instance",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"circuit_id\": \"dd615561-83e6-4f53-ac0f-aaf1749df139\",\n    \"parcicipants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"require_finality\": true,\n    \"workflow_id\": \"f9227803-5541-4c13-a554-f6980f03362a\"\n}"
-				},
-				"url": {
-					"raw": "{{baselineUrl}}/worksteps",
-					"host": [
-						"{{baselineUrl}}"
-					],
-					"path": [
-						"worksteps"
-					]
-				},
-				"description": "Creates a `Workstep` instance"
-			},
-			"response": [
-				{
-					"name": "The request was successful and a new entity was created",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<UUID>\",\n    \"circuit_id\": \"<UUID>\",\n    \"parcicipants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"require_finality\": false,\n    \"workflow_id\": \"<UUID>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/worksteps",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps"
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "[\n {\n  \"id\": \"<UUID>\",\n  \"circuit_id\": \"<UUID>\",\n  \"parcicipants\": [\n   \"<string>\",\n   \"<string>\"\n  ],\n  \"require_finality\": false,\n  \"workflow_id\": \"<UUID>\"\n },\n {\n  \"id\": \"<UUID>\",\n  \"circuit_id\": \"<UUID>\",\n  \"parcicipants\": [\n   \"<string>\",\n   \"<string>\"\n  ],\n  \"require_finality\": false,\n  \"workflow_id\": \"<UUID>\"\n }\n]"
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<UUID>\",\n    \"circuit_id\": \"<UUID>\",\n    \"parcicipants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"require_finality\": false,\n    \"workflow_id\": \"<UUID>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/worksteps",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps"
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<UUID>\",\n    \"circuit_id\": \"<UUID>\",\n    \"parcicipants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"require_finality\": false,\n    \"workflow_id\": \"<UUID>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/worksteps",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps"
-							]
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<UUID>\",\n    \"circuit_id\": \"<UUID>\",\n    \"parcicipants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"require_finality\": false,\n    \"workflow_id\": \"<UUID>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/worksteps",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps"
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<UUID>\",\n    \"circuit_id\": \"<UUID>\",\n    \"parcicipants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"require_finality\": false,\n    \"workflow_id\": \"<UUID>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/worksteps",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps"
-							]
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<UUID>\",\n    \"circuit_id\": \"<UUID>\",\n    \"parcicipants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"require_finality\": false,\n    \"workflow_id\": \"<UUID>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/worksteps",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps"
-							]
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<UUID>\",\n    \"circuit_id\": \"<UUID>\",\n    \"parcicipants\": [\n        \"<string>\",\n        \"<string>\"\n    ],\n    \"require_finality\": false,\n    \"workflow_id\": \"<UUID>\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/worksteps",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps"
-							]
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Get workstep details",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baselineUrl}}/worksteps/:id",
-					"host": [
-						"{{baselineUrl}}"
-					],
-					"path": [
-						"worksteps",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "{{workstep_id}}",
-							"description": "(Required) ID of target `Workstep`. _UUID as specified by RFC4122_"
-						}
-					]
-				},
-				"description": "Returns target `Workstep` details."
-			},
-			"response": [
-				{
-					"name": "The request was successful",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/worksteps/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "\"<object>\""
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/worksteps/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/worksteps/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/worksteps/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/worksteps/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/worksteps/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/worksteps/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				}
-			]
-		},
-		{
-			"name": "List workstep instances",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baselineUrl}}/worksteps",
-					"host": [
-						"{{baselineUrl}}"
-					],
-					"path": [
-						"worksteps"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "1",
-							"description": "Limits resulting response to the page number specified",
-							"disabled": true
-						},
-						{
-							"key": "rpp",
-							"value": "20",
-							"description": "Sets the number of results included per page",
-							"disabled": true
-						}
-					]
-				},
-				"description": "Retrieves a list of `Workstep` instances"
-			},
-			"response": [
-				{
-					"name": "The request was successful",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/worksteps?page=1&rpp=20",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "rpp",
-									"value": "20"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "[\n {\n  \"id\": \"<UUID>\",\n  \"circuit_id\": \"<UUID>\",\n  \"parcicipants\": [\n   \"<string>\",\n   \"<string>\"\n  ],\n  \"require_finality\": false,\n  \"workflow_id\": \"<UUID>\"\n },\n {\n  \"id\": \"<UUID>\",\n  \"circuit_id\": \"<UUID>\",\n  \"parcicipants\": [\n   \"<string>\",\n   \"<string>\"\n  ],\n  \"require_finality\": false,\n  \"workflow_id\": \"<UUID>\"\n }\n]"
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/worksteps?page=1&rpp=20",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "rpp",
-									"value": "20"
-								}
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/worksteps?page=1&rpp=20",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "rpp",
-									"value": "20"
-								}
-							]
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/worksteps?page=1&rpp=20",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "rpp",
-									"value": "20"
-								}
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/worksteps?page=1&rpp=20",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "rpp",
-									"value": "20"
-								}
-							]
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/worksteps?page=1&rpp=20",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "rpp",
-									"value": "20"
-								}
-							]
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/worksteps?page=1&rpp=20",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"worksteps"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "rpp",
-									"value": "20"
-								}
-							]
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": \"<integer>\",\n \"message\": \"<string>\"\n}"
 				}
 			]
 		},
@@ -2673,466 +2937,46 @@
 					],
 					"cookie": [],
 					"body": "[\n {\n  \"account_id\": \"veniam ullamco\",\n  \"id\": \"exercitation in Ut\",\n  \"address\": \"0x391a38d6cca800e28c6b83f3aff4bebb9c0dab00\",\n  \"nonce\": 35754049,\n  \"circuit_id\": \"adipisi\",\n  \"epoch\": \"1\",\n  \"state_claims\": [\n   {\n    \"cardinality\": \"nisi non\",\n    \"path\": \"adipisicing non\",\n    \"root\": \"labore nostrud\",\n    \"values\": [\n     {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     }\n    ]\n   },\n   {\n    \"cardinality\": \"deserunt laborum dolore\",\n    \"path\": \"ipsum sed consequat\",\n    \"root\": \"tempor incididunt\",\n    \"values\": [\n     {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     }\n    ]\n   }\n  ]\n },\n {\n  \"account_id\": \"nisi dolor incididunt cupidatat in\",\n  \"id\": \"culpa qui esse id\",\n  \"address\": \"0x391a38d6cca800e28c6b83f3aff4bebb9c0dab00\",\n  \"nonce\": 25307939,\n  \"circuit_id\": \"magna sed\",\n  \"epoch\": \"1\",\n  \"state_claims\": [\n   {\n    \"cardinality\": \"sit aliquip Excepteur\",\n    \"path\": \"magna in\",\n    \"root\": \"d\",\n    \"values\": [\n     {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     }\n    ]\n   },\n   {\n    \"cardinality\": \"et Ut\",\n    \"path\": \"incididunt labore occaecat\",\n    \"root\": \"cillum dolor\",\n    \"values\": [\n     {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     }\n    ]\n   }\n  ]\n }\n]"
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "undefined?page=6406977&rpp=6406977",
-							"host": [
-								"undefined"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "6406977"
-								},
-								{
-									"key": "rpp",
-									"value": "6406977"
-								}
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": 401,\n \"message\": \"The request required an API Authorization header, or one was provided which could not be authenticated\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "undefined?page=6406977&rpp=6406977",
-							"host": [
-								"undefined"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "6406977"
-								},
-								{
-									"key": "rpp",
-									"value": "6406977"
-								}
-							]
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": 403,\n \"message\": \"The supplied API Authorization header does not have permission to access the requested resource. Please verify that you have sufficient permissions and try again\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "undefined?page=6406977&rpp=6406977",
-							"host": [
-								"undefined"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "6406977"
-								},
-								{
-									"key": "rpp",
-									"value": "6406977"
-								}
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": 404,\n \"message\": \"Platform did not find the requested resource\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "undefined?page=6406977&rpp=6406977",
-							"host": [
-								"undefined"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "6406977"
-								},
-								{
-									"key": "rpp",
-									"value": "6406977"
-								}
-							]
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": 429,\n \"message\": \"The request was not accepted due to exceeding the rate limit\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "undefined?page=6406977&rpp=6406977",
-							"host": [
-								"undefined"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "6406977"
-								},
-								{
-									"key": "rpp",
-									"value": "6406977"
-								}
-							]
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": 500,\n \"message\": \"The requested resource is not implemented by the platform\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "undefined?page=6406977&rpp=6406977",
-							"host": [
-								"undefined"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "6406977"
-								},
-								{
-									"key": "rpp",
-									"value": "6406977"
-								}
-							]
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": 503,\n \"message\": \"The request cannot be fulfilled due to temporary unavailability of a backend service\"\n}"
 				}
 			]
 		},
 		{
-			"name": "Get state details",
+			"name": "Create Baseline Protocol Message",
 			"request": {
-				"method": "GET",
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{org.access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"object\": {},\n    \"type\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "{{baselineUrl}}/api/v1/states/:id",
+					"raw": "{{baselineUrl}}/api/v1/protocol_messages",
 					"host": [
 						"{{baselineUrl}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"states",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "proident ut cupidatat irure",
-							"description": "(Required) ID of the target `State`. _UUID as specified by RFC4122_"
-						}
+						"protocol_messages"
 					]
-				},
-				"description": "Returns details for the specified `State`"
-			},
-			"response": [
-				{
-					"name": "The account state of an `Organization`, which must only be changed as a result of a valid transaction (i.e., a successful `Workstep` execution) by way of a `StateClaim`.",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": 401,\n \"message\": \"The request required an API Authorization header, or one was provided which could not be authenticated\"\n}"
-				},
-				{
-					"name": "Forbidden",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": 403,\n \"message\": \"The supplied API Authorization header does not have permission to access the requested resource. Please verify that you have sufficient permissions and try again\"\n}"
-				},
-				{
-					"name": "Not Found",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": 404,\n \"message\": \"Platform did not find the requested resource\"\n}"
-				},
-				{
-					"name": "Too many requests",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Too Many Requests",
-					"code": 429,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": 429,\n \"message\": \"The request was not accepted due to exceeding the rate limit\"\n}"
-				},
-				{
-					"name": "Not Implemented",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": 500,\n \"message\": \"The requested resource is not implemented by the platform\"\n}"
-				},
-				{
-					"name": "Service Unavailable",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"description": "Added as a part of security scheme: bearer",
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Service Unavailable",
-					"code": 503,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"code\": 503,\n \"message\": \"The request cannot be fulfilled due to temporary unavailability of a backend service\"\n}"
 				}
-			]
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -3140,7 +2984,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "{{jwt_token_organization}}",
+				"value": "{{org.access_token}}",
 				"type": "string"
 			}
 		]
@@ -3163,6 +3007,40 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "workflow_id",
+			"value": ""
+		},
+		{
+			"key": "workstep_id",
+			"value": ""
+		},
+		{
+			"key": "workgroup_id",
+			"value": ""
+		},
+		{
+			"key": "mapping_id",
+			"value": ""
+		},
+		{
+			"key": "coll.organization_id",
+			"value": "5a37cf55-5169-46fe-a7c5-070d79d4569d"
+		},
+		{
+			"key": "coll.user_id",
+			"value": "7c8fe6f1-38c3-4da1-b4b7-7591c6d0ca7c"
+		},
+		{
+			"key": "user_jwt.access_token",
+			"value": ""
+		},
+		{
+			"key": "user_jwt.id",
+			"value": ""
 		}
 	]
 }
